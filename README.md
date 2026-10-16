@@ -34,6 +34,12 @@ a named check in `scripts/check_findings.py`. Statements are qualitative; the
 counts come from the test run. A finding that stops holding against a new
 input version stops the build.
 
+Each finding also has a standing: *ready to raise* when the published
+artefacts contradict themselves or leave undefined something they rely on, or
+*for discussion* when it depends on a modelling choice CDISC may have made on
+purpose, or on the example files. The standing is authored and carries a
+one-line rationale.
+
 ## Layers
 
 | # | Layer | Status |

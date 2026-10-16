@@ -51,6 +51,10 @@
     uo:observation "C188857 Intercurrent Event Strategy: A textual description of the planned strategy to manage and/or mitigate intercurrent events. Has Value List N." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx> .
 
+<https://kerfors.github.io/usdm-overlay/id/finding/narrative-content-text-by-reference> uo:holds true ;
+    uo:observation "ASK returned true, expected true." ;
+    uo:testedAgainst <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
+
 <https://kerfors.github.io/usdm-overlay/id/finding/narrative-references-by-markup> uo:holds true ;
     uo:observation "Alexion_NCT04573309_Wilsons.json: 467 usdm:ref in 105 narrative items, 17 classes; CDISC_Pilot_Study.json: 350 usdm:ref in 85 narrative items, 14 classes; EliLilly_NCT03421379_Diabetes.json: 234 usdm:ref in 112 narrative items, 16 classes; devices.json: 41 usdm:ref in 133 narrative items, 14 classes; observational.json: 26 usdm:ref in 6 narrative items, 11 classes. dataStructure.yml mentions usdm:ref: no." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/UML/dataStructure.yml>,

@@ -6399,6 +6399,8 @@ uof:abstract-class-attribute-ccodes a uo:Finding ;
     uo:evidenceTier uo:ModelStated ;
     uo:holds true ;
     uo:observation "27 of 388 C-coded attributes in dataStructure.yml differ from USDM_CT.xlsx. All differences are on abstract classes (Identifier 1, PopulationDefinition 9, ScheduledInstance 3, StudyDesign 9, SyntaxTemplate 5); 27 C-coded attributes are declared on abstract classes in total. usdm-rdf skos:exactMatch follows the YAML code for all 27." ;
+    uo:standing uo:ReadyToRaise ;
+    uo:standingRationale "Two published artefacts, dataStructure.yml and USDM_CT.xlsx, give different C-codes for the same attributes." ;
     uo:statement "For attributes declared on abstract classes, dataStructure.yml carries the C-code, preferred term and definition of one concrete subclass, not the abstract class's own entry in USDM_CT.xlsx. usdm-rdf renders the YAML, so its skos:exactMatch on these properties points to the subclass concept. Example: SyntaxTemplate.text carries C207478 Characteristic Text; USDM_CT.xlsx lists C207578 Syntax Template Text for SyntaxTemplate.text." ;
     uo:testedAgainst ct:USDM_CT.xlsx,
         uml:dataStructure.yml,
@@ -6413,6 +6415,8 @@ uof:bc-property-datatype-names a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "638 BiomedicalConceptProperty instances, 420 with empty datatype. Names used: text 93, float 69, integer 26, datetime 20, string 8, decimal 2. USDM_CT.xlsx Has Value List: N." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Rests on the published example files, which are not mature study definitions." ;
     uo:statement "BiomedicalConceptProperty.datatype has no value list. The published examples use a small set of datatype names, including both 'text' and 'string', with nothing in the model to say whether they differ." ;
     uo:testedAgainst ct:USDM_CT.xlsx,
         <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
@@ -6425,6 +6429,8 @@ uof:bc-reference-library-paths a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "116 BiomedicalConcept instances, 46 distinct references: 43 of the form /mdr/specializations/sdtm/packages/<date>/datasetspecializations/<name>, 3 of the form /mdr/bc/packages/<date>/biomedicalconcepts/<C-code>." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Rests on the published example files, which are not mature study definitions." ;
     uo:statement "In the published examples, every BiomedicalConcept.reference is a relative CDISC Library API path, most into SDTM dataset specializations and some into biomedical concept packages. Resolving one needs a base URL and access to the Library." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 
@@ -6436,6 +6442,8 @@ uof:code-system-free-strings a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "2631 Code instances. codeSystem / codeSystemVersion pairs: 'http://www.cdisc.org' / '2024-09-27' 2534; 'ISO 3166 1 alpha3' / '2020-08' 42; 'SPONSOR' / '12' 25; 'SNOMED' / 'January 31, 2018' 20; 'ISO' / '1' 7; 'ICD-10-CM' / '1' 1; 'FDA' / '' 1; 'HL7' / '' 1." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Identifying code systems by strings is a modelling choice; the examples show its effect." ;
     uo:statement "Code.codeSystem and Code.codeSystemVersion are free strings. In the published examples the code system is given in mixed forms, a URL for CDISC terminology and names for the others, and versions in several formats. A coded value is identified by strings, not by an IRI." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 
@@ -6449,6 +6457,8 @@ uof:condition-not-referenced a uo:Finding ;
     uo:expectedResult true ;
     uo:holds true ;
     uo:observation "ASK returned true, expected true." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Holding schedule conditions as strings may be a deliberate choice; the ask would be a modelling change." ;
     uo:statement "ConditionAssignment.condition and ScheduleTimeline.entryCondition have range xsd:string. The model has a Condition class, but neither attribute references it." ;
     uo:testQuery """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -6473,6 +6483,8 @@ uof:design-elements-not-linked-to-document a uo:Finding ;
     uo:expectedResult false ;
     uo:holds true ;
     uo:observation "ASK returned false, expected false." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "The model may leave the link between design elements and document sections out of scope on purpose." ;
     uo:statement "No property connects Objective, Endpoint, EligibilityCriterion or EligibilityCriterionItem to the document structure (StudyDefinitionDocument, StudyDefinitionDocumentVersion, NarrativeContent, NarrativeContentItem, DocumentContentReference), in either direction." ;
     uo:testQuery """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -6502,6 +6514,8 @@ uof:document-content-reference-amendments-only a uo:Finding ;
     uo:expectedResult false ;
     uo:holds true ;
     uo:observation "ASK returned false, expected false." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Limiting section references to amendment changes may be deliberate." ;
     uo:statement "DocumentContentReference, the class that points at a document section by number and title, is the range of one property only: StudyChange.changedSections." ;
     uo:testQuery """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -6521,6 +6535,8 @@ uof:eligibility-identifier-needs-category a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "Alexion_NCT04573309_Wilsons.json InterventionalStudyDesign_1: 31 criteria, 12 identifiers repeated, 0 repeated within a category; CDISC_Pilot_Study.json InterventionalStudyDesign_1: 31 criteria, 0 identifiers repeated, 0 repeated within a category; EliLilly_NCT03421379_Diabetes.json InterventionalStudyDesign_1: 36 criteria, 0 identifiers repeated, 0 repeated within a category; devices.json InterventionalStudyDesign_1: 4 criteria, 0 identifiers repeated, 0 repeated within a category; observational.json ObservationalStudyDesign_1: 5 criteria, 2 identifiers repeated, 0 repeated within a category." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Rests on the published example files, which are not mature study definitions." ;
     uo:statement "In some published examples, EligibilityCriterion.identifier restarts per category (inclusion and exclusion each start at 1) and is not repeated within a category. The identifier alone does not identify a criterion; the identifier with the category does." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 
@@ -6535,6 +6551,8 @@ uof:endpoint-activity-gap a uo:Finding ;
     uo:expectedResult false ;
     uo:holds true ;
     uo:observation "ASK returned false, expected false." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "The model may leave endpoint dependencies out of scope on purpose." ;
     uo:statement "No property connects Endpoint, or its superclass SyntaxTemplate, to Activity, Procedure, ScheduledActivityInstance or the biomedical concept classes, in either direction. The model does not carry which activities or biomedical concepts an endpoint depends on." ;
     uo:testQuery """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -6566,6 +6584,8 @@ uof:extension-attributes-undefined a uo:Finding ;
     uo:evidenceTier uo:ModelStated ;
     uo:holds true ;
     uo:observation "USDM_CT.xlsx rows for these classes: 0. usdm-rdf properties: 17, with skos:definition: 0. Instances in the published examples: 0." ;
+    uo:standing uo:ReadyToRaise ;
+    uo:standingRationale "Two classes in the published model have no definitions in any published artefact." ;
     uo:statement "ExtensionAttribute and ExtensionClass have no rows in USDM_CT.xlsx and no definitions in usdm-rdf. No published example uses them." ;
     uo:testedAgainst ct:USDM_CT.xlsx,
         <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples>,
@@ -6581,8 +6601,44 @@ uof:intercurrent-event-strategy-textual a uo:Finding ;
     uo:holds true ;
     uo:observation "C188857 Intercurrent Event Strategy: A textual description of the planned strategy to manage and/or mitigate intercurrent events. Has Value List N." ;
     uo:rationale "The substance is one of a fixed set named by the guideline, possibly with explanation. Classifying by substance shows where a value list could carry meaning that the model holds as text." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "The gap to ICH E9(R1) is plain, but asking for a value list is a modelling request." ;
     uo:statement "IntercurrentEvent.strategy is defined as a textual description and has no value list. ICH E9(R1), section A.3.2, names five strategies: treatment policy, hypothetical, composite variable, while on treatment, principal stratum. The overlay classifies the attribute as classification as text; read by its definition alone it would be prose." ;
     uo:testedAgainst ct:USDM_CT.xlsx .
+
+uof:narrative-content-text-by-reference a uo:Finding ;
+    dcterms:source ct:USDM_CT.xlsx,
+        rdfrepo:usdm_v4.ttl ;
+    dcterms:subject usdm:NarrativeContent,
+        usdm:NarrativeContentItem ;
+    dcterms:title "NarrativeContent holds its text by reference" ;
+    uo:evidenceTier uo:ModelStated ;
+    uo:expectedResult true ;
+    uo:holds true ;
+    uo:observation "ASK returned true, expected true." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Holding the text in a separate referenced item may be deliberate, for reuse across sections." ;
+    uo:statement "NarrativeContent is defined as \"The container that holds an instance of unstructured text and which may include objects such as tables, figures, and images.\" The class has no text attribute. Its text is a NarrativeContentItem, which NarrativeContent references (contentItemId, relationship type Ref, 0..1) and which StudyVersion composes (narrativeContentItems). The section and its text are separate instances, linked by reference." ;
+    uo:testQuery """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX usdm: <https://w3id.org/cdisc/usdm/v4/>
+ASK {
+    usdm:NarrativeContent skos:definition ?def .
+    FILTER (STRSTARTS(STR(?def), "The container that holds an instance of unstructured text"))
+    usdm:NarrativeContent-contentItemId rdfs:domain usdm:NarrativeContent ;
+        rdfs:range usdm:NarrativeContentItem ; usdm:relationshipType "Ref" .
+    usdm:StudyVersion-narrativeContentItems rdfs:range usdm:NarrativeContentItem ; usdm:relationshipType "Value" .
+    FILTER NOT EXISTS {
+        ?p rdfs:domain usdm:NarrativeContent ; rdfs:range usdm:NarrativeContentItem ; usdm:relationshipType "Value" .
+    }
+    FILTER NOT EXISTS {
+        ?p rdfs:domain usdm:NarrativeContent ; rdfs:range xsd:string .
+        FILTER (?p NOT IN (usdm:NarrativeContent-id, usdm:NarrativeContent-instanceType, usdm:NarrativeContent-name,
+                           usdm:NarrativeContent-sectionNumber, usdm:NarrativeContent-sectionTitle))
+    }
+}""" ;
+    uo:testedAgainst <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
 
 uof:narrative-references-by-markup a uo:Finding ;
     dcterms:source uml:dataStructure.yml,
@@ -6593,6 +6649,8 @@ uof:narrative-references-by-markup a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "Alexion_NCT04573309_Wilsons.json: 467 usdm:ref in 105 narrative items, 17 classes; CDISC_Pilot_Study.json: 350 usdm:ref in 85 narrative items, 14 classes; EliLilly_NCT03421379_Diabetes.json: 234 usdm:ref in 112 narrative items, 16 classes; devices.json: 41 usdm:ref in 133 narrative items, 14 classes; observational.json: 26 usdm:ref in 6 narrative items, 11 classes. dataStructure.yml mentions usdm:ref: no." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Rests on the published example files, which are not mature study definitions." ;
     uo:statement "In the published examples, NarrativeContentItem.text refers to model instances by usdm:ref elements inside the XHTML string, each naming a class (klass), an instance (id) and one attribute. The reference runs from the section to one attribute value. dataStructure.yml does not mention the convention." ;
     uo:testedAgainst uml:dataStructure.yml,
         <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
@@ -6607,6 +6665,8 @@ uof:parameter-reference-by-markup a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "usdm:ref markup in 14 of 15 ParameterMap.reference values. Other values: observational.json tag value_key = 1234.0." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Rests on the published example files, which are not mature study definitions." ;
     uo:statement "In the published examples, ParameterMap.reference holds usdm:ref markup, the same convention as narrative text. A syntax-template parameter resolves to a model value through markup in a string, not through a model reference." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 
@@ -6620,6 +6680,8 @@ uof:population-summary-term-vs-definition a uo:Finding ;
     uo:holds true ;
     uo:observation "C188853 Population-Level Summary: A synopsis of the clinical endpoint of interest within the analysis target study population. Has Value List N." ;
     uo:rationale "ICH E9(R1), section A.3.3, describes the attribute as a population-level summary for the variable, providing a basis for comparison between treatment conditions. Read that way the value is a statistical summary measure, close to a classification. Read by the NCI definition it is prose." ;
+    uo:standing uo:ReadyToRaise ;
+    uo:standingRationale "One USDM_CT.xlsx row carries two meanings: the preferred term is the ICH E9(R1) attribute, the definition a narrative synopsis." ;
     uo:statement "Estimand.populationSummary has the preferred term \"Population-Level Summary\", the ICH E9(R1) estimand attribute. Its definition, \"A synopsis of the clinical endpoint of interest within the analysis target study population\", describes a narrative synopsis. The attribute is left unclassified in the overlay until the two are reconciled." ;
     uo:testedAgainst ct:USDM_CT.xlsx .
 
@@ -6632,6 +6694,8 @@ uof:procedure-type-uncoded a uo:Finding ;
     uo:evidenceTier uo:DefinitionStated ;
     uo:holds true ;
     uo:observation "Procedure.procedureType (C188848): Has Value List N. Endpoint.level (C188826): Has Value List Y (C188726)." ;
+    uo:standing uo:ReadyToRaise ;
+    uo:standingRationale "USDM_CT.xlsx treats the same definition pattern as coded in one place and as a free string in another." ;
     uo:statement "Procedure.procedureType and Endpoint.level share the definition pattern \"A characterization or classification of ...\". Endpoint.level has a value list; Procedure.procedureType has none and is a string." ;
     uo:testedAgainst ct:USDM_CT.xlsx .
 
@@ -6644,6 +6708,8 @@ uof:study-amendment-number-not-numerals a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "11 StudyAmendment.number values; not all digits: EliLilly_NCT03421379_Diabetes.json 'A'." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Rests on the published example files, which are not mature study definitions." ;
     uo:statement "StudyAmendment.number is defined as \"A string of numerals that uniquely identifies a protocol amendment.\" A published example uses a letter." ;
     uo:testedAgainst ct:USDM_CT.xlsx,
         <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
@@ -6657,6 +6723,8 @@ uof:syntax-template-parameters-rarely-used a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "Syntax-template instances with a dictionary: 13 of 245. Per example: Alexion_NCT04573309_Wilsons.json: 1 of 87; CDISC_Pilot_Study.json: 4 of 51; EliLilly_NCT03421379_Diabetes.json: 0 of 73; devices.json: 3 of 17; observational.json: 5 of 17." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Rests on the published example files, which are not mature study definitions." ;
     uo:statement "In the published examples, most syntax-template instances (Objective, Endpoint, EligibilityCriterionItem, IntercurrentEvent, Condition, Characteristic) have no dictionary, so their text carries no parameters the model can see." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 
@@ -6671,6 +6739,8 @@ uof:template-tags-by-markup a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "16 usdm:tag elements in 13 texts; stored tags containing angle brackets: 0. Unresolved: observational.json EligibilityCriterionItem_2 'max_agexxx'." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Rests on the published example files, which are not mature study definitions." ;
     uo:statement "Syntax-template text marks parameters with usdm:tag elements that name a ParameterMap.tag. The stored tag is a bare name; the angle brackets that the NCI definition of ParameterMap.tag describes appear only in the template text. Resolution is by name inside a string, so a tag can lack a matching ParameterMap, and the published examples include such a case." ;
     uo:testedAgainst ct:USDM_CT.xlsx,
         <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
@@ -6685,6 +6755,8 @@ uof:timing-iso8601-convention a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "ISO 8601 durations among non-empty values: value 153 of 153; windowLower 30 of 30; windowUpper 30 of 30. '8601' in dataStructure.yml: no; in USDM_CT.xlsx definitions: no." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Rests on the published example files, which are not mature study definitions." ;
     uo:statement "In the published examples, every non-empty Timing.value, windowLower and windowUpper is an ISO 8601 duration. Neither dataStructure.yml nor USDM_CT.xlsx names a syntax for them; the range is xsd:string." ;
     uo:testedAgainst ct:USDM_CT.xlsx,
         uml:dataStructure.yml,
@@ -6698,6 +6770,8 @@ uof:timing-labels-restate-values a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:holds true ;
     uo:observation "76 distinct Timing.value values; 8 carry more than one valueLabel: P14D: '14 Days', '14 days'; P1D: '1 Day', '1 Days'; P2D: '2 Days', '2 days'; P2W: '2 Weeks', '2 weeks'; PT0M: '0 min', '0 mins', '0 minutes'; PT15M: '15 min', '15 mins'; PT30M: '30 min', '30 mins', '30 minutes'; PT5M: '5 min', '5 mins'." ;
+    uo:standing uo:ForDiscussion ;
+    uo:standingRationale "Rests on the published example files, which are not mature study definitions." ;
     uo:statement "Timing.valueLabel restates Timing.value in free text. In the published examples the same value carries differently spelled labels, so the label is not generated from the value." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 
@@ -6757,6 +6831,18 @@ uo:refines a owl:ObjectProperty ;
     rdfs:domain uo:Assessment ;
     rdfs:range uo:Assessment ;
     skos:definition "The derived assessment that an authored assessment refines. Where both exist, the authored kind is the one to use; the derived one is kept as the record of what the model and its definitions alone say." .
+
+uo:standing a owl:ObjectProperty ;
+    rdfs:label "standing" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range skos:Concept ;
+    skos:definition "Whether a finding is ready to raise with CDISC or is for discussion. Value from uo:FindingStandingScheme. Authored; needs uo:standingRationale." .
+
+uo:standingRationale a owl:DatatypeProperty ;
+    rdfs:label "standing rationale" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:string ;
+    skos:definition "Why the finding has its standing." .
 
 uo:statement a owl:DatatypeProperty ;
     rdfs:label "statement" ;
@@ -8767,15 +8853,11 @@ usdm:MedicalDevice-hardwareVersion uo:contentKind uo:BusinessIdentifier,
 usdm:MedicalDevice-softwareVersion uo:contentKind uo:BusinessIdentifier,
         uo:UnclassifiedString .
 
-usdm:NarrativeContent uo:classRole uo:StructuredEntity .
-
 usdm:NarrativeContent-sectionNumber uo:contentKind uo:DocumentPosition,
         uo:UnclassifiedString .
 
 usdm:NarrativeContent-sectionTitle uo:contentKind uo:DocumentPosition,
         uo:UnclassifiedString .
-
-usdm:NarrativeContentItem uo:classRole uo:TextCarrier .
 
 usdm:Objective uo:classRole uo:TemplatedText .
 
@@ -8889,6 +8971,10 @@ usdm:Code-code uo:contentKind uo:CodeComponent,
 
 usdm:EligibilityCriterion uo:classRole uo:StructuredEntity .
 
+usdm:NarrativeContent uo:classRole uo:StructuredEntity .
+
+usdm:NarrativeContentItem uo:classRole uo:TextCarrier .
+
 usdm:ParameterMap uo:classRole uo:ValueType .
 
 usdm:PersonName-familyName uo:contentKind uo:ContactDetail,
@@ -8922,11 +9008,21 @@ uo:ExtensionRole a skos:Concept ;
     skos:prefLabel "Extension" ;
     skos:topConceptOf uo:ClassRoleScheme .
 
+uo:FindingStandingScheme a skos:ConceptScheme ;
+    skos:definition "How far a finding is ready to go to CDISC. Separate from the evidence tier: a model-stated gap can be a deliberate design choice, and an authored reading can rest on a plain contradiction." ;
+    skos:prefLabel "Finding standing" .
+
 uo:Housekeeping a skos:Concept ;
     skos:definition "Serialization and extension machinery present on every class." ;
     skos:inScheme uo:ContentKindScheme ;
     skos:prefLabel "Housekeeping" ;
     skos:topConceptOf uo:ContentKindScheme .
+
+uo:ReadyToRaise a skos:Concept ;
+    skos:definition "The published artefacts contradict themselves, or leave undefined something they rely on. The pinned files alone show it, and the ask is to make the artefacts consistent." ;
+    skos:inScheme uo:FindingStandingScheme ;
+    skos:prefLabel "Ready to raise" ;
+    skos:topConceptOf uo:FindingStandingScheme .
 
 uo:rule-structured-text a uo:Rule ;
     skos:definition "Range is xsd:string and the definition contains \"structured text\" (case-insensitive)." ;
@@ -9075,6 +9171,12 @@ uo:Text a skos:Concept ;
     skos:inScheme uo:ContentKindScheme ;
     skos:prefLabel "Text" ;
     skos:topConceptOf uo:ContentKindScheme .
+
+uo:ForDiscussion a skos:Concept ;
+    skos:definition "Depends on a modelling choice CDISC may have made on purpose, or on content of the published example files." ;
+    skos:inScheme uo:FindingStandingScheme ;
+    skos:prefLabel "For discussion" ;
+    skos:topConceptOf uo:FindingStandingScheme .
 
 uo:rule-typed-value a uo:Rule ;
     skos:definition "Range is an XSD datatype other than xsd:string." ;

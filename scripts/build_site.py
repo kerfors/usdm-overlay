@@ -312,6 +312,7 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
         title = overlay.value(f, DCTERMS.title)
         holds = overlay.value(f, UO.holds)
         rows = [
+            f"<dt>standing</dt><dd>{term_link(overlay.value(f, UO.standing), d)}: {esc(overlay.value(f, UO.standingRationale))}</dd>",
             f"<dt>evidence</dt><dd>{term_link(overlay.value(f, UO.evidenceTier), d)}</dd>",
             f"<dt>holds</dt><dd>{esc(holds)}</dd>",
             f"<dt>observation</dt><dd>{esc(overlay.value(f, UO.observation))}</dd>",
@@ -332,7 +333,7 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
 <dl>{''.join(rows)}</dl>
 {test}"""
         write(d, str(title), body)
-        finding_items.append(f'<li><a href="{d}/">{esc(title)}</a></li>')
+        finding_items.append((overlay.value(f, UO.standing), f'<li><a href="{d}/">{esc(title)}</a></li>'))
 
     # ---------------------------------------------------------------- vocabulary terms
     terms = sorted(
@@ -393,6 +394,13 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
         f"<li>{term_link(r, '')} ({len(cs)}): " + ", ".join(class_link(c, "") for c in cs) + "</li>"
         for r, cs in sorted(roles.items(), key=lambda kv: pref(kv[0]))
     )
+    findings_html = ""
+    for standing in (UO.ReadyToRaise, UO.ForDiscussion):
+        items = [item for st, item in finding_items if st == standing]
+        findings_html += (f"<h3>{term_link(standing, '')} ({len(items)})</h3>"
+                          f"<p class=\"note\">{esc(vocab.value(standing, SKOS.definition))}</p><ul>{''.join(items)}</ul>")
+    if sum(1 for st, _ in finding_items if st not in (UO.ReadyToRaise, UO.ForDiscussion)):
+        raise RuntimeError("A finding has no known standing")
     body = f"""<h1>usdm-overlay</h1>
 <p class="iri">{esc(NS)}</p>
 <p>{esc(vocab.value(URIRef(NS), DCTERMS.description))}</p>
@@ -400,7 +408,7 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
 <h2>Classes by role</h2>
 <ul>{role_items}</ul>
 <h2>Findings</h2>
-<ul>{''.join(finding_items)}</ul>
+{findings_html}
 <h2>Concept schemes</h2>
 <ul>{schemes}</ul>
 <h2>Collections</h2>

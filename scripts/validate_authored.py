@@ -136,6 +136,11 @@ def main():
         for p in (URIRef("http://purl.org/dc/terms/title"), UO.statement, UO.evidenceTier):
             one(authored, f, p)
         tier = authored.value(f, UO.evidenceTier)
+        standing = one(authored, f, UO.standing)
+        if standing not in set(vocab.subjects(SKOS.inScheme, UO.FindingStandingScheme)):
+            raise RuntimeError(f"{local(f)}: {standing} is not in the finding-standing scheme")
+        if not str(one(authored, f, UO.standingRationale)).strip():
+            raise RuntimeError(f"{local(f)}: empty standing rationale")
         if tier == UO.Authored and not str(authored.value(f, UO.rationale) or "").strip():
             raise RuntimeError(f"{local(f)}: authored finding needs a rationale")
         has_query = (f, UO.testQuery, None) in authored

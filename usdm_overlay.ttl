@@ -158,6 +158,37 @@ uo:order
     rdfs:domain uo:Rule ;
     rdfs:range xsd:integer .
 
+uo:standing
+    a owl:ObjectProperty ;
+    rdfs:label "standing" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range skos:Concept ;
+    skos:definition "Whether a finding is ready to raise with CDISC or is for discussion. Value from uo:FindingStandingScheme. Authored; needs uo:standingRationale." .
+
+uo:standingRationale
+    a owl:DatatypeProperty ;
+    rdfs:label "standing rationale" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:string ;
+    skos:definition "Why the finding has its standing." .
+
+# ---------------------------------------------------------------- finding standing
+
+uo:FindingStandingScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Finding standing" ;
+    skos:definition "How far a finding is ready to go to CDISC. Separate from the evidence tier: a model-stated gap can be a deliberate design choice, and an authored reading can rest on a plain contradiction." .
+
+uo:ReadyToRaise
+    a skos:Concept ; skos:inScheme uo:FindingStandingScheme ; skos:topConceptOf uo:FindingStandingScheme ;
+    skos:prefLabel "Ready to raise" ;
+    skos:definition "The published artefacts contradict themselves, or leave undefined something they rely on. The pinned files alone show it, and the ask is to make the artefacts consistent." .
+
+uo:ForDiscussion
+    a skos:Concept ; skos:inScheme uo:FindingStandingScheme ; skos:topConceptOf uo:FindingStandingScheme ;
+    skos:prefLabel "For discussion" ;
+    skos:definition "Depends on a modelling choice CDISC may have made on purpose, or on content of the published example files." .
+
 # ---------------------------------------------------------------- evidence tiers
 
 uo:EvidenceTierScheme
