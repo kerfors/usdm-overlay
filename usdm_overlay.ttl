@@ -1,0 +1,204 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix uo: <https://kerfors.github.io/usdm-overlay/> .
+
+# Vocabulary of usdm-overlay: terms used to classify and comment on the
+# CDISC USDM v4 model as rendered by usdm-rdf. Hand-maintained.
+
+<https://kerfors.github.io/usdm-overlay/>
+    a owl:Ontology ;
+    dcterms:title "usdm-overlay vocabulary" ;
+    dcterms:description "Terms for an overlay graph that classifies and comments on the CDISC USDM v4 model as rendered in RDF/OWL by usdm-rdf. The overlay only points at usdm-rdf IRIs; it never changes them. Every assertion carries an evidence tier, so model-stated facts stay apart from readings of the model." ;
+    dcterms:creator "Kerstin Forsberg" ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    rdfs:comment "Draft. Not a CDISC artifact." .
+
+# ---------------------------------------------------------------- properties
+
+uo:contentKind
+    a owl:AnnotationProperty ;
+    rdfs:label "content kind" ;
+    skos:definition "Links a usdm-rdf property to the kind of content it holds. Shortcut for the assessment that carries the evidence." .
+
+uo:Assessment
+    a owl:Class ;
+    rdfs:label "Assessment" ;
+    skos:definition "One classification of one usdm-rdf term, with its evidence." .
+
+uo:about
+    a owl:ObjectProperty ;
+    rdfs:label "about" ;
+    rdfs:domain uo:Assessment ;
+    skos:definition "The usdm-rdf term the assessment classifies." .
+
+uo:assignedKind
+    a owl:ObjectProperty ;
+    rdfs:label "assigned kind" ;
+    rdfs:domain uo:Assessment ;
+    skos:definition "The concept the assessment assigns." .
+
+uo:evidenceTier
+    a owl:ObjectProperty ;
+    rdfs:label "evidence tier" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range skos:Concept ;
+    skos:definition "What kind of evidence the assessment rests on. Value from uo:EvidenceTierScheme." .
+
+uo:byRule
+    a owl:ObjectProperty ;
+    rdfs:label "by rule" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range uo:Rule ;
+    skos:definition "The derivation rule that produced the assessment. Only on derived assessments." .
+
+uo:quote
+    a owl:DatatypeProperty ;
+    rdfs:label "quote" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:string ;
+    skos:definition "Verbatim text from the source that the assessment rests on." .
+
+uo:Rule
+    a owl:Class ;
+    rdfs:label "Rule" ;
+    skos:definition "A mechanical derivation rule. Rules are applied in the order of uo:order; the first rule that matches decides." .
+
+uo:order
+    a owl:DatatypeProperty ;
+    rdfs:label "order" ;
+    rdfs:domain uo:Rule ;
+    rdfs:range xsd:integer .
+
+# ---------------------------------------------------------------- evidence tiers
+
+uo:EvidenceTierScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Evidence tiers" .
+
+uo:ModelStated
+    a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
+    skos:prefLabel "Model-stated" ;
+    skos:definition "Follows from the structure of the model as rendered: range, relationship type, model name." .
+
+uo:DefinitionStated
+    a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
+    skos:prefLabel "Definition-stated" ;
+    skos:definition "Follows from the wording of the NCI definition CDISC attached to the term. The quote is recorded. Definitions are uneven, so this tier reports what the definition says, not that it is right." .
+
+uo:ExampleObserved
+    a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
+    skos:prefLabel "Example-observed" ;
+    skos:definition "Observed in the example study files CDISC publishes with the model, not stated in the model." .
+
+uo:Authored
+    a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
+    skos:prefLabel "Authored" ;
+    skos:definition "A reading of the model by the overlay author, with a stated rationale." .
+
+# ---------------------------------------------------------------- content kinds
+
+uo:ContentKindScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Content kinds" ;
+    skos:definition "What a USDM attribute holds, seen from the data rather than from the model diagram." .
+
+uo:Housekeeping
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Housekeeping" ;
+    skos:definition "Serialization and extension machinery present on every class." .
+
+uo:Identity
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Housekeeping ;
+    skos:prefLabel "Identity" ;
+    skos:definition "The instance identifier (id)." .
+
+uo:TypeDiscriminator
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Housekeeping ;
+    skos:prefLabel "Type discriminator" ;
+    skos:definition "The serialization type marker (instanceType)." .
+
+uo:ExtensionPoint
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Housekeeping ;
+    skos:prefLabel "Extension point" ;
+    skos:definition "The extensionAttributes slot." .
+
+uo:Naming
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Naming" ;
+    skos:definition "The name, label and description attributes that most classes carry." .
+
+uo:Coded
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Coded" ;
+    skos:definition "Value is a Code or AliasCode." .
+
+uo:TypedValue
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Typed value" ;
+    skos:definition "Value is a literal with a non-string XSD datatype (boolean, integer, float, date)." .
+
+uo:Reference
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Reference" ;
+    skos:definition "Points to an instance held elsewhere in the study (relationship type Ref)." .
+
+uo:Composition
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Composition" ;
+    skos:definition "Contains an instance of another class (relationship type Value), other than Code or AliasCode." .
+
+uo:Text
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Text" ;
+    skos:definition "Value is an xsd:string, other than naming and housekeeping." .
+
+uo:UnstructuredText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Unstructured text (definition-stated)" ;
+    skos:definition "String whose NCI definition says \"unstructured text\"." .
+
+uo:StructuredText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Structured text (definition-stated)" ;
+    skos:definition "String whose NCI definition says \"structured text\"." .
+
+uo:NarrativeText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Narrative text (definition-stated)" ;
+    skos:definition "String whose NCI definition says \"narrative representation\"." .
+
+uo:UnclassifiedString
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Unclassified string" ;
+    skos:definition "String whose kind neither the model nor its definition states. Left to the authored layer." .
+
+# ---------------------------------------------------------------- rules
+
+uo:rule-identity a uo:Rule ; uo:order 1 ;
+    skos:definition "Attribute part of the local name (after the first hyphen) is id." .
+uo:rule-type-discriminator a uo:Rule ; uo:order 2 ;
+    skos:definition "Local name ends in -instanceType." .
+uo:rule-extension-point a uo:Rule ; uo:order 3 ;
+    skos:definition "Local name ends in -extensionAttributes." .
+uo:rule-naming a uo:Rule ; uo:order 4 ;
+    skos:definition "Attribute part of the local name is name, label or description. Takes precedence over the text rules, although description definitions say \"narrative representation\"." .
+uo:rule-reference a uo:Rule ; uo:order 5 ;
+    skos:definition "Relationship type is Ref." .
+uo:rule-coded a uo:Rule ; uo:order 6 ;
+    skos:definition "Range is usdm:Code or usdm:AliasCode." .
+uo:rule-typed-value a uo:Rule ; uo:order 7 ;
+    skos:definition "Range is an XSD datatype other than xsd:string." .
+uo:rule-composition a uo:Rule ; uo:order 8 ;
+    skos:definition "Object property with relationship type Value." .
+uo:rule-unstructured-text a uo:Rule ; uo:order 9 ;
+    skos:definition "Range is xsd:string and the definition contains \"unstructured text\" (case-insensitive)." .
+uo:rule-structured-text a uo:Rule ; uo:order 10 ;
+    skos:definition "Range is xsd:string and the definition contains \"structured text\" (case-insensitive)." .
+uo:rule-narrative-text a uo:Rule ; uo:order 11 ;
+    skos:definition "Range is xsd:string and the definition contains \"narrative representation\" (case-insensitive). The bare word \"narrative\" is not used: it also matches the class name NarrativeContent." .
+uo:rule-unclassified-string a uo:Rule ; uo:order 12 ;
+    skos:definition "Range is xsd:string and no earlier rule matched." .
