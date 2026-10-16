@@ -1,0 +1,17 @@
+# Effective role of every USDM class, with its profile.
+# Effective = the assessment that no other assessment refines (authored if present, else derived).
+PREFIX uo:   <https://kerfors.github.io/usdm-overlay/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?role ?class ?tier ?readText ?value ?reference ?part ?composedIn ?referenced
+WHERE {
+    ?a uo:about ?class ; uo:assignedKind ?r ; uo:evidenceTier ?t .
+    ?r skos:inScheme uo:ClassRoleScheme ; skos:prefLabel ?role .
+    ?t skos:prefLabel ?tier .
+    FILTER NOT EXISTS { ?b uo:refines ?a }
+    OPTIONAL { ?a uo:refines ?d }
+    BIND(COALESCE(?d, ?a) AS ?derived)
+    ?derived uo:readTextCount ?readText ; uo:valueCount ?value ; uo:referenceCount ?reference ;
+        uo:partCount ?part ; uo:composedInCount ?composedIn ; uo:isReferenced ?referenced .
+}
+ORDER BY ?role ?class

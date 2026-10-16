@@ -39,7 +39,7 @@ input version stops the build.
 | # | Layer | Status |
 | --- | --- | --- |
 | 1 | Content kind per attribute | Complete. Derived for all properties (`derived/content_kind.ttl`); every string the derivation leaves unclassified has an authored kind (`authored/content_kind.ttl`), except Estimand.populationSummary, held open by a finding. |
-| 2 | Role per class | Not started |
+| 2 | Role per class | Derived for all classes (`derived/class_role.ttl`, `reports/class_role.md`), from the layer 1 kinds of each class's own and inherited attributes. Authored roles (`authored/class_role.ttl`) for five classes where the derived role misreads the class. |
 | 3 | Findings about the model, each with a test | Started: `authored/findings.ttl`, results in `derived/finding_results.ttl` and `reports/findings.md` |
 | 4 | Observed practice in the CDISC example files | Started, as example-observed findings in layer 3 |
 
@@ -47,29 +47,53 @@ input version stops the build.
 
 | Path | What |
 | --- | --- |
-| `usdm_overlay.ttl` | Vocabulary: content-kind and evidence-tier concept schemes, assessment properties, derivation rules. Hand-maintained. |
-| `authored/` | Hand-maintained graphs: `content_kind.ttl` (authored assessments), `findings.ttl`. |
+| `usdm_overlay.ttl` | Vocabulary: content-kind, class-role and evidence-tier concept schemes, text groups, assessment and class-profile properties, derivation rules. Hand-maintained. |
+| `authored/` | Hand-maintained graphs: `content_kind.ttl` and `class_role.ttl` (authored assessments), `findings.ttl`. |
 | `derived/` | Generated graphs. Do not edit by hand. |
 | `reports/` | Generated reports. Do not edit by hand. |
+| `docs/` | Generated GitHub Pages site for the namespace. Do not edit by hand. |
 | `downloads/` | Pinned inputs and `MANIFEST.md` with tag, commit and SHA-256: `usdm_v4.ttl` (usdm-rdf v0.7.1), `USDM_CT.xlsx`, `dataStructure.yml` and the five example studies (DDF-RA v4.0.0). |
-| `scripts/` | `fetch_inputs.py`, `build_content_kind.py`, `validate_authored.py`, `check_findings.py`, `common.py`. |
+| `queries/` | Example SPARQL queries over usdm-rdf plus the overlay. Results in `reports/queries.md`. |
+| `scripts/` | `fetch_inputs.py`, `build_content_kind.py`, `build_class_role.py`, `validate_authored.py`, `check_findings.py`, `run_queries.py`, `build_site.py`, `common.py`. |
 
 ## Rebuild
 
 ```
 python3 scripts/fetch_inputs.py
 python3 scripts/build_content_kind.py
+python3 scripts/build_class_role.py
 python3 scripts/validate_authored.py
 python3 scripts/check_findings.py
+python3 scripts/run_queries.py
+python3 scripts/build_site.py
 ```
 
-Requires Python 3, `rdflib`, `openpyxl` and `pyyaml`. The repo rebuilds from its own pinned inputs,
+Requires Python 3, `rdflib`, `openpyxl`, `pyyaml` and `markdown`. The repo rebuilds from its own pinned inputs,
 with no dependency on a local clone of any other repo.
 
 ## Namespace
 
-`https://kerfors.github.io/usdm-overlay/` for now. A permanent identifier may
-follow when the work matures.
+`https://kerfors.github.io/usdm-overlay/` for now, served by GitHub Pages from
+`docs/` on `main`. A permanent identifier may follow when the work matures.
+
+Vocabulary terms sit directly under the namespace; the things the overlay
+describes, assessments and findings, sit under `id/`. The split keeps the two
+apart and stops a term from clashing with an instance path on a
+case-insensitive file system (`Finding` against `finding/...`).
+
+Every IRI the overlay mints resolves to a page at its own path (slash IRIs):
+
+| IRI | Page |
+| --- | --- |
+| the namespace | index: classes by role, findings, vocabulary |
+| vocabulary term, e.g. `TextCarrier` | the term, with what it is assigned to |
+| `id/assessment/classRole/<Class>` | the page for that USDM class: role, profile, every attribute assessment as an anchor |
+| other assessments | a stub that forwards to the anchor on the class page |
+| `id/finding/<id>` | the finding, its test and its last result |
+
+GitHub Pages has no content negotiation. RDF is served as files, the whole
+graph: `graphs/overlay.ttl` merges all overlay graphs, and every page links to
+it as its RDF alternate. Content negotiation would come with a w3id redirect.
 
 ## License
 

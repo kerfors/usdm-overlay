@@ -1,0 +1,515 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix uo: <https://kerfors.github.io/usdm-overlay/> .
+
+# Vocabulary of usdm-overlay: terms used to classify and comment on the
+# CDISC USDM v4 model as rendered by usdm-rdf. Hand-maintained.
+
+<https://kerfors.github.io/usdm-overlay/>
+    a owl:Ontology ;
+    dcterms:title "usdm-overlay vocabulary" ;
+    dcterms:description "Terms for an overlay graph that classifies and comments on the CDISC USDM v4 model as rendered in RDF/OWL by usdm-rdf. The overlay only points at usdm-rdf IRIs; it never changes them. Every assertion carries an evidence tier, so model-stated facts stay apart from readings of the model." ;
+    dcterms:creator "Kerstin Forsberg" ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    rdfs:comment "Draft. Not a CDISC artifact." .
+
+# ---------------------------------------------------------------- properties
+
+uo:contentKind
+    a owl:AnnotationProperty ;
+    rdfs:label "content kind" ;
+    skos:definition "Links a usdm-rdf property to the kind of content it holds. Shortcut for the assessment that carries the evidence." .
+
+uo:Assessment
+    a owl:Class ;
+    rdfs:label "Assessment" ;
+    skos:definition "One classification of one usdm-rdf term, with its evidence." .
+
+uo:about
+    a owl:ObjectProperty ;
+    rdfs:label "about" ;
+    rdfs:domain uo:Assessment ;
+    skos:definition "The usdm-rdf term the assessment classifies." .
+
+uo:assignedKind
+    a owl:ObjectProperty ;
+    rdfs:label "assigned kind" ;
+    rdfs:domain uo:Assessment ;
+    skos:definition "The concept the assessment assigns." .
+
+uo:evidenceTier
+    a owl:ObjectProperty ;
+    rdfs:label "evidence tier" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range skos:Concept ;
+    skos:definition "What kind of evidence the assessment rests on. Value from uo:EvidenceTierScheme." .
+
+uo:byRule
+    a owl:ObjectProperty ;
+    rdfs:label "by rule" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range uo:Rule ;
+    skos:definition "The derivation rule that produced the assessment. Only on derived assessments." .
+
+uo:quote
+    a owl:DatatypeProperty ;
+    rdfs:label "quote" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:string ;
+    skos:definition "Verbatim text from the source that the assessment rests on." .
+
+uo:rationale
+    a owl:DatatypeProperty ;
+    rdfs:label "rationale" ;
+    rdfs:range xsd:string ;
+    skos:definition "Why an authored assessment assigns its kind, or why an authored finding is stated. Required on everything with evidence tier Authored." .
+
+uo:refines
+    a owl:ObjectProperty ;
+    rdfs:label "refines" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range uo:Assessment ;
+    skos:definition "The derived assessment that an authored assessment refines. Where both exist, the authored kind is the one to use; the derived one is kept as the record of what the model and its definitions alone say." .
+
+uo:companionOf
+    a owl:ObjectProperty ;
+    rdfs:label "companion of" ;
+    rdfs:domain uo:Assessment ;
+    skos:definition "For companion text: the sibling attribute, coded or typed, that the text qualifies." .
+
+uo:labelOf
+    a owl:ObjectProperty ;
+    rdfs:label "label of" ;
+    rdfs:domain uo:Assessment ;
+    skos:definition "For display labels: the attribute or attributes of the same class whose value the label renders." .
+
+uo:syntax
+    a owl:DatatypeProperty ;
+    rdfs:label "syntax" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:string ;
+    skos:definition "For encoded values: the syntax the values follow." .
+
+uo:Finding
+    a owl:Class ;
+    rdfs:label "Finding" ;
+    skos:definition "A statement about the USDM model or its published examples, with its evidence and a test that can be re-run against the pinned inputs." .
+
+uo:statement
+    a owl:DatatypeProperty ;
+    rdfs:label "statement" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:string ;
+    skos:definition "The finding in plain language. Qualitative; counts belong in the derived observation." .
+
+uo:testQuery
+    a owl:DatatypeProperty ;
+    rdfs:label "test query" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:string ;
+    skos:definition "A SPARQL ASK query run against usdm_v4.ttl." .
+
+uo:expectedResult
+    a owl:DatatypeProperty ;
+    rdfs:label "expected result" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:boolean ;
+    skos:definition "The ASK result for which the finding holds." .
+
+uo:checkFunction
+    a owl:DatatypeProperty ;
+    rdfs:label "check function" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:string ;
+    skos:definition "Name of the function in scripts/check_findings.py that tests the finding against the pinned inputs, for tests that SPARQL over usdm_v4.ttl cannot express." .
+
+uo:holds
+    a owl:DatatypeProperty ;
+    rdfs:label "holds" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Whether the finding held when its test was last run. Derived." .
+
+uo:testedAgainst
+    a owl:ObjectProperty ;
+    rdfs:label "tested against" ;
+    rdfs:domain uo:Finding ;
+    skos:definition "The pinned input the test was run against. Derived." .
+
+uo:observation
+    a owl:DatatypeProperty ;
+    rdfs:label "observation" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:string ;
+    skos:definition "What the test observed, including counts. Derived." .
+
+uo:Rule
+    a owl:Class ;
+    rdfs:label "Rule" ;
+    skos:definition "A mechanical derivation rule. Rules are applied in the order of uo:order; the first rule that matches decides." .
+
+uo:order
+    a owl:DatatypeProperty ;
+    rdfs:label "order" ;
+    rdfs:domain uo:Rule ;
+    rdfs:range xsd:integer .
+
+# ---------------------------------------------------------------- evidence tiers
+
+uo:EvidenceTierScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Evidence tiers" .
+
+uo:ModelStated
+    a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
+    skos:prefLabel "Model-stated" ;
+    skos:definition "Follows from the structure of the model as rendered: range, relationship type, model name." .
+
+uo:DefinitionStated
+    a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
+    skos:prefLabel "Definition-stated" ;
+    skos:definition "Follows from the wording of the NCI definition CDISC attached to the term. The quote is recorded. Definitions are uneven, so this tier reports what the definition says, not that it is right." .
+
+uo:ExampleObserved
+    a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
+    skos:prefLabel "Example-observed" ;
+    skos:definition "Observed in the example study files CDISC publishes with the model, not stated in the model. The examples are not mature study definitions: these findings say what the published files contain, not how USDM is or should be used." .
+
+uo:Authored
+    a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
+    skos:prefLabel "Authored" ;
+    skos:definition "A reading of the model by the overlay author, with a stated rationale." .
+
+# ---------------------------------------------------------------- content kinds
+
+uo:ContentKindScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Content kinds" ;
+    skos:definition "What a USDM attribute holds, seen from the data rather than from the model diagram." .
+
+uo:Housekeeping
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Housekeeping" ;
+    skos:definition "Serialization and extension machinery present on every class." .
+
+uo:Identity
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Housekeeping ;
+    skos:prefLabel "Identity" ;
+    skos:definition "The instance identifier (id)." .
+
+uo:TypeDiscriminator
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Housekeeping ;
+    skos:prefLabel "Type discriminator" ;
+    skos:definition "The serialization type marker (instanceType)." .
+
+uo:ExtensionPoint
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Housekeeping ;
+    skos:prefLabel "Extension point" ;
+    skos:definition "The extensionAttributes slot." .
+
+uo:Naming
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Naming" ;
+    skos:definition "The name, label and description attributes that most classes carry." .
+
+uo:Coded
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Coded" ;
+    skos:definition "Value is a Code or AliasCode." .
+
+uo:TypedValue
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Typed value" ;
+    skos:definition "Value is a literal with a non-string XSD datatype (boolean, integer, float, date)." .
+
+uo:Reference
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Reference" ;
+    skos:definition "Points to an instance held elsewhere in the study (relationship type Ref)." .
+
+uo:Composition
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Composition" ;
+    skos:definition "Contains an instance of another class (relationship type Value), other than Code or AliasCode." .
+
+uo:Text
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:topConceptOf uo:ContentKindScheme ;
+    skos:prefLabel "Text" ;
+    skos:definition "Value is an xsd:string, other than naming and housekeeping." .
+
+uo:UnstructuredText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Unstructured text (definition-stated)" ;
+    skos:definition "String whose NCI definition says \"unstructured text\"." .
+
+uo:StructuredText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Structured text (definition-stated)" ;
+    skos:definition "String whose NCI definition says \"structured text\"." .
+
+uo:NarrativeText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Narrative text (definition-stated)" ;
+    skos:definition "String whose NCI definition says \"narrative representation\"." .
+
+uo:UnclassifiedString
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Unclassified string" ;
+    skos:definition "String whose kind neither the model nor its definition states. Left to the authored layer." .
+
+uo:LogicAsText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Logic as text" ;
+    skos:definition "String holding a condition that decides what happens in the study, with no expression language and no reference to a structured condition. Authored kind." .
+
+uo:ClassificationAsText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Classification as text" ;
+    skos:definition "String holding a classification whose values could form a value set, but which the model leaves uncoded. Authored kind." .
+
+uo:Prose
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Prose" ;
+    skos:definition "String meant to be read by people: purpose, rationale, explanation. Authored kind." .
+
+uo:CompanionText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Prose ;
+    skos:prefLabel "Companion text" ;
+    skos:definition "Prose that qualifies a coded or typed sibling attribute of the same class. The assessment names the sibling with uo:companionOf. Authored kind." .
+
+uo:EncodedValue
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Encoded value" ;
+    skos:definition "String in a formal syntax that software is expected to parse. The assessment names the syntax with uo:syntax. Authored kind." .
+
+uo:EmbeddedReference
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Embedded reference" ;
+    skos:definition "String holding markup that points at an attribute of a model instance (usdm:ref), in place of a model reference. Authored kind." .
+
+uo:BusinessIdentifier
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Business identifier" ;
+    skos:definition "Human-assigned handle that names or orders an instance within its context. Displayed and compared, not parsed. Authored kind." .
+
+uo:DocumentPosition
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Document position" ;
+    skos:definition "Section number or title that places content in a document, or points at a place in one. Authored kind." .
+
+uo:DisplayLabel
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Display label" ;
+    skos:definition "Human-readable rendering of a value that the same instance holds in another attribute. The assessment names that attribute with uo:labelOf. Authored kind." .
+
+uo:ExtensionContent
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Housekeeping ;
+    skos:prefLabel "Extension content" ;
+    skos:definition "Attributes of the extension mechanism itself (ExtensionAttribute, ExtensionClass). Authored kind." .
+
+uo:CodeComponent
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Code component" ;
+    skos:definition "One of the strings that together identify a concept in a code system: the code, the code system, the code system version. Authored kind." .
+
+uo:Citation
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Citation" ;
+    skos:definition "String that cites an outside source. Authored kind." .
+
+uo:LexicalVariant
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Lexical variant" ;
+    skos:definition "Alternative wording of the same concept or term: a synonym, an expanded form. Authored kind." .
+
+uo:ContactDetail
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Contact detail" ;
+    skos:definition "Part of a person name, a postal address or a job title. Authored kind." .
+
+# ---------------------------------------------------------------- text groups
+
+# Two collections that partition the Text subkinds for the class-role roll-up
+# (layer 2). They cut across the skos:broader hierarchy, so they are
+# collections, not concepts. scripts/validate_authored.py checks that every
+# narrower kind of uo:Text is in exactly one of them.
+
+uo:ReadText
+    a skos:Collection ;
+    skos:prefLabel "Read text" ;
+    skos:definition "Text kinds whose value is wording that states content for people to read: description, rationale, condition, classification, summary. Counts as text payload in the class-role roll-up." ;
+    skos:member uo:UnstructuredText, uo:StructuredText, uo:NarrativeText, uo:UnclassifiedString,
+        uo:LogicAsText, uo:ClassificationAsText, uo:Prose, uo:CompanionText .
+
+uo:StructureInString
+    a skos:Collection ;
+    skos:prefLabel "Structure held in a string" ;
+    skos:definition "Text kinds whose value names, identifies, cites, places or encodes something rather than stating content to be read. Does not count as text payload in the class-role roll-up." ;
+    skos:member uo:CodeComponent, uo:EncodedValue, uo:EmbeddedReference, uo:BusinessIdentifier,
+        uo:DocumentPosition, uo:DisplayLabel, uo:ContactDetail, uo:Citation, uo:LexicalVariant .
+
+# ---------------------------------------------------------------- rules
+
+uo:rule-identity a uo:Rule ; uo:order 1 ;
+    skos:definition "Attribute part of the local name (after the first hyphen) is id." .
+uo:rule-type-discriminator a uo:Rule ; uo:order 2 ;
+    skos:definition "Local name ends in -instanceType." .
+uo:rule-extension-point a uo:Rule ; uo:order 3 ;
+    skos:definition "Local name ends in -extensionAttributes." .
+uo:rule-naming a uo:Rule ; uo:order 4 ;
+    skos:definition "Attribute part of the local name is name, label or description. Takes precedence over the text rules, although description definitions say \"narrative representation\"." .
+uo:rule-reference a uo:Rule ; uo:order 5 ;
+    skos:definition "Relationship type is Ref." .
+uo:rule-coded a uo:Rule ; uo:order 6 ;
+    skos:definition "Range is usdm:Code or usdm:AliasCode." .
+uo:rule-typed-value a uo:Rule ; uo:order 7 ;
+    skos:definition "Range is an XSD datatype other than xsd:string." .
+uo:rule-composition a uo:Rule ; uo:order 8 ;
+    skos:definition "Object property with relationship type Value." .
+uo:rule-unstructured-text a uo:Rule ; uo:order 9 ;
+    skos:definition "Range is xsd:string and the definition contains \"unstructured text\" (case-insensitive)." .
+uo:rule-structured-text a uo:Rule ; uo:order 10 ;
+    skos:definition "Range is xsd:string and the definition contains \"structured text\" (case-insensitive)." .
+uo:rule-narrative-text a uo:Rule ; uo:order 11 ;
+    skos:definition "Range is xsd:string and the definition contains \"narrative representation\" (case-insensitive). The bare word \"narrative\" is not used: it also matches the class name NarrativeContent." .
+uo:rule-unclassified-string a uo:Rule ; uo:order 12 ;
+    skos:definition "Range is xsd:string and no earlier rule matched." .
+
+# ================================================================ layer 2: class roles
+
+uo:classRole
+    a owl:AnnotationProperty ;
+    rdfs:label "class role" ;
+    skos:definition "Links a usdm-rdf class to the role it plays in the model, judged by what the class itself holds. Shortcut for the assessment that carries the evidence." .
+
+# ---------------------------------------------------------------- class profile
+
+# Recorded on every derived class-role assessment. Model-stated. Attributes
+# are counted on the class and its superclasses, because usdm-rdf declares an
+# attribute only on the class that defines it. Payload excludes housekeeping,
+# naming and notes.
+
+uo:hasNaming
+    a owl:DatatypeProperty ;
+    rdfs:label "has naming" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:boolean ;
+    skos:definition "The class has at least one attribute of content kind Naming." .
+
+uo:isReferenced
+    a owl:DatatypeProperty ;
+    rdfs:label "is referenced" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Some attribute with relationship type Ref has the class or one of its superclasses in its range." .
+
+uo:composedInCount
+    a owl:DatatypeProperty ;
+    rdfs:label "composed in count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Number of distinct classes that declare an attribute with relationship type Value whose range includes the class or one of its superclasses." .
+
+uo:readTextCount
+    a owl:DatatypeProperty ;
+    rdfs:label "read text count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Payload attributes whose content kind is a member of uo:ReadText." .
+
+uo:stringStructureCount
+    a owl:DatatypeProperty ;
+    rdfs:label "string structure count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Payload attributes whose content kind is a member of uo:StructureInString." .
+
+uo:valueCount
+    a owl:DatatypeProperty ;
+    rdfs:label "value count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Payload attributes that are Coded or Typed value, or Composition of a value type." .
+
+uo:referenceCount
+    a owl:DatatypeProperty ;
+    rdfs:label "reference count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Payload attributes of content kind Reference." .
+
+uo:partCount
+    a owl:DatatypeProperty ;
+    rdfs:label "part count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Payload attributes of content kind Composition whose range is not a value type." .
+
+# ---------------------------------------------------------------- class roles
+
+uo:ClassRoleScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Class roles" ;
+    skos:definition "What a USDM class holds, judged from the content kinds of its attributes. How the class is used (composed in, referenced) is recorded separately in the class profile." .
+
+uo:ExtensionRole
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Extension" ;
+    skos:definition "Part of the extension mechanism: the range of extensionAttributes, or composed only by such classes." .
+
+uo:TemplatedText
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Templated text" ;
+    skos:definition "Holds read text together with a reference to a SyntaxTemplateDictionary that supplies its parameters." .
+
+uo:ValueType
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Value type" ;
+    skos:definition "Holds a value and nothing else: no naming, never referenced, no references, no parts, no read text. Also an abstract class whose subclasses are all value types." .
+
+uo:Aggregate
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Aggregate" ;
+    skos:definition "Holds mainly parts: instances of other classes that are not value types." .
+
+uo:TextCarrier
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Text carrier" ;
+    skos:definition "Holds mainly read text." .
+
+uo:StructuredEntity
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Structured entity" ;
+    skos:definition "Holds mainly coded values, typed values, references and parts." .
+
+uo:UnassignedRole
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Unassigned role" ;
+    skos:definition "The class has no payload, so the derivation assigns no role. Left to the authored layer." .
+
+# ---------------------------------------------------------------- class-role rules
+
+uo:ClassRoleRule
+    a owl:Class ;
+    rdfs:subClassOf uo:Rule ;
+    rdfs:label "Class-role rule" ;
+    skos:definition "A derivation rule for class roles. Ordered by uo:order within its own set; the first rule that matches decides." .
+
+uo:rule-role-extension a uo:ClassRoleRule ; uo:order 1 ;
+    skos:definition "The class is in the range of an attribute of content kind ExtensionPoint, or every class that composes it was matched by this rule." .
+uo:rule-role-templated-text a uo:ClassRoleRule ; uo:order 2 ;
+    skos:definition "The class has read text and a Reference attribute whose range is SyntaxTemplateDictionary." .
+uo:rule-role-value-type a uo:ClassRoleRule ; uo:order 3 ;
+    skos:definition "No naming, not referenced, no references, no parts, no read text, and at least one value or string-structure attribute; or abstract with every subclass a value type. Applied until no more classes match, since a composition of a value type counts as a value." .
+uo:rule-role-aggregate a uo:ClassRoleRule ; uo:order 4 ;
+    skos:definition "At least two parts, and more parts than read text, values, references and string structure together." .
+uo:rule-role-text-carrier a uo:ClassRoleRule ; uo:order 5 ;
+    skos:definition "At least one read text attribute, and no fewer than values, references, parts and string structure together." .
+uo:rule-role-structured-entity a uo:ClassRoleRule ; uo:order 6 ;
+    skos:definition "Any payload, and no earlier rule matched." .
+uo:rule-role-unassigned a uo:ClassRoleRule ; uo:order 7 ;
+    skos:definition "No payload." .

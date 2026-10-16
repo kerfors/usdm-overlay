@@ -1,0 +1,15 @@
+# Attributes that hold a condition or a classification as text:
+# candidates for a structured or coded representation.
+PREFIX uo:   <https://kerfors.github.io/usdm-overlay/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?kind ?attribute ?rationale
+WHERE {
+    ?a uo:about ?p ; uo:assignedKind ?k ; uo:rationale ?rationale .
+    FILTER NOT EXISTS { ?b uo:refines ?a }
+    VALUES ?k { uo:LogicAsText uo:ClassificationAsText }
+    ?k skos:prefLabel ?kind .
+    ?p rdfs:label ?attribute .
+}
+ORDER BY ?kind ?attribute

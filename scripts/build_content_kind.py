@@ -111,7 +111,7 @@ def main():
         rule, quote = first_rule(g, prop)
         kind, tier = rule_table[rule]
         local = str(prop).split("/")[-1]
-        a = UO[f"assessment/contentKind/{local}"]
+        a = UO[f"id/assessment/contentKind/{local}"]
         out.add((prop, UO.contentKind, UO[kind]))
         out.add((a, RDF.type, UO.Assessment))
         out.add((a, UO.about, prop))

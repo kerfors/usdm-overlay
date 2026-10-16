@@ -1,0 +1,19 @@
+# Read text held inside classes whose role is not text: where narrative sits
+# in otherwise structured parts of the model.
+PREFIX uo:   <https://kerfors.github.io/usdm-overlay/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?class ?classRole ?attribute ?kind
+WHERE {
+    ?pa uo:about ?p ; uo:assignedKind ?k .
+    FILTER NOT EXISTS { ?pb uo:refines ?pa }
+    uo:ReadText skos:member ?k .
+    ?k skos:prefLabel ?kind .
+    ?p rdfs:domain ?class ; rdfs:label ?attribute .
+    ?ca uo:about ?class ; uo:assignedKind ?r .
+    FILTER NOT EXISTS { ?cb uo:refines ?ca }
+    ?r skos:inScheme uo:ClassRoleScheme ; skos:prefLabel ?classRole .
+    FILTER (?r NOT IN (uo:TextCarrier, uo:TemplatedText))
+}
+ORDER BY ?classRole ?class ?attribute

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ExtensionAttribute</title>
+<link rel="alternate" type="text/turtle" href="../../../../graphs/overlay.ttl">
+<style>
+:root { --bg: #fdfdfb; --fg: #1d1d1b; --muted: #5f5f5a; --rule: #d9d9d2; --accent: #1f5c99; --code: #f1f1ec; }
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f; }
+}
+:root[data-theme="dark"] { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; margin: 0; }
+main { max-width: 64rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+a { color: var(--accent); }
+nav { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
+h1 { font-size: 1.6rem; margin: 0 0 0.25rem; }
+h2 { font-size: 1.2rem; margin-top: 2rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.25rem; }
+.iri { font-family: ui-monospace, monospace; font-size: 0.85rem; color: var(--muted); word-break: break-all; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; }
+dt { color: var(--muted); }
+dd { margin: 0; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; font-size: 0.9rem; width: 100%; }
+th, td { text-align: left; vertical-align: top; padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--rule); }
+th { color: var(--muted); font-weight: 600; }
+tr:target { background: var(--code); }
+pre, code { font-family: ui-monospace, monospace; font-size: 0.85rem; background: var(--code); }
+pre { padding: 0.75rem; overflow-x: auto; }
+blockquote { margin: 0.5rem 0; padding-left: 0.75rem; border-left: 3px solid var(--rule); color: var(--muted); }
+.note { color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+<nav><a href="../../../../">usdm-overlay</a> · <a href="../../../../reports/">reports</a> · <a href="../../../../graphs/">graphs</a> · <a href="https://github.com/kerfors/usdm-overlay">repository</a></nav>
+<h1>ExtensionAttribute</h1>
+<p class="iri">https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ExtensionAttribute</p>
+<p>Overlay page for the USDM class <a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute">https://w3id.org/cdisc/usdm/v4/ExtensionAttribute</a>.</p>
+<h2 id="role">Role</h2>
+<dl><dt>role</dt><dd><a href="../../../../ExtensionRole/">Extension</a></dd><dt>evidence</dt><dd><a href="../../../../ModelStated/">Model-stated</a></dd><dt>basis</dt><dd><a href="../../../../rule-role-extension/">rule-role-extension</a></dd></dl>
+
+<h2>Profile</h2>
+<p class="note">Attributes of the class and its superclasses; payload excludes housekeeping, naming and notes.</p>
+<dl><dt>has naming</dt><dd>false</dd><dt>is referenced</dt><dd>false</dd><dt>composed in (classes)</dt><dd>80</dd><dt>read text</dt><dd>0</dd><dt>string structure</dt><dd>0</dd><dt>value</dt><dd>6</dd><dt>reference</dt><dd>0</dd><dt>part</dt><dd>1</dd></dl>
+<h2>Attributes declared on this class</h2>
+
+<div class="scroll"><table>
+<tr><th>Attribute</th><th>Range</th><th>Content kind</th><th>Evidence</th><th>Rule or rationale</th></tr>
+<tr id="ExtensionAttribute-extensionAttributes"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-extensionAttributes">extensionAttributes</a></td><td>ExtensionAttribute</td><td><a href="../../../../ExtensionPoint/">Extension point</a></td><td><a href="../../../../ModelStated/">Model-stated</a></td><td><a href="../../../../rule-extension-point/">rule-extension-point</a></td></tr><tr id="ExtensionAttribute-id"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-id">id</a></td><td>string</td><td><a href="../../../../Identity/">Identity</a></td><td><a href="../../../../ModelStated/">Model-stated</a></td><td><a href="../../../../rule-identity/">rule-identity</a></td></tr><tr id="ExtensionAttribute-instanceType"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-instanceType">instanceType</a></td><td>string</td><td><a href="../../../../TypeDiscriminator/">Type discriminator</a></td><td><a href="../../../../ModelStated/">Model-stated</a></td><td><a href="../../../../rule-type-discriminator/">rule-type-discriminator</a></td></tr><tr id="ExtensionAttribute-url"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-url">url</a></td><td>string</td><td><a href="../../../../ExtensionContent/">Extension content</a><br><span class="note">derived: <a href="../../../../UnclassifiedString/">Unclassified string</a></span></td><td><a href="../../../../Authored/">Authored</a></td><td>Identifies the extension definition. No definition in USDM_CT.xlsx or dataStructure.yml; see finding extension-attributes-undefined.</td></tr><tr id="ExtensionAttribute-valueAliasCode"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-valueAliasCode">valueAliasCode</a></td><td>AliasCode</td><td><a href="../../../../Coded/">Coded</a></td><td><a href="../../../../ModelStated/">Model-stated</a></td><td><a href="../../../../rule-coded/">rule-coded</a></td></tr><tr id="ExtensionAttribute-valueBoolean"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-valueBoolean">valueBoolean</a></td><td>boolean</td><td><a href="../../../../TypedValue/">Typed value</a></td><td><a href="../../../../ModelStated/">Model-stated</a></td><td><a href="../../../../rule-typed-value/">rule-typed-value</a></td></tr><tr id="ExtensionAttribute-valueCode"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-valueCode">valueCode</a></td><td>Code</td><td><a href="../../../../Coded/">Coded</a></td><td><a href="../../../../ModelStated/">Model-stated</a></td><td><a href="../../../../rule-coded/">rule-coded</a></td></tr><tr id="ExtensionAttribute-valueExtensionClass"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-valueExtensionClass">valueExtensionClass</a></td><td>ExtensionClass</td><td><a href="../../../../Composition/">Composition</a></td><td><a href="../../../../ModelStated/">Model-stated</a></td><td><a href="../../../../rule-composition/">rule-composition</a></td></tr><tr id="ExtensionAttribute-valueId"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-valueId">valueId</a></td><td>string</td><td><a href="../../../../ExtensionContent/">Extension content</a><br><span class="note">derived: <a href="../../../../UnclassifiedString/">Unclassified string</a></span></td><td><a href="../../../../Authored/">Authored</a></td><td>Value of an extension attribute given as an instance id in a string. No definition in USDM_CT.xlsx or dataStructure.yml.</td></tr><tr id="ExtensionAttribute-valueInteger"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-valueInteger">valueInteger</a></td><td>integer</td><td><a href="../../../../TypedValue/">Typed value</a></td><td><a href="../../../../ModelStated/">Model-stated</a></td><td><a href="../../../../rule-typed-value/">rule-typed-value</a></td></tr><tr id="ExtensionAttribute-valueQuantity"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-valueQuantity">valueQuantity</a></td><td>Quantity</td><td><a href="../../../../Composition/">Composition</a></td><td><a href="../../../../ModelStated/">Model-stated</a></td><td><a href="../../../../rule-composition/">rule-composition</a></td></tr><tr id="ExtensionAttribute-valueRange"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-valueRange">valueRange</a></td><td>Range</td><td><a href="../../../../Composition/">Composition</a></td><td><a href="../../../../ModelStated/">Model-stated</a></td><td><a href="../../../../rule-composition/">rule-composition</a></td></tr><tr id="ExtensionAttribute-valueString"><td><a href="https://w3id.org/cdisc/usdm/v4/ExtensionAttribute-valueString">valueString</a></td><td>string</td><td><a href="../../../../ExtensionContent/">Extension content</a><br><span class="note">derived: <a href="../../../../UnclassifiedString/">Unclassified string</a></span></td><td><a href="../../../../Authored/">Authored</a></td><td>Value of an extension attribute given as a string. No definition in USDM_CT.xlsx or dataStructure.yml.</td></tr>
+</table></div>
+<h2>Findings</h2><ul><li><a href="../../../../id/finding/extension-attributes-undefined/">Extension classes carry no definitions</a></li></ul>
+</main>
+</body>
+</html>

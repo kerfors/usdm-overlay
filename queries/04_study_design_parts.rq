@@ -1,0 +1,18 @@
+# What a study design is made of: the classes StudyDesign composes directly
+# (content kind Composition, notes excluded), with their roles.
+PREFIX uo:   <https://kerfors.github.io/usdm-overlay/>
+PREFIX usdm: <https://w3id.org/cdisc/usdm/v4/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?part ?attribute
+WHERE {
+    ?p rdfs:domain usdm:StudyDesign ; rdfs:range ?part ; rdfs:label ?attribute .
+    ?pa uo:about ?p ; uo:assignedKind uo:Composition .
+    FILTER NOT EXISTS { ?pb uo:refines ?pa }
+    FILTER (?p != usdm:StudyDesign-notes)
+    ?ca uo:about ?part ; uo:assignedKind ?r .
+    FILTER NOT EXISTS { ?cb uo:refines ?ca }
+    ?r skos:inScheme uo:ClassRoleScheme ; skos:prefLabel ?role .
+}
+ORDER BY ?role ?part

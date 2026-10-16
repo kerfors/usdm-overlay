@@ -1,0 +1,61 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix usdm: <https://w3id.org/cdisc/usdm/v4/> .
+@prefix uo: <https://kerfors.github.io/usdm-overlay/> .
+@prefix uoa: <https://kerfors.github.io/usdm-overlay/id/assessment/authored/classRole/> .
+@prefix uod: <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/> .
+@prefix ct: <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/> .
+
+# Authored class-role assessments. Hand-maintained.
+# Each refines the derived assessment of the same class (derived/class_role.ttl).
+# Quotes are verbatim from USDM_CT.xlsx, sheet "DDF Entities&Attributes", column Definition,
+# entity rows; scripts/validate_authored.py checks them.
+
+uoa:ScheduleTimelineExit a uo:Assessment ;
+    uo:about usdm:ScheduleTimelineExit ;
+    uo:assignedKind uo:StructuredEntity ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:ScheduleTimelineExit ;
+    uo:quote "To go out of or leave the schedule timeline." ;
+    uo:rationale "The class holds no payload. It is a node in the timeline structure, referenced from ScheduledActivityInstance.timelineExitId; its meaning is its position in that structure." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:ScheduleTimelineExit uo:classRole uo:StructuredEntity .
+
+uoa:StudyElement a uo:Assessment ;
+    uo:about usdm:StudyElement ;
+    uo:assignedKind uo:TextCarrier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyElement ;
+    uo:quote "A basic building block for time within a clinical study comprising the following characteristics: a description of what happens to the subject during the element; a definition of the start of the element; a rule for ending the element." ;
+    uo:rationale "The model holds the three characteristics in the definition as the description (naming) and two TransitionRule parts, transitionStartRule and transitionEndRule, each a text carrier. The only other payload is a reference to study interventions. The derived rule counts the two TransitionRules as parts and assigns Aggregate; read through its parts, the content of the element is text." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:StudyElement uo:classRole uo:TextCarrier .
+
+uoa:Substance a uo:Assessment ;
+    uo:about usdm:Substance ;
+    uo:assignedKind uo:StructuredEntity ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Substance ;
+    uo:rationale "The two parts are the strengths of the substance and a reference substance, another Substance. They describe the substance itself; the class does not gather study content the way an aggregate does." ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> .
+usdm:Substance uo:classRole uo:StructuredEntity .
+
+uoa:Duration a uo:Assessment ;
+    uo:about usdm:Duration ;
+    uo:assignedKind uo:StructuredEntity ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Duration ;
+    uo:quote "The length of time during which something continues." ;
+    uo:rationale "The length of time is held in quantity. text restates the duration as unstructured text, and reasonDurationWillVary is companion text to the boolean durationWillVary. The derived rule ties two read text attributes against two values and assigns Text carrier; the substance is the quantity." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Duration uo:classRole uo:StructuredEntity .
+
+uoa:StudyDefinitionDocumentVersion a uo:Assessment ;
+    uo:about usdm:StudyDefinitionDocumentVersion ;
+    uo:assignedKind uo:Aggregate ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyDefinitionDocumentVersion ;
+    uo:quote "A representation of a particular edition or snapshot of the study definition document as it exists at a particular point in time." ;
+    uo:rationale "The parts are the narrative content of the document edition (contents) and its governance dates (dateValues). The rest is the version string and a coded status. The derived rule needs parts to outnumber the other payload and finds a tie." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:StudyDefinitionDocumentVersion uo:classRole uo:Aggregate .

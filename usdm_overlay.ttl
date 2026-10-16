@@ -331,6 +331,27 @@ uo:ContactDetail
     skos:prefLabel "Contact detail" ;
     skos:definition "Part of a person name, a postal address or a job title. Authored kind." .
 
+# ---------------------------------------------------------------- text groups
+
+# Two collections that partition the Text subkinds for the class-role roll-up
+# (layer 2). They cut across the skos:broader hierarchy, so they are
+# collections, not concepts. scripts/validate_authored.py checks that every
+# narrower kind of uo:Text is in exactly one of them.
+
+uo:ReadText
+    a skos:Collection ;
+    skos:prefLabel "Read text" ;
+    skos:definition "Text kinds whose value is wording that states content for people to read: description, rationale, condition, classification, summary. Counts as text payload in the class-role roll-up." ;
+    skos:member uo:UnstructuredText, uo:StructuredText, uo:NarrativeText, uo:UnclassifiedString,
+        uo:LogicAsText, uo:ClassificationAsText, uo:Prose, uo:CompanionText .
+
+uo:StructureInString
+    a skos:Collection ;
+    skos:prefLabel "Structure held in a string" ;
+    skos:definition "Text kinds whose value names, identifies, cites, places or encodes something rather than stating content to be read. Does not count as text payload in the class-role roll-up." ;
+    skos:member uo:CodeComponent, uo:EncodedValue, uo:EmbeddedReference, uo:BusinessIdentifier,
+        uo:DocumentPosition, uo:DisplayLabel, uo:ContactDetail, uo:Citation, uo:LexicalVariant .
+
 # ---------------------------------------------------------------- rules
 
 uo:rule-identity a uo:Rule ; uo:order 1 ;
@@ -357,3 +378,138 @@ uo:rule-narrative-text a uo:Rule ; uo:order 11 ;
     skos:definition "Range is xsd:string and the definition contains \"narrative representation\" (case-insensitive). The bare word \"narrative\" is not used: it also matches the class name NarrativeContent." .
 uo:rule-unclassified-string a uo:Rule ; uo:order 12 ;
     skos:definition "Range is xsd:string and no earlier rule matched." .
+
+# ================================================================ layer 2: class roles
+
+uo:classRole
+    a owl:AnnotationProperty ;
+    rdfs:label "class role" ;
+    skos:definition "Links a usdm-rdf class to the role it plays in the model, judged by what the class itself holds. Shortcut for the assessment that carries the evidence." .
+
+# ---------------------------------------------------------------- class profile
+
+# Recorded on every derived class-role assessment. Model-stated. Attributes
+# are counted on the class and its superclasses, because usdm-rdf declares an
+# attribute only on the class that defines it. Payload excludes housekeeping,
+# naming and notes.
+
+uo:hasNaming
+    a owl:DatatypeProperty ;
+    rdfs:label "has naming" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:boolean ;
+    skos:definition "The class has at least one attribute of content kind Naming." .
+
+uo:isReferenced
+    a owl:DatatypeProperty ;
+    rdfs:label "is referenced" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Some attribute with relationship type Ref has the class or one of its superclasses in its range." .
+
+uo:composedInCount
+    a owl:DatatypeProperty ;
+    rdfs:label "composed in count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Number of distinct classes that declare an attribute with relationship type Value whose range includes the class or one of its superclasses." .
+
+uo:readTextCount
+    a owl:DatatypeProperty ;
+    rdfs:label "read text count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Payload attributes whose content kind is a member of uo:ReadText." .
+
+uo:stringStructureCount
+    a owl:DatatypeProperty ;
+    rdfs:label "string structure count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Payload attributes whose content kind is a member of uo:StructureInString." .
+
+uo:valueCount
+    a owl:DatatypeProperty ;
+    rdfs:label "value count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Payload attributes that are Coded or Typed value, or Composition of a value type." .
+
+uo:referenceCount
+    a owl:DatatypeProperty ;
+    rdfs:label "reference count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Payload attributes of content kind Reference." .
+
+uo:partCount
+    a owl:DatatypeProperty ;
+    rdfs:label "part count" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:integer ;
+    skos:definition "Payload attributes of content kind Composition whose range is not a value type." .
+
+# ---------------------------------------------------------------- class roles
+
+uo:ClassRoleScheme
+    a skos:ConceptScheme ;
+    skos:prefLabel "Class roles" ;
+    skos:definition "What a USDM class holds, judged from the content kinds of its attributes. How the class is used (composed in, referenced) is recorded separately in the class profile." .
+
+uo:ExtensionRole
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Extension" ;
+    skos:definition "Part of the extension mechanism: the range of extensionAttributes, or composed only by such classes." .
+
+uo:TemplatedText
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Templated text" ;
+    skos:definition "Holds read text together with a reference to a SyntaxTemplateDictionary that supplies its parameters." .
+
+uo:ValueType
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Value type" ;
+    skos:definition "Holds a value and nothing else: no naming, never referenced, no references, no parts, no read text. Also an abstract class whose subclasses are all value types." .
+
+uo:Aggregate
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Aggregate" ;
+    skos:definition "Holds mainly parts: instances of other classes that are not value types." .
+
+uo:TextCarrier
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Text carrier" ;
+    skos:definition "Holds mainly read text." .
+
+uo:StructuredEntity
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Structured entity" ;
+    skos:definition "Holds mainly coded values, typed values, references and parts." .
+
+uo:UnassignedRole
+    a skos:Concept ; skos:inScheme uo:ClassRoleScheme ; skos:topConceptOf uo:ClassRoleScheme ;
+    skos:prefLabel "Unassigned role" ;
+    skos:definition "The class has no payload, so the derivation assigns no role. Left to the authored layer." .
+
+# ---------------------------------------------------------------- class-role rules
+
+uo:ClassRoleRule
+    a owl:Class ;
+    rdfs:subClassOf uo:Rule ;
+    rdfs:label "Class-role rule" ;
+    skos:definition "A derivation rule for class roles. Ordered by uo:order within its own set; the first rule that matches decides." .
+
+uo:rule-role-extension a uo:ClassRoleRule ; uo:order 1 ;
+    skos:definition "The class is in the range of an attribute of content kind ExtensionPoint, or every class that composes it was matched by this rule." .
+uo:rule-role-templated-text a uo:ClassRoleRule ; uo:order 2 ;
+    skos:definition "The class has read text and a Reference attribute whose range is SyntaxTemplateDictionary." .
+uo:rule-role-value-type a uo:ClassRoleRule ; uo:order 3 ;
+    skos:definition "No naming, not referenced, no references, no parts, no read text, and at least one value or string-structure attribute; or abstract with every subclass a value type. Applied until no more classes match, since a composition of a value type counts as a value." .
+uo:rule-role-aggregate a uo:ClassRoleRule ; uo:order 4 ;
+    skos:definition "At least two parts, and more parts than read text, values, references and string structure together." .
+uo:rule-role-text-carrier a uo:ClassRoleRule ; uo:order 5 ;
+    skos:definition "At least one read text attribute, and no fewer than values, references, parts and string structure together." .
+uo:rule-role-structured-entity a uo:ClassRoleRule ; uo:order 6 ;
+    skos:definition "Any payload, and no earlier rule matched." .
+uo:rule-role-unassigned a uo:ClassRoleRule ; uo:order 7 ;
+    skos:definition "No payload." .

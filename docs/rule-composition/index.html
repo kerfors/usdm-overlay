@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rule-composition</title>
+<link rel="alternate" type="text/turtle" href="../graphs/overlay.ttl">
+<style>
+:root { --bg: #fdfdfb; --fg: #1d1d1b; --muted: #5f5f5a; --rule: #d9d9d2; --accent: #1f5c99; --code: #f1f1ec; }
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f; }
+}
+:root[data-theme="dark"] { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; margin: 0; }
+main { max-width: 64rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+a { color: var(--accent); }
+nav { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
+h1 { font-size: 1.6rem; margin: 0 0 0.25rem; }
+h2 { font-size: 1.2rem; margin-top: 2rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.25rem; }
+.iri { font-family: ui-monospace, monospace; font-size: 0.85rem; color: var(--muted); word-break: break-all; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; }
+dt { color: var(--muted); }
+dd { margin: 0; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; font-size: 0.9rem; width: 100%; }
+th, td { text-align: left; vertical-align: top; padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--rule); }
+th { color: var(--muted); font-weight: 600; }
+tr:target { background: var(--code); }
+pre, code { font-family: ui-monospace, monospace; font-size: 0.85rem; background: var(--code); }
+pre { padding: 0.75rem; overflow-x: auto; }
+blockquote { margin: 0.5rem 0; padding-left: 0.75rem; border-left: 3px solid var(--rule); color: var(--muted); }
+.note { color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+<nav><a href="../">usdm-overlay</a> · <a href="../reports/">reports</a> · <a href="../graphs/">graphs</a> · <a href="https://github.com/kerfors/usdm-overlay">repository</a></nav>
+<h1>rule-composition</h1>
+<p class="iri">https://kerfors.github.io/usdm-overlay/rule-composition</p>
+<dl><dt>type</dt><dd><a href="../Rule/">Rule</a></dd><dt>definition</dt><dd>Object property with relationship type Value.</dd><dt>order</dt><dd>8</dd></dl>
+
+</main>
+</body>
+</html>

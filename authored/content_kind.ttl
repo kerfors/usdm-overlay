@@ -2,8 +2,8 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix usdm: <https://w3id.org/cdisc/usdm/v4/> .
 @prefix uo: <https://kerfors.github.io/usdm-overlay/> .
-@prefix uoa: <https://kerfors.github.io/usdm-overlay/assessment/authored/contentKind/> .
-@prefix uod: <https://kerfors.github.io/usdm-overlay/assessment/contentKind/> .
+@prefix uoa: <https://kerfors.github.io/usdm-overlay/id/assessment/authored/contentKind/> .
+@prefix uod: <https://kerfors.github.io/usdm-overlay/id/assessment/contentKind/> .
 @prefix ct: <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/> .
 
 # Authored content-kind assessments. Hand-maintained.
@@ -608,3 +608,44 @@ uoa:ExtensionClass-url a uo:Assessment ;
     uo:rationale "Identifies the extension class definition. No definition in USDM_CT.xlsx or dataStructure.yml." ;
     dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> .
 usdm:ExtensionClass-url uo:contentKind uo:ExtensionContent .
+
+# ---------------------------------------------------------------- refinements of definition-stated text
+
+# The derived kinds below come from the words "structured text" or
+# "unstructured text" in the definition. The substance of the value is
+# narrower, and the class-role roll-up (layer 2) needs it.
+
+uoa:Identifier-text a uo:Assessment ;
+    uo:about usdm:Identifier-text ;
+    uo:assignedKind uo:BusinessIdentifier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Identifier-text ;
+    uo:quote "An instance of structured text that represents the identifier." ;
+    uo:rationale "The value is the identifier itself, issued within the organization that scopeId references. Inherited by all four Identifier subclasses. The derived assessment quotes the definition in usdm-rdf, which names the administrable product: dataStructure.yml carries a subclass's entry on this abstract-class attribute, see finding abstract-class-attribute-ccodes. The quote here is the abstract class's own entry in USDM_CT.xlsx." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Identifier-text uo:contentKind uo:BusinessIdentifier .
+
+uoa:PersonName-text a uo:Assessment ;
+    uo:about usdm:PersonName-text ;
+    uo:assignedKind uo:DisplayLabel ;
+    uo:labelOf usdm:PersonName-familyName ;
+    uo:labelOf usdm:PersonName-givenNames ;
+    uo:labelOf usdm:PersonName-prefixes ;
+    uo:labelOf usdm:PersonName-suffixes ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:PersonName-text ;
+    uo:quote "An instance of structured text that represents the person's full name." ;
+    uo:rationale "The full name as one string, next to the name parts the same instance holds. Same reading as Address.text." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:PersonName-text uo:contentKind uo:DisplayLabel .
+
+uoa:Abbreviation-abbreviatedText a uo:Assessment ;
+    uo:about usdm:Abbreviation-abbreviatedText ;
+    uo:assignedKind uo:LexicalVariant ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Abbreviation-abbreviatedText ;
+    uo:quote "The literal value of an instance of unstructured text that is used as the abbreviation." ;
+    uo:rationale "The short form of the term whose long form the same instance holds in expandedText." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Abbreviation-abbreviatedText uo:contentKind uo:LexicalVariant .
