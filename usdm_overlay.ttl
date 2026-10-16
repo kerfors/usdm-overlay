@@ -62,6 +62,78 @@ uo:quote
     rdfs:range xsd:string ;
     skos:definition "Verbatim text from the source that the assessment rests on." .
 
+uo:rationale
+    a owl:DatatypeProperty ;
+    rdfs:label "rationale" ;
+    rdfs:range xsd:string ;
+    skos:definition "Why an authored assessment assigns its kind, or why an authored finding is stated. Required on everything with evidence tier Authored." .
+
+uo:refines
+    a owl:ObjectProperty ;
+    rdfs:label "refines" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range uo:Assessment ;
+    skos:definition "The derived assessment that an authored assessment refines. Where both exist, the authored kind is the one to use; the derived one is kept as the record of what the model and its definitions alone say." .
+
+uo:companionOf
+    a owl:ObjectProperty ;
+    rdfs:label "companion of" ;
+    rdfs:domain uo:Assessment ;
+    skos:definition "For companion text: the sibling attribute, coded or typed, that the text qualifies." .
+
+uo:Finding
+    a owl:Class ;
+    rdfs:label "Finding" ;
+    skos:definition "A statement about the USDM model or its published examples, with its evidence and a test that can be re-run against the pinned inputs." .
+
+uo:statement
+    a owl:DatatypeProperty ;
+    rdfs:label "statement" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:string ;
+    skos:definition "The finding in plain language. Qualitative; counts belong in the derived observation." .
+
+uo:testQuery
+    a owl:DatatypeProperty ;
+    rdfs:label "test query" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:string ;
+    skos:definition "A SPARQL ASK query run against usdm_v4.ttl." .
+
+uo:expectedResult
+    a owl:DatatypeProperty ;
+    rdfs:label "expected result" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:boolean ;
+    skos:definition "The ASK result for which the finding holds." .
+
+uo:checkFunction
+    a owl:DatatypeProperty ;
+    rdfs:label "check function" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:string ;
+    skos:definition "Name of the function in scripts/check_findings.py that tests the finding against the pinned inputs, for tests that SPARQL over usdm_v4.ttl cannot express." .
+
+uo:holds
+    a owl:DatatypeProperty ;
+    rdfs:label "holds" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Whether the finding held when its test was last run. Derived." .
+
+uo:testedAgainst
+    a owl:ObjectProperty ;
+    rdfs:label "tested against" ;
+    rdfs:domain uo:Finding ;
+    skos:definition "The pinned input the test was run against. Derived." .
+
+uo:observation
+    a owl:DatatypeProperty ;
+    rdfs:label "observation" ;
+    rdfs:domain uo:Finding ;
+    rdfs:range xsd:string ;
+    skos:definition "What the test observed, including counts. Derived." .
+
 uo:Rule
     a owl:Class ;
     rdfs:label "Rule" ;
@@ -175,6 +247,26 @@ uo:UnclassifiedString
     a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
     skos:prefLabel "Unclassified string" ;
     skos:definition "String whose kind neither the model nor its definition states. Left to the authored layer." .
+
+uo:LogicAsText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Logic as text" ;
+    skos:definition "String holding a condition that decides what happens in the study, with no expression language and no reference to a structured condition. Authored kind." .
+
+uo:ClassificationAsText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Classification as text" ;
+    skos:definition "String holding a classification whose values could form a value set, but which the model leaves uncoded. Authored kind." .
+
+uo:Prose
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Prose" ;
+    skos:definition "String meant to be read by people: purpose, rationale, explanation. Authored kind." .
+
+uo:CompanionText
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Prose ;
+    skos:prefLabel "Companion text" ;
+    skos:definition "Prose that qualifies a coded or typed sibling attribute of the same class. The assessment names the sibling with uo:companionOf. Authored kind." .
 
 # ---------------------------------------------------------------- rules
 

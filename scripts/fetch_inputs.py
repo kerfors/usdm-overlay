@@ -17,6 +17,48 @@ INPUTS = [
         "tag": "v0.7.1",
         "path": "usdm_v4.ttl",
     },
+    {
+        "name": "USDM_CT.xlsx",
+        "repo": "cdisc-org/DDF-RA",
+        "tag": "v4.0.0",
+        "path": "Deliverables/CT/USDM_CT.xlsx",
+    },
+    {
+        "name": "dataStructure.yml",
+        "repo": "cdisc-org/DDF-RA",
+        "tag": "v4.0.0",
+        "path": "Deliverables/UML/dataStructure.yml",
+    },
+    {
+        "name": "examples/Alexion_NCT04573309_Wilsons.json",
+        "repo": "cdisc-org/DDF-RA",
+        "tag": "v4.0.0",
+        "path": "Documents/Examples/Alexion_NCT04573309_Wilsons/Alexion_NCT04573309_Wilsons.json",
+    },
+    {
+        "name": "examples/CDISC_Pilot_Study.json",
+        "repo": "cdisc-org/DDF-RA",
+        "tag": "v4.0.0",
+        "path": "Documents/Examples/CDISC_Pilot/CDISC_Pilot_Study.json",
+    },
+    {
+        "name": "examples/devices.json",
+        "repo": "cdisc-org/DDF-RA",
+        "tag": "v4.0.0",
+        "path": "Documents/Examples/Devices/devices.json",
+    },
+    {
+        "name": "examples/EliLilly_NCT03421379_Diabetes.json",
+        "repo": "cdisc-org/DDF-RA",
+        "tag": "v4.0.0",
+        "path": "Documents/Examples/EliLilly_NCT03421379_Diabetes/EliLilly_NCT03421379_Diabetes.json",
+    },
+    {
+        "name": "examples/observational.json",
+        "repo": "cdisc-org/DDF-RA",
+        "tag": "v4.0.0",
+        "path": "Documents/Examples/Observational/observational.json",
+    },
 ]
 
 
@@ -51,6 +93,7 @@ def main():
     for item in INPUTS:
         url = f"https://raw.githubusercontent.com/{item['repo']}/{item['tag']}/{item['path']}"
         target = DOWNLOADS / item["name"]
+        target.parent.mkdir(parents=True, exist_ok=True)
         urllib.request.urlretrieve(url, target)
         commit = tag_commit(item["repo"], item["tag"])
         lines.append(

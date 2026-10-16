@@ -1,0 +1,47 @@
+# Derived by scripts/check_findings.py from the pinned inputs. Do not edit by hand.
+@prefix uo: <https://kerfors.github.io/usdm-overlay/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://kerfors.github.io/usdm-overlay/finding/abstract-class-attribute-ccodes> uo:holds true ;
+    uo:observation "27 of 388 C-coded attributes in dataStructure.yml differ from USDM_CT.xlsx. All differences are on abstract classes (Identifier 1, PopulationDefinition 9, ScheduledInstance 3, StudyDesign 9, SyntaxTemplate 5); 27 C-coded attributes are declared on abstract classes in total. usdm-rdf skos:exactMatch follows the YAML code for all 27." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx>,
+        <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/UML/dataStructure.yml>,
+        <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
+
+<https://kerfors.github.io/usdm-overlay/finding/condition-not-referenced> uo:holds true ;
+    uo:observation "ASK returned true, expected true." ;
+    uo:testedAgainst <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
+
+<https://kerfors.github.io/usdm-overlay/finding/design-elements-not-linked-to-document> uo:holds true ;
+    uo:observation "ASK returned false, expected false." ;
+    uo:testedAgainst <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
+
+<https://kerfors.github.io/usdm-overlay/finding/document-content-reference-amendments-only> uo:holds true ;
+    uo:observation "ASK returned false, expected false." ;
+    uo:testedAgainst <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
+
+<https://kerfors.github.io/usdm-overlay/finding/endpoint-activity-gap> uo:holds true ;
+    uo:observation "ASK returned false, expected false." ;
+    uo:testedAgainst <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
+
+<https://kerfors.github.io/usdm-overlay/finding/intercurrent-event-strategy-textual> uo:holds true ;
+    uo:observation "C188857 Intercurrent Event Strategy: A textual description of the planned strategy to manage and/or mitigate intercurrent events. Has Value List N." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx> .
+
+<https://kerfors.github.io/usdm-overlay/finding/narrative-references-by-markup> uo:holds true ;
+    uo:observation "Alexion_NCT04573309_Wilsons.json: 467 usdm:ref in 105 narrative items, 17 classes; CDISC_Pilot_Study.json: 350 usdm:ref in 85 narrative items, 14 classes; EliLilly_NCT03421379_Diabetes.json: 234 usdm:ref in 112 narrative items, 16 classes; devices.json: 41 usdm:ref in 133 narrative items, 14 classes; observational.json: 26 usdm:ref in 6 narrative items, 11 classes. dataStructure.yml mentions usdm:ref: no." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/UML/dataStructure.yml>,
+        <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+<https://kerfors.github.io/usdm-overlay/finding/population-summary-term-vs-definition> uo:holds true ;
+    uo:observation "C188853 Population-Level Summary: A synopsis of the clinical endpoint of interest within the analysis target study population. Has Value List N." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx> .
+
+<https://kerfors.github.io/usdm-overlay/finding/procedure-type-uncoded> uo:holds true ;
+    uo:observation "Procedure.procedureType (C188848): Has Value List N. Endpoint.level (C188826): Has Value List Y (C188726)." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx> .
+
+<https://kerfors.github.io/usdm-overlay/finding/syntax-template-parameters-rarely-used> uo:holds true ;
+    uo:observation "Syntax-template instances with a dictionary: 13 of 245. Per example: Alexion_NCT04573309_Wilsons.json: 1 of 87; CDISC_Pilot_Study.json: 4 of 51; EliLilly_NCT03421379_Diabetes.json: 0 of 73; devices.json: 3 of 17; observational.json: 5 of 17." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+

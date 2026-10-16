@@ -11,7 +11,8 @@ that matches no rule stops the build.
 from collections import defaultdict
 from pathlib import Path
 
-from rdflib import Graph, Literal, Namespace, URIRef
+from rdflib import BNode, Graph, Literal, Namespace, URIRef
+from rdflib.collection import Collection
 from rdflib.namespace import DCTERMS, OWL, RDF, RDFS, SKOS, XSD
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -122,7 +123,11 @@ def main():
             out.add((a, UO.quote, Literal(quote)))
         domain = str(g.value(prop, RDFS.domain)).split("/")[-1]
         rng = g.value(prop, RDFS.range)
-        rng_local = str(rng).split("/")[-1].split("#")[-1]
+        if isinstance(rng, BNode):
+            members = Collection(g, g.value(rng, OWL.unionOf))
+            rng_local = " or ".join(sorted(str(m).split("/")[-1] for m in members))
+        else:
+            rng_local = str(rng).split("/")[-1].split("#")[-1]
         by_kind[kind].append((domain, local.split("-", 1)[1], rng_local, quote))
 
     (ROOT / "derived").mkdir(exist_ok=True)

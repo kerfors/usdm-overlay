@@ -1,0 +1,156 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix usdm: <https://w3id.org/cdisc/usdm/v4/> .
+@prefix uo: <https://kerfors.github.io/usdm-overlay/> .
+@prefix uof: <https://kerfors.github.io/usdm-overlay/finding/> .
+@prefix ct: <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/> .
+@prefix uml: <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/UML/> .
+@prefix rdfrepo: <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/> .
+
+# Findings about the USDM v4 model and its published examples. Hand-maintained.
+# Each finding has one test: a SPARQL ASK query over usdm_v4.ttl (uo:testQuery with
+# uo:expectedResult), or a named function in scripts/check_findings.py (uo:checkFunction).
+# Statements are qualitative; counts are written by the check script to
+# derived/finding_results.ttl and reports/findings.md.
+
+# ---------------------------------------------------------------- missing links
+
+uof:endpoint-activity-gap a uo:Finding ;
+    dcterms:title "No link between Endpoint and what it requires" ;
+    uo:statement "No property connects Endpoint, or its superclass SyntaxTemplate, to Activity, Procedure, ScheduledActivityInstance or the biomedical concept classes, in either direction. The model does not carry which activities or biomedical concepts an endpoint depends on." ;
+    dcterms:subject usdm:Endpoint, usdm:Activity, usdm:BiomedicalConcept, usdm:Procedure ;
+    uo:evidenceTier uo:ModelStated ;
+    uo:testQuery """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX usdm: <https://w3id.org/cdisc/usdm/v4/>
+ASK {
+    {
+        VALUES ?d { usdm:Endpoint usdm:SyntaxTemplate }
+        VALUES ?r { usdm:Activity usdm:Procedure usdm:ScheduledActivityInstance usdm:ScheduledInstance
+                    usdm:BiomedicalConcept usdm:BiomedicalConceptCategory usdm:BiomedicalConceptSurrogate }
+        ?p rdfs:domain ?d ; rdfs:range/(owl:unionOf/rdf:rest*/rdf:first)? ?r .
+    } UNION {
+        VALUES ?d { usdm:Activity usdm:Procedure usdm:ScheduledActivityInstance usdm:ScheduledInstance
+                    usdm:BiomedicalConcept usdm:BiomedicalConceptCategory usdm:BiomedicalConceptSurrogate }
+        VALUES ?r { usdm:Endpoint usdm:SyntaxTemplate }
+        ?p rdfs:domain ?d ; rdfs:range/(owl:unionOf/rdf:rest*/rdf:first)? ?r .
+    }
+}""" ;
+    uo:expectedResult false ;
+    dcterms:source rdfrepo:usdm_v4.ttl .
+
+uof:design-elements-not-linked-to-document a uo:Finding ;
+    dcterms:title "Objectives, endpoints and criteria have no link to document sections" ;
+    uo:statement "No property connects Objective, Endpoint, EligibilityCriterion or EligibilityCriterionItem to the document structure (StudyDefinitionDocument, StudyDefinitionDocumentVersion, NarrativeContent, NarrativeContentItem, DocumentContentReference), in either direction." ;
+    dcterms:subject usdm:Objective, usdm:Endpoint, usdm:EligibilityCriterion, usdm:EligibilityCriterionItem, usdm:NarrativeContent ;
+    uo:evidenceTier uo:ModelStated ;
+    uo:testQuery """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX usdm: <https://w3id.org/cdisc/usdm/v4/>
+ASK {
+    {
+        VALUES ?d { usdm:Objective usdm:Endpoint usdm:SyntaxTemplate usdm:EligibilityCriterion usdm:EligibilityCriterionItem }
+        VALUES ?r { usdm:StudyDefinitionDocument usdm:StudyDefinitionDocumentVersion usdm:NarrativeContent
+                    usdm:NarrativeContentItem usdm:DocumentContentReference }
+        ?p rdfs:domain ?d ; rdfs:range/(owl:unionOf/rdf:rest*/rdf:first)? ?r .
+    } UNION {
+        VALUES ?d { usdm:StudyDefinitionDocument usdm:StudyDefinitionDocumentVersion usdm:NarrativeContent
+                    usdm:NarrativeContentItem usdm:DocumentContentReference }
+        VALUES ?r { usdm:Objective usdm:Endpoint usdm:SyntaxTemplate usdm:EligibilityCriterion usdm:EligibilityCriterionItem }
+        ?p rdfs:domain ?d ; rdfs:range/(owl:unionOf/rdf:rest*/rdf:first)? ?r .
+    }
+}""" ;
+    uo:expectedResult false ;
+    dcterms:source rdfrepo:usdm_v4.ttl .
+
+uof:document-content-reference-amendments-only a uo:Finding ;
+    dcterms:title "Section references are used only for amendment changes" ;
+    uo:statement "DocumentContentReference, the class that points at a document section by number and title, is the range of one property only: StudyChange.changedSections." ;
+    dcterms:subject usdm:DocumentContentReference, usdm:StudyChange ;
+    uo:evidenceTier uo:ModelStated ;
+    uo:testQuery """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX usdm: <https://w3id.org/cdisc/usdm/v4/>
+ASK {
+    ?p rdfs:range/(owl:unionOf/rdf:rest*/rdf:first)? usdm:DocumentContentReference .
+    FILTER (?p != usdm:StudyChange-changedSections)
+}""" ;
+    uo:expectedResult false ;
+    dcterms:source rdfrepo:usdm_v4.ttl .
+
+uof:condition-not-referenced a uo:Finding ;
+    dcterms:title "Schedule conditions are strings, not Condition instances" ;
+    uo:statement "ConditionAssignment.condition and ScheduleTimeline.entryCondition have range xsd:string. The model has a Condition class, but neither attribute references it." ;
+    dcterms:subject usdm:ConditionAssignment, usdm:ScheduleTimeline, usdm:Condition ;
+    uo:evidenceTier uo:ModelStated ;
+    uo:testQuery """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX usdm: <https://w3id.org/cdisc/usdm/v4/>
+ASK {
+    usdm:Condition a owl:Class .
+    usdm:ConditionAssignment-condition rdfs:range xsd:string .
+    usdm:ScheduleTimeline-entryCondition rdfs:range xsd:string .
+}""" ;
+    uo:expectedResult true ;
+    dcterms:source rdfrepo:usdm_v4.ttl .
+
+# ---------------------------------------------------------------- model files
+
+uof:abstract-class-attribute-ccodes a uo:Finding ;
+    dcterms:title "Abstract-class attributes carry a subclass's C-code" ;
+    uo:statement "For attributes declared on abstract classes, dataStructure.yml carries the C-code, preferred term and definition of one concrete subclass, not the abstract class's own entry in USDM_CT.xlsx. usdm-rdf renders the YAML, so its skos:exactMatch on these properties points to the subclass concept. Example: SyntaxTemplate.text carries C207478 Characteristic Text; USDM_CT.xlsx lists C207578 Syntax Template Text for SyntaxTemplate.text." ;
+    dcterms:subject usdm:SyntaxTemplate, usdm:Identifier, usdm:PopulationDefinition, usdm:ScheduledInstance, usdm:StudyDesign ;
+    uo:evidenceTier uo:ModelStated ;
+    uo:checkFunction "abstract_class_attribute_ccodes" ;
+    dcterms:source uml:dataStructure.yml, ct:USDM_CT.xlsx, rdfrepo:usdm_v4.ttl .
+
+uof:procedure-type-uncoded a uo:Finding ;
+    dcterms:title "Procedure type is an uncoded classification" ;
+    uo:statement "Procedure.procedureType and Endpoint.level share the definition pattern \"A characterization or classification of ...\". Endpoint.level has a value list; Procedure.procedureType has none and is a string." ;
+    dcterms:subject usdm:Procedure, usdm:Endpoint ;
+    uo:evidenceTier uo:DefinitionStated ;
+    uo:checkFunction "procedure_type_uncoded" ;
+    dcterms:source ct:USDM_CT.xlsx .
+
+uof:population-summary-term-vs-definition a uo:Finding ;
+    dcterms:title "Population-level summary: term and definition disagree" ;
+    uo:statement "Estimand.populationSummary has the preferred term \"Population-Level Summary\", the ICH E9(R1) estimand attribute. Its definition, \"A synopsis of the clinical endpoint of interest within the analysis target study population\", describes a narrative synopsis. The attribute is left unclassified in the overlay until the two are reconciled." ;
+    dcterms:subject usdm:Estimand ;
+    uo:evidenceTier uo:Authored ;
+    uo:rationale "ICH E9(R1), section A.3.3, describes the attribute as a population-level summary for the variable, providing a basis for comparison between treatment conditions. Read that way the value is a statistical summary measure, close to a classification. Read by the NCI definition it is prose." ;
+    uo:checkFunction "population_summary_term_vs_definition" ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://www.ema.europa.eu/documents/scientific-guideline/ich-e9-r1-addendum-estimands-sensitivity-analysis-clinical-trials-guideline-statistical-principles_en.pdf> .
+
+uof:intercurrent-event-strategy-textual a uo:Finding ;
+    dcterms:title "Intercurrent event strategy: fixed set, specified as text" ;
+    uo:statement "IntercurrentEvent.strategy is defined as a textual description and has no value list. ICH E9(R1), section A.3.2, names five strategies: treatment policy, hypothetical, composite variable, while on treatment, principal stratum. The overlay classifies the attribute as classification as text; read by its definition alone it would be prose." ;
+    dcterms:subject usdm:IntercurrentEvent ;
+    uo:evidenceTier uo:Authored ;
+    uo:rationale "The substance is one of a fixed set named by the guideline, possibly with explanation. Classifying by substance shows where a value list could carry meaning that the model holds as text." ;
+    uo:checkFunction "intercurrent_event_strategy_textual" ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://www.ema.europa.eu/documents/scientific-guideline/ich-e9-r1-addendum-estimands-sensitivity-analysis-clinical-trials-guideline-statistical-principles_en.pdf> .
+
+# ---------------------------------------------------------------- published examples
+
+uof:narrative-references-by-markup a uo:Finding ;
+    dcterms:title "Narrative refers to model instances by markup in text" ;
+    uo:statement "In the published examples, NarrativeContentItem.text refers to model instances by usdm:ref elements inside the XHTML string, each naming a class (klass), an instance (id) and one attribute. The reference runs from the section to one attribute value. dataStructure.yml does not mention the convention." ;
+    dcterms:subject usdm:NarrativeContentItem ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "narrative_references_by_markup" ;
+    dcterms:source uml:dataStructure.yml ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:syntax-template-parameters-rarely-used a uo:Finding ;
+    dcterms:title "Syntax-template parameters are rarely used" ;
+    uo:statement "In the published examples, most syntax-template instances (Objective, Endpoint, EligibilityCriterionItem, IntercurrentEvent, Condition, Characteristic) have no dictionary, so their text carries no parameters the model can see." ;
+    dcterms:subject usdm:SyntaxTemplate, usdm:SyntaxTemplateDictionary ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "syntax_template_parameters_rarely_used" ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .

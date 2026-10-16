@@ -1,0 +1,134 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix usdm: <https://w3id.org/cdisc/usdm/v4/> .
+@prefix uo: <https://kerfors.github.io/usdm-overlay/> .
+@prefix uoa: <https://kerfors.github.io/usdm-overlay/assessment/authored/contentKind/> .
+@prefix uod: <https://kerfors.github.io/usdm-overlay/assessment/contentKind/> .
+@prefix ct: <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/> .
+
+# Authored content-kind assessments. Hand-maintained.
+# Each refines the derived assessment of the same attribute (derived/content_kind.ttl).
+# Quotes are verbatim from USDM_CT.xlsx, sheet "DDF Entities&Attributes", column Definition;
+# scripts/validate_authored.py checks them.
+
+# ---------------------------------------------------------------- logic as text
+
+uoa:ConditionAssignment-condition a uo:Assessment ;
+    uo:about usdm:ConditionAssignment-condition ;
+    uo:assignedKind uo:LogicAsText ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:ConditionAssignment-condition ;
+    uo:quote "An assumption on which rests the validity or effect of something else." ;
+    uo:rationale "The attribute holds the condition under which the decision instance moves to its target scheduled instance. The range is xsd:string and USDM_CT.xlsx gives no value list. The model has a Condition class, but this attribute does not reference it; the logic is held as text." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:ConditionAssignment-condition uo:contentKind uo:LogicAsText .
+
+uoa:ScheduleTimeline-entryCondition a uo:Assessment ;
+    uo:about usdm:ScheduleTimeline-entryCondition ;
+    uo:assignedKind uo:LogicAsText ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:ScheduleTimeline-entryCondition ;
+    uo:quote "A logical evaluation on which rests the validity of entry into a schedule timeline." ;
+    uo:rationale "The definition describes a logical evaluation. The range is xsd:string, USDM_CT.xlsx gives no value list, and the attribute does not reference the Condition class. The logic is held as text." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:ScheduleTimeline-entryCondition uo:contentKind uo:LogicAsText .
+
+# ---------------------------------------------------------------- classification as text
+
+uoa:Procedure-procedureType a uo:Assessment ;
+    uo:about usdm:Procedure-procedureType ;
+    uo:assignedKind uo:ClassificationAsText ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Procedure-procedureType ;
+    uo:quote "A characterization or classification of the study procedure." ;
+    uo:rationale "The definition calls the value a classification, but USDM_CT.xlsx gives no value list and the range is xsd:string. The same definition pattern is coded elsewhere in the model, see finding procedure-type-uncoded." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Procedure-procedureType uo:contentKind uo:ClassificationAsText .
+
+uoa:IntercurrentEvent-strategy a uo:Assessment ;
+    uo:about usdm:IntercurrentEvent-strategy ;
+    uo:assignedKind uo:ClassificationAsText ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:IntercurrentEvent-strategy ;
+    uo:quote "A textual description of the planned strategy to manage and/or mitigate intercurrent events." ;
+    uo:rationale "ICH E9(R1) names a fixed set of strategies for intercurrent events, so the substance is a classification. The definition asks for a textual description and USDM_CT.xlsx gives no value list. Classified by substance; the conflict is recorded as finding intercurrent-event-strategy-textual." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://www.ema.europa.eu/documents/scientific-guideline/ich-e9-r1-addendum-estimands-sensitivity-analysis-clinical-trials-guideline-statistical-principles_en.pdf> .
+usdm:IntercurrentEvent-strategy uo:contentKind uo:ClassificationAsText .
+
+# ---------------------------------------------------------------- prose
+
+uoa:Endpoint-purpose a uo:Assessment ;
+    uo:about usdm:Endpoint-purpose ;
+    uo:assignedKind uo:Prose ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Endpoint-purpose ;
+    uo:quote "The textual representation of the study endpoint purpose." ;
+    uo:rationale "Free text describing why the endpoint is measured, for human readers. No value list." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Endpoint-purpose uo:contentKind uo:Prose .
+
+uoa:StudyDesign-rationale a uo:Assessment ;
+    uo:about usdm:StudyDesign-rationale ;
+    uo:assignedKind uo:Prose ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyDesign-rationale ;
+    uo:quote "Reason(s) for choosing the study design." ;
+    uo:rationale "Scientific reasoning for the design, written for human readers. No value list." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:StudyDesign-rationale uo:contentKind uo:Prose .
+
+uoa:StudyVersion-rationale a uo:Assessment ;
+    uo:about usdm:StudyVersion-rationale ;
+    uo:assignedKind uo:Prose ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyVersion-rationale ;
+    uo:quote "A statement describing the overall rationale of the study." ;
+    uo:rationale "Statement of the study's rationale, written for human readers. No value list." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:StudyVersion-rationale uo:contentKind uo:Prose .
+
+uoa:StudyChange-rationale a uo:Assessment ;
+    uo:about usdm:StudyChange-rationale ;
+    uo:assignedKind uo:Prose ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyChange-rationale ;
+    uo:quote "An explanation as to the logical reasons for why a study change has occurred." ;
+    uo:rationale "Explanation of a change, written for human readers. No value list." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:StudyChange-rationale uo:contentKind uo:Prose .
+
+# ---------------------------------------------------------------- companion text
+
+uoa:StudyAmendmentReason-otherReason a uo:Assessment ;
+    uo:about usdm:StudyAmendmentReason-otherReason ;
+    uo:assignedKind uo:CompanionText ;
+    uo:companionOf usdm:StudyAmendmentReason-code ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyAmendmentReason-otherReason ;
+    uo:quote "The rationale for the change(s) to, or formal clarification of, a protocol that is not otherwise specified." ;
+    uo:rationale "Free text for a reason that the coded sibling attribute code does not cover. Its meaning depends on that code." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:StudyAmendmentReason-otherReason uo:contentKind uo:CompanionText .
+
+uoa:StudyArm-dataOriginDescription a uo:Assessment ;
+    uo:about usdm:StudyArm-dataOriginDescription ;
+    uo:assignedKind uo:CompanionText ;
+    uo:companionOf usdm:StudyArm-dataOriginType ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyArm-dataOriginDescription ;
+    uo:quote "The textual representation of the study arm data origin." ;
+    uo:rationale "Free text describing the data origin that the coded sibling attribute dataOriginType classifies." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:StudyArm-dataOriginDescription uo:contentKind uo:CompanionText .
+
+uoa:Duration-reasonDurationWillVary a uo:Assessment ;
+    uo:about usdm:Duration-reasonDurationWillVary ;
+    uo:assignedKind uo:CompanionText ;
+    uo:companionOf usdm:Duration-durationWillVary ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Duration-reasonDurationWillVary ;
+    uo:quote "The explanation for why the event duration will vary within and/or across subjects." ;
+    uo:rationale "Free text explaining the boolean sibling attribute durationWillVary." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Duration-reasonDurationWillVary uo:contentKind uo:CompanionText .
