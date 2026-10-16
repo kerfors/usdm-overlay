@@ -22,7 +22,7 @@ Every assertion says what it rests on:
 | --- | --- |
 | Model-stated | Follows from the model structure as rendered: range, relationship type, attribute name. |
 | Definition-stated | Follows from the wording of the NCI definition CDISC attached to the term. The quote is recorded. |
-| Example-observed | Seen in the example study files CDISC publishes, not stated in the model. |
+| Example-observed | Seen in the example study files CDISC publishes, not stated in the model. The examples are not mature study definitions, so these findings say what the published files contain, not how USDM is or should be used. |
 | Authored | A reading by the overlay author, with a stated rationale. |
 
 Derived assessments also name the rule that produced them. Authored assessments

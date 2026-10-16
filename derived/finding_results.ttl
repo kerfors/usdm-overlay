@@ -25,6 +25,10 @@
     uo:observation "ASK returned false, expected false." ;
     uo:testedAgainst <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
 
+<https://kerfors.github.io/usdm-overlay/finding/eligibility-identifier-needs-category> uo:holds true ;
+    uo:observation "Alexion_NCT04573309_Wilsons.json InterventionalStudyDesign_1: 31 criteria, 12 identifiers repeated, 0 repeated within a category; CDISC_Pilot_Study.json InterventionalStudyDesign_1: 31 criteria, 0 identifiers repeated, 0 repeated within a category; EliLilly_NCT03421379_Diabetes.json InterventionalStudyDesign_1: 36 criteria, 0 identifiers repeated, 0 repeated within a category; devices.json InterventionalStudyDesign_1: 4 criteria, 0 identifiers repeated, 0 repeated within a category; observational.json ObservationalStudyDesign_1: 5 criteria, 2 identifiers repeated, 0 repeated within a category." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
 <https://kerfors.github.io/usdm-overlay/finding/endpoint-activity-gap> uo:holds true ;
     uo:observation "ASK returned false, expected false." ;
     uo:testedAgainst <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
@@ -50,13 +54,27 @@
     uo:observation "Procedure.procedureType (C188848): Has Value List N. Endpoint.level (C188826): Has Value List Y (C188726)." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx> .
 
+<https://kerfors.github.io/usdm-overlay/finding/study-amendment-number-not-numerals> uo:holds true ;
+    uo:observation "11 StudyAmendment.number values; not all digits: EliLilly_NCT03421379_Diabetes.json 'A'." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx>,
+        <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
 <https://kerfors.github.io/usdm-overlay/finding/syntax-template-parameters-rarely-used> uo:holds true ;
     uo:observation "Syntax-template instances with a dictionary: 13 of 245. Per example: Alexion_NCT04573309_Wilsons.json: 1 of 87; CDISC_Pilot_Study.json: 4 of 51; EliLilly_NCT03421379_Diabetes.json: 0 of 73; devices.json: 3 of 17; observational.json: 5 of 17." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+<https://kerfors.github.io/usdm-overlay/finding/template-tags-by-markup> uo:holds true ;
+    uo:observation "16 usdm:tag elements in 13 texts; stored tags containing angle brackets: 0. Unresolved: observational.json EligibilityCriterionItem_2 'max_agexxx'." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx>,
+        <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 
 <https://kerfors.github.io/usdm-overlay/finding/timing-iso8601-convention> uo:holds true ;
     uo:observation "ISO 8601 durations among non-empty values: value 153 of 153; windowLower 30 of 30; windowUpper 30 of 30. '8601' in dataStructure.yml: no; in USDM_CT.xlsx definitions: no." ;
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx>,
         <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/UML/dataStructure.yml>,
         <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+<https://kerfors.github.io/usdm-overlay/finding/timing-labels-restate-values> uo:holds true ;
+    uo:observation "76 distinct Timing.value values; 8 carry more than one valueLabel: P14D: '14 Days', '14 days'; P1D: '1 Day', '1 Days'; P2D: '2 Days', '2 days'; P2W: '2 Weeks', '2 weeks'; PT0M: '0 min', '0 mins', '0 minutes'; PT15M: '15 min', '15 mins'; PT30M: '30 min', '30 mins', '30 minutes'; PT5M: '5 min', '5 mins'." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 

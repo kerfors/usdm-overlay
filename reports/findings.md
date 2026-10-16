@@ -10,14 +10,18 @@ Statements are in `authored/findings.ttl`; this report adds what each test obser
 | [Schedule conditions are strings, not Condition instances](#condition-not-referenced) | Model-stated | yes |
 | [Objectives, endpoints and criteria have no link to document sections](#design-elements-not-linked-to-document) | Model-stated | yes |
 | [Section references are used only for amendment changes](#document-content-reference-amendments-only) | Model-stated | yes |
+| [Eligibility identifier identifies only together with the category](#eligibility-identifier-needs-category) | Example-observed | yes |
 | [No link between Endpoint and what it requires](#endpoint-activity-gap) | Model-stated | yes |
 | [Intercurrent event strategy: fixed set, specified as text](#intercurrent-event-strategy-textual) | Authored | yes |
 | [Narrative refers to model instances by markup in text](#narrative-references-by-markup) | Example-observed | yes |
 | [Syntax-template parameters resolve through markup](#parameter-reference-by-markup) | Example-observed | yes |
 | [Population-level summary: term and definition disagree](#population-summary-term-vs-definition) | Authored | yes |
 | [Procedure type is an uncoded classification](#procedure-type-uncoded) | Definition-stated | yes |
+| [Amendment number: definition says numerals, an example uses a letter](#study-amendment-number-not-numerals) | Example-observed | yes |
 | [Syntax-template parameters are rarely used](#syntax-template-parameters-rarely-used) | Example-observed | yes |
+| [Template parameters are matched by name inside text](#template-tags-by-markup) | Example-observed | yes |
 | [Timing values follow ISO 8601 by convention only](#timing-iso8601-convention) | Example-observed | yes |
+| [Timing labels are typed, not generated from the value](#timing-labels-restate-values) | Example-observed | yes |
 
 ## Abstract-class attributes carry a subclass's C-code
 
@@ -58,6 +62,14 @@ No property connects Objective, Endpoint, EligibilityCriterion or EligibilityCri
 DocumentContentReference, the class that points at a document section by number and title, is the range of one property only: StudyChange.changedSections.
 
 **Observed:** ASK returned false, expected false.
+
+## Eligibility identifier identifies only together with the category
+
+<a id="eligibility-identifier-needs-category"></a>`eligibility-identifier-needs-category` · Example-observed
+
+In some published examples, EligibilityCriterion.identifier restarts per category (inclusion and exclusion each start at 1) and is not repeated within a category. The identifier alone does not identify a criterion; the identifier with the category does.
+
+**Observed:** Alexion_NCT04573309_Wilsons.json InterventionalStudyDesign_1: 31 criteria, 12 identifiers repeated, 0 repeated within a category; CDISC_Pilot_Study.json InterventionalStudyDesign_1: 31 criteria, 0 identifiers repeated, 0 repeated within a category; EliLilly_NCT03421379_Diabetes.json InterventionalStudyDesign_1: 36 criteria, 0 identifiers repeated, 0 repeated within a category; devices.json InterventionalStudyDesign_1: 4 criteria, 0 identifiers repeated, 0 repeated within a category; observational.json ObservationalStudyDesign_1: 5 criteria, 2 identifiers repeated, 0 repeated within a category.
 
 ## No link between Endpoint and what it requires
 
@@ -107,6 +119,14 @@ Procedure.procedureType and Endpoint.level share the definition pattern "A chara
 
 **Observed:** Procedure.procedureType (C188848): Has Value List N. Endpoint.level (C188826): Has Value List Y (C188726).
 
+## Amendment number: definition says numerals, an example uses a letter
+
+<a id="study-amendment-number-not-numerals"></a>`study-amendment-number-not-numerals` · Example-observed
+
+StudyAmendment.number is defined as "A string of numerals that uniquely identifies a protocol amendment." A published example uses a letter.
+
+**Observed:** 11 StudyAmendment.number values; not all digits: EliLilly_NCT03421379_Diabetes.json 'A'.
+
 ## Syntax-template parameters are rarely used
 
 <a id="syntax-template-parameters-rarely-used"></a>`syntax-template-parameters-rarely-used` · Example-observed
@@ -115,6 +135,14 @@ In the published examples, most syntax-template instances (Objective, Endpoint, 
 
 **Observed:** Syntax-template instances with a dictionary: 13 of 245. Per example: Alexion_NCT04573309_Wilsons.json: 1 of 87; CDISC_Pilot_Study.json: 4 of 51; EliLilly_NCT03421379_Diabetes.json: 0 of 73; devices.json: 3 of 17; observational.json: 5 of 17.
 
+## Template parameters are matched by name inside text
+
+<a id="template-tags-by-markup"></a>`template-tags-by-markup` · Example-observed
+
+Syntax-template text marks parameters with usdm:tag elements that name a ParameterMap.tag. The stored tag is a bare name; the angle brackets that the NCI definition of ParameterMap.tag describes appear only in the template text. Resolution is by name inside a string, so a tag can lack a matching ParameterMap, and the published examples include such a case.
+
+**Observed:** 16 usdm:tag elements in 13 texts; stored tags containing angle brackets: 0. Unresolved: observational.json EligibilityCriterionItem_2 'max_agexxx'.
+
 ## Timing values follow ISO 8601 by convention only
 
 <a id="timing-iso8601-convention"></a>`timing-iso8601-convention` · Example-observed
@@ -122,3 +150,11 @@ In the published examples, most syntax-template instances (Objective, Endpoint, 
 In the published examples, every non-empty Timing.value, windowLower and windowUpper is an ISO 8601 duration. Neither dataStructure.yml nor USDM_CT.xlsx names a syntax for them; the range is xsd:string.
 
 **Observed:** ISO 8601 durations among non-empty values: value 153 of 153; windowLower 30 of 30; windowUpper 30 of 30. '8601' in dataStructure.yml: no; in USDM_CT.xlsx definitions: no.
+
+## Timing labels are typed, not generated from the value
+
+<a id="timing-labels-restate-values"></a>`timing-labels-restate-values` · Example-observed
+
+Timing.valueLabel restates Timing.value in free text. In the published examples the same value carries differently spelled labels, so the label is not generated from the value.
+
+**Observed:** 76 distinct Timing.value values; 8 carry more than one valueLabel: P14D: '14 Days', '14 days'; P1D: '1 Day', '1 Days'; P2D: '2 Days', '2 days'; P2W: '2 Weeks', '2 weeks'; PT0M: '0 min', '0 mins', '0 minutes'; PT15M: '15 min', '15 mins'; PT30M: '30 min', '30 mins', '30 minutes'; PT5M: '5 min', '5 mins'.

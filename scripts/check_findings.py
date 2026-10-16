@@ -7,7 +7,7 @@ Exits with status 1 if any finding does not hold.
 import json
 import re
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 
 from rdflib import Graph, Literal, URIRef
 from rdflib.namespace import DCTERMS, RDF, SKOS, XSD
@@ -226,6 +226,102 @@ def bc_property_datatype_names(ctx):
     return holds, obs, [PINNED["examples"], PINNED["USDM_CT.xlsx"]]
 
 
+def study_amendment_number_not_numerals(ctx):
+    row = ctx["ct"][("StudyAmendment", "number")]
+    values = []
+    for f in example_files():
+        for a in instances(json.loads(f.read_text()), "StudyAmendment", []):
+            values.append((f.name, a["number"]))
+    non_numeral = [(f, v) for f, v in values if not v.isdigit()]
+    holds = row["Definition"].startswith("A string of numerals") and bool(non_numeral)
+    obs = f"{len(values)} StudyAmendment.number values; not all digits: " + "; ".join(f"{f} '{v}'" for f, v in non_numeral) + "."
+    return holds, obs, [PINNED["examples"], PINNED["USDM_CT.xlsx"]]
+
+
+def eligibility_identifier_needs_category(ctx):
+    parts = []
+    restart = 0
+    within = 0
+    for f in example_files():
+        d = json.loads(f.read_text())
+        designs = instances(d, "InterventionalStudyDesign", []) + instances(d, "ObservationalStudyDesign", [])
+        for sd in designs:
+            ecs = sd.get("eligibilityCriteria", [])
+            by_id = Counter(e["identifier"] for e in ecs)
+            by_id_cat = Counter((e["identifier"], e["category"]["code"]) for e in ecs)
+            dup = sum(1 for n in by_id.values() if n > 1)
+            dup_cat = sum(1 for n in by_id_cat.values() if n > 1)
+            if dup:
+                restart += 1
+            within += dup_cat
+            parts.append(f"{f.name} {sd['id']}: {len(ecs)} criteria, {dup} identifiers repeated, {dup_cat} repeated within a category")
+    holds = restart > 0 and within == 0
+    obs = "; ".join(parts) + "."
+    return holds, obs, [PINNED["examples"]]
+
+
+def template_tags_by_markup(ctx):
+    tag_re = re.compile(r'<usdm:tag\s+name="([^"]*)"\s*/?>')
+    texts = 0
+    used = 0
+    unresolved = []
+    stored_with_bracket = 0
+
+    def walk(node, out):
+        if isinstance(node, dict):
+            if isinstance(node.get("text"), str) and "usdm:tag" in node["text"]:
+                out.append(node)
+            for v in node.values():
+                walk(v, out)
+        elif isinstance(node, list):
+            for v in node:
+                walk(v, out)
+
+    for f in example_files():
+        d = json.loads(f.read_text())
+        dictionaries = {}
+        for x in instances(d, "SyntaxTemplateDictionary", []):
+            tags = {m["tag"] for m in x["parameterMaps"]}
+            stored_with_bracket += sum(1 for t in tags if "<" in t or ">" in t)
+            dictionaries[x["id"]] = tags
+        nodes = []
+        walk(d, nodes)
+        for n in nodes:
+            texts += 1
+            known = dictionaries.get(n.get("dictionaryId"), set())
+            for t in tag_re.findall(n["text"]):
+                used += 1
+                if t not in known:
+                    unresolved.append(f"{f.name} {n['id']} '{t}'")
+    row = ctx["ct"][("ParameterMap", "tag")]
+    holds = (
+        used > 0
+        and stored_with_bracket == 0
+        and "angle brackets" in row["Definition"]
+        and bool(unresolved)
+    )
+    obs = (
+        f"{used} usdm:tag elements in {texts} texts; stored tags containing angle brackets: {stored_with_bracket}. "
+        f"Unresolved: " + "; ".join(unresolved) + "."
+    )
+    return holds, obs, [PINNED["examples"], PINNED["USDM_CT.xlsx"]]
+
+
+def timing_labels_restate_values(ctx):
+    labels = defaultdict(set)
+    for f in example_files():
+        for t in instances(json.loads(f.read_text()), "Timing", []):
+            labels[t["value"]].add(t["valueLabel"])
+    multi = {v: sorted(ls) for v, ls in labels.items() if len(ls) > 1}
+    holds = bool(multi)
+    obs = (
+        f"{len(labels)} distinct Timing.value values; {len(multi)} carry more than one valueLabel: "
+        + "; ".join(f"{v}: " + ", ".join(f"'{l}'" for l in ls) for v, ls in sorted(multi.items()))
+        + "."
+    )
+    return holds, obs, [PINNED["examples"]]
+
+
 CHECKS = {
     "abstract_class_attribute_ccodes": abstract_class_attribute_ccodes,
     "procedure_type_uncoded": procedure_type_uncoded,
@@ -236,6 +332,10 @@ CHECKS = {
     "timing_iso8601_convention": timing_iso8601_convention,
     "parameter_reference_by_markup": parameter_reference_by_markup,
     "bc_property_datatype_names": bc_property_datatype_names,
+    "study_amendment_number_not_numerals": study_amendment_number_not_numerals,
+    "eligibility_identifier_needs_category": eligibility_identifier_needs_category,
+    "template_tags_by_markup": template_tags_by_markup,
+    "timing_labels_restate_values": timing_labels_restate_values,
 }
 
 

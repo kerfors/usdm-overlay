@@ -81,6 +81,12 @@ uo:companionOf
     rdfs:domain uo:Assessment ;
     skos:definition "For companion text: the sibling attribute, coded or typed, that the text qualifies." .
 
+uo:labelOf
+    a owl:ObjectProperty ;
+    rdfs:label "label of" ;
+    rdfs:domain uo:Assessment ;
+    skos:definition "For display labels: the attribute or attributes of the same class whose value the label renders." .
+
 uo:syntax
     a owl:DatatypeProperty ;
     rdfs:label "syntax" ;
@@ -171,7 +177,7 @@ uo:DefinitionStated
 uo:ExampleObserved
     a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
     skos:prefLabel "Example-observed" ;
-    skos:definition "Observed in the example study files CDISC publishes with the model, not stated in the model." .
+    skos:definition "Observed in the example study files CDISC publishes with the model, not stated in the model. The examples are not mature study definitions: these findings say what the published files contain, not how USDM is or should be used." .
 
 uo:Authored
     a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
@@ -284,6 +290,21 @@ uo:EmbeddedReference
     a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
     skos:prefLabel "Embedded reference" ;
     skos:definition "String holding markup that points at an attribute of a model instance (usdm:ref), in place of a model reference. Authored kind." .
+
+uo:BusinessIdentifier
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Business identifier" ;
+    skos:definition "Human-assigned handle that names or orders an instance within its context. Displayed and compared, not parsed. Authored kind." .
+
+uo:DocumentPosition
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Document position" ;
+    skos:definition "Section number or title that places content in a document, or points at a place in one. Authored kind." .
+
+uo:DisplayLabel
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Display label" ;
+    skos:definition "Human-readable rendering of a value that the same instance holds in another attribute. The assessment names that attribute with uo:labelOf. Authored kind." .
 
 # ---------------------------------------------------------------- rules
 

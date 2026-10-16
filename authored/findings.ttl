@@ -180,3 +180,37 @@ uof:bc-property-datatype-names a uo:Finding ;
     uo:checkFunction "bc_property_datatype_names" ;
     dcterms:source ct:USDM_CT.xlsx ;
     dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:study-amendment-number-not-numerals a uo:Finding ;
+    dcterms:title "Amendment number: definition says numerals, an example uses a letter" ;
+    uo:statement "StudyAmendment.number is defined as \"A string of numerals that uniquely identifies a protocol amendment.\" A published example uses a letter." ;
+    dcterms:subject usdm:StudyAmendment ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "study_amendment_number_not_numerals" ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:eligibility-identifier-needs-category a uo:Finding ;
+    dcterms:title "Eligibility identifier identifies only together with the category" ;
+    uo:statement "In some published examples, EligibilityCriterion.identifier restarts per category (inclusion and exclusion each start at 1) and is not repeated within a category. The identifier alone does not identify a criterion; the identifier with the category does." ;
+    dcterms:subject usdm:EligibilityCriterion ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "eligibility_identifier_needs_category" ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:template-tags-by-markup a uo:Finding ;
+    dcterms:title "Template parameters are matched by name inside text" ;
+    uo:statement "Syntax-template text marks parameters with usdm:tag elements that name a ParameterMap.tag. The stored tag is a bare name; the angle brackets that the NCI definition of ParameterMap.tag describes appear only in the template text. Resolution is by name inside a string, so a tag can lack a matching ParameterMap, and the published examples include such a case." ;
+    dcterms:subject usdm:ParameterMap, usdm:SyntaxTemplate, usdm:SyntaxTemplateDictionary ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "template_tags_by_markup" ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:timing-labels-restate-values a uo:Finding ;
+    dcterms:title "Timing labels are typed, not generated from the value" ;
+    uo:statement "Timing.valueLabel restates Timing.value in free text. In the published examples the same value carries differently spelled labels, so the label is not generated from the value." ;
+    dcterms:subject usdm:Timing ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "timing_labels_restate_values" ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .

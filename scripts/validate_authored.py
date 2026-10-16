@@ -67,6 +67,17 @@ def main():
                 raise RuntimeError(f"{local(a)}: companionOf points to itself")
         elif companions:
             raise RuntimeError(f"{local(a)}: uo:companionOf only allowed on companion text")
+        label_of = list(authored.objects(a, UO.labelOf))
+        if kind == UO.DisplayLabel:
+            if not label_of:
+                raise RuntimeError(f"{local(a)}: display label needs uo:labelOf")
+            for target in label_of:
+                if target not in usdm_props or usdm.value(target, RDFS.domain) != usdm.value(about, RDFS.domain):
+                    raise RuntimeError(f"{local(a)}: labelOf {target} is not a property of the same class")
+                if target == about:
+                    raise RuntimeError(f"{local(a)}: labelOf points to itself")
+        elif label_of:
+            raise RuntimeError(f"{local(a)}: uo:labelOf only allowed on display labels")
         syntaxes = list(authored.objects(a, UO.syntax))
         if kind == UO.EncodedValue:
             if len(syntaxes) != 1 or not str(syntaxes[0]).strip():

@@ -196,3 +196,175 @@ uoa:BiomedicalConceptProperty-datatype a uo:Assessment ;
     dcterms:source ct:USDM_CT.xlsx ;
     dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 usdm:BiomedicalConceptProperty-datatype uo:contentKind uo:ClassificationAsText .
+
+# ---------------------------------------------------------------- business identifiers, document positions, display labels
+
+uoa:EligibilityCriterion-identifier a uo:Assessment ;
+    uo:about usdm:EligibilityCriterion-identifier ;
+    uo:assignedKind uo:BusinessIdentifier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:EligibilityCriterion-identifier ;
+    uo:quote "A sequence of characters used to identify, name, or characterize the inclusion or exclusion criterion." ;
+    uo:rationale "Handle for a criterion within its study design, displayed in the protocol. In the published examples it restarts per category; see finding eligibility-identifier-needs-category." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:EligibilityCriterion-identifier uo:contentKind uo:BusinessIdentifier .
+
+uoa:Organization-identifier a uo:Assessment ;
+    uo:about usdm:Organization-identifier ;
+    uo:assignedKind uo:BusinessIdentifier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Organization-identifier ;
+    uo:quote "A unique symbol that establishes identity of the organization." ;
+    uo:rationale "Identifier issued by the organization named in identifierScheme. Displayed and compared, not parsed." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Organization-identifier uo:contentKind uo:BusinessIdentifier .
+
+uoa:StudyAmendment-number a uo:Assessment ;
+    uo:about usdm:StudyAmendment-number ;
+    uo:assignedKind uo:BusinessIdentifier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyAmendment-number ;
+    uo:quote "A string of numerals that uniquely identifies a protocol amendment." ;
+    uo:rationale "Handle that orders amendments. Displayed and compared, not used in arithmetic. See finding study-amendment-number-not-numerals." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:StudyAmendment-number uo:contentKind uo:BusinessIdentifier .
+
+uoa:StudyVersion-versionIdentifier a uo:Assessment ;
+    uo:about usdm:StudyVersion-versionIdentifier ;
+    uo:assignedKind uo:BusinessIdentifier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyVersion-versionIdentifier ;
+    uo:quote "A sequence of characters used to identify, name, or characterize the study version." ;
+    uo:rationale "Handle for a study version. Displayed and compared, not parsed." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:StudyVersion-versionIdentifier uo:contentKind uo:BusinessIdentifier .
+
+uoa:StudyDefinitionDocumentVersion-version a uo:Assessment ;
+    uo:about usdm:StudyDefinitionDocumentVersion-version ;
+    uo:assignedKind uo:BusinessIdentifier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyDefinitionDocumentVersion-version ;
+    uo:quote "A sequence of characters used to identify the version of the study definition document." ;
+    uo:rationale "Handle for a document version. Displayed and compared, not parsed." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:StudyDefinitionDocumentVersion-version uo:contentKind uo:BusinessIdentifier .
+
+uoa:MedicalDevice-hardwareVersion a uo:Assessment ;
+    uo:about usdm:MedicalDevice-hardwareVersion ;
+    uo:assignedKind uo:BusinessIdentifier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:MedicalDevice-hardwareVersion ;
+    uo:quote "A form or variant of hardware" ;
+    uo:rationale "Version of the device hardware as assigned by its maker. Displayed and compared, not parsed." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:MedicalDevice-hardwareVersion uo:contentKind uo:BusinessIdentifier .
+
+uoa:MedicalDevice-softwareVersion a uo:Assessment ;
+    uo:about usdm:MedicalDevice-softwareVersion ;
+    uo:assignedKind uo:BusinessIdentifier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:MedicalDevice-softwareVersion ;
+    uo:quote "A form or variant of software" ;
+    uo:rationale "Version of the device software as assigned by its maker. Displayed and compared, not parsed." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:MedicalDevice-softwareVersion uo:contentKind uo:BusinessIdentifier .
+
+uoa:ParameterMap-tag a uo:Assessment ;
+    uo:about usdm:ParameterMap-tag ;
+    uo:assignedKind uo:BusinessIdentifier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:ParameterMap-tag ;
+    uo:quote "Character strings bounded by angle brackets that act as containers for programming language elements." ;
+    uo:rationale "Name of a parameter placeholder, matched by name against usdm:tag elements in syntax-template text. See finding template-tags-by-markup." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:ParameterMap-tag uo:contentKind uo:BusinessIdentifier .
+
+uoa:StudyDefinitionDocument-templateName a uo:Assessment ;
+    uo:about usdm:StudyDefinitionDocument-templateName ;
+    uo:assignedKind uo:BusinessIdentifier ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:StudyDefinitionDocument-templateName ;
+    uo:quote "The literal identifier (i.e., distinctive designation) of the study definition document template." ;
+    uo:rationale "The definition calls the value an identifier of the template, and that is followed here. The published values could also be read as a classification of templates." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:StudyDefinitionDocument-templateName uo:contentKind uo:BusinessIdentifier .
+
+uoa:NarrativeContent-sectionNumber a uo:Assessment ;
+    uo:about usdm:NarrativeContent-sectionNumber ;
+    uo:assignedKind uo:DocumentPosition ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:NarrativeContent-sectionNumber ;
+    uo:quote "The numeric identifier assigned to a particular document section containing narrative content." ;
+    uo:rationale "Position of the section in the document numbering. It changes when the document is restructured." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:NarrativeContent-sectionNumber uo:contentKind uo:DocumentPosition .
+
+uoa:NarrativeContent-sectionTitle a uo:Assessment ;
+    uo:about usdm:NarrativeContent-sectionTitle ;
+    uo:assignedKind uo:DocumentPosition ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:NarrativeContent-sectionTitle ;
+    uo:quote "An identifying designation for the document section containing narrative content." ;
+    uo:rationale "Heading of the section as displayed in the document." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:NarrativeContent-sectionTitle uo:contentKind uo:DocumentPosition .
+
+uoa:DocumentContentReference-sectionNumber a uo:Assessment ;
+    uo:about usdm:DocumentContentReference-sectionNumber ;
+    uo:assignedKind uo:DocumentPosition ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:DocumentContentReference-sectionNumber ;
+    uo:quote "The numeric identifier of a particular section for the document content reference." ;
+    uo:rationale "Points at a document section by its number. See finding document-content-reference-amendments-only." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:DocumentContentReference-sectionNumber uo:contentKind uo:DocumentPosition .
+
+uoa:DocumentContentReference-sectionTitle a uo:Assessment ;
+    uo:about usdm:DocumentContentReference-sectionTitle ;
+    uo:assignedKind uo:DocumentPosition ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:DocumentContentReference-sectionTitle ;
+    uo:quote "An identifying designation for a particular section for the document content reference." ;
+    uo:rationale "Points at a document section by its heading, alongside the section number." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:DocumentContentReference-sectionTitle uo:contentKind uo:DocumentPosition .
+
+uoa:Timing-valueLabel a uo:Assessment ;
+    uo:about usdm:Timing-valueLabel ;
+    uo:assignedKind uo:DisplayLabel ;
+    uo:labelOf usdm:Timing-value ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Timing-valueLabel ;
+    uo:quote "The short descriptive designation for the timing value." ;
+    uo:rationale "Free-text rendering of the encoded value. See finding timing-labels-restate-values." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Timing-valueLabel uo:contentKind uo:DisplayLabel .
+
+uoa:Timing-windowLabel a uo:Assessment ;
+    uo:about usdm:Timing-windowLabel ;
+    uo:assignedKind uo:DisplayLabel ;
+    uo:labelOf usdm:Timing-windowLower ;
+    uo:labelOf usdm:Timing-windowUpper ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Timing-windowLabel ;
+    uo:quote "The short descriptive designation for a time period, or other type of interval, during which a temporal event may be achieved, obtained, or observed." ;
+    uo:rationale "Free-text rendering of the window bounds, in a range notation of its own (lower..upper unit) that the model does not define." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Timing-windowLabel uo:contentKind uo:DisplayLabel .
+
+uoa:Organization-identifierScheme a uo:Assessment ;
+    uo:about usdm:Organization-identifierScheme ;
+    uo:assignedKind uo:ClassificationAsText ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Organization-identifierScheme ;
+    uo:quote "The name of the organization that provides the identifier for the entity." ;
+    uo:rationale "Names the organization that issues the identifier. The published examples use a small set of issuer names, and USDM_CT.xlsx gives no value list." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Organization-identifierScheme uo:contentKind uo:ClassificationAsText .
