@@ -39,6 +39,8 @@ blockquote { margin: 0.5rem 0; padding-left: 0.75rem; border-left: 3px solid var
 .start a { display: block; border: 1px solid var(--rule); border-radius: 10px; padding: 1rem; text-decoration: none; color: var(--fg); }
 .start a b { color: var(--accent); }
 .start a span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+.button { display: inline-block; background: var(--accent); color: var(--bg); font-weight: 600; text-decoration: none; padding: 0.55rem 1.1rem; border-radius: 8px; margin: 0.5rem 0; }
+.button:hover, .button:focus-visible { filter: brightness(1.1); outline: 2px solid var(--accent); outline-offset: 2px; }
 .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .chip { display: inline-block; font-size: 0.85rem; padding: 0.15rem 0.7rem; border-radius: 999px; font-weight: 600; }
 .chip.data { background: var(--data-bg); color: var(--data-fg); }
@@ -72,7 +74,7 @@ blockquote { margin: 0.5rem 0; padding-left: 0.75rem; border-left: 3px solid var
      Every statement traces to the model; see the class pages linked below. -->
 <p class="eyebrow">Protocol design elements and USDM</p>
 <h1>Data or words?</h1>
-<p class="note">Also as four slides to present: <a href="design-elements-in-usdm.pdf">Design elements in USDM (PDF)</a></p>
+<p><a class="button" href="design-elements-in-usdm.pdf">Download the four slides (PDF)</a></p>
 <p class="lede">A protocol is written for people. USDM aims to hold the same study design so that systems can use it. How far it gets depends on how much of each design element is held as data. This page asks, for five familiar design elements: which parts does USDM hold as data, and which are still words?</p>
 
 <h2>Two kinds of content</h2>

@@ -39,6 +39,8 @@ blockquote { margin: 0.5rem 0; padding-left: 0.75rem; border-left: 3px solid var
 .start a { display: block; border: 1px solid var(--rule); border-radius: 10px; padding: 1rem; text-decoration: none; color: var(--fg); }
 .start a b { color: var(--accent); }
 .start a span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+.button { display: inline-block; background: var(--accent); color: var(--bg); font-weight: 600; text-decoration: none; padding: 0.55rem 1.1rem; border-radius: 8px; margin: 0.5rem 0; }
+.button:hover, .button:focus-visible { filter: brightness(1.1); outline: 2px solid var(--accent); outline-offset: 2px; }
 .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .chip { display: inline-block; font-size: 0.85rem; padding: 0.15rem 0.7rem; border-radius: 999px; font-weight: 600; }
 .chip.data { background: var(--data-bg); color: var(--data-fg); }
@@ -71,7 +73,8 @@ blockquote { margin: 0.5rem 0; padding-left: 0.75rem; border-left: 3px solid var
 <p class="iri">https://kerfors.github.io/usdm-overlay/</p>
 <p>Terms for an overlay graph that classifies and comments on the CDISC USDM v4 model as rendered in RDF/OWL by usdm-rdf. The overlay only points at usdm-rdf IRIs; it never changes them. Every assertion carries an evidence tier, so model-stated facts stay apart from readings of the model.</p>
 <div class="start">
-<a href="design-elements/"><b>Design elements in plain language</b><span>Objectives, endpoints, eligibility criteria and the schedule: what USDM holds as data, and what is still words. Also as four slides (PDF).</span></a>
+<a href="design-elements/"><b>Design elements in plain language</b><span>Objectives, endpoints, eligibility criteria and the schedule: what USDM holds as data, and what is still words.</span></a>
+<a href="design-elements/design-elements-in-usdm.pdf"><b>Design elements as slides (PDF)</b><span>The same content as four slides, ready to present or send.</span></a>
 <a href="explorer/"><b>Explore the overlay</b><span>Every class and attribute, filterable by role, with the evidence for each reading, and the findings.</span></a>
 </div>
 <p class="note">Draft. Not a CDISC artifact. RDF: <a href="graphs/overlay.ttl">graphs/overlay.ttl</a> (whole graph).</p>
