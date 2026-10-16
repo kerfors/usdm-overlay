@@ -2,9 +2,9 @@
 
 Input:  usdm_overlay.ttl, derived/*.ttl, authored/*.ttl, reports/*.md,
         downloads/usdm_v4.ttl (labels, domains, superclasses),
-        site/explorer.html (explorer page template), site/design-elements.html
-        (plain-language page, hand-maintained), site/design-elements-in-usdm.pdf
-        (the same content as slides, copied as is)
+        site/explorer.html (explorer page template), site/design-elements-in-usdm.pdf
+        (design elements as slides, rendered from site/slides/ by
+        scripts/render_slides.py and copied here as is)
 Output: docs/ (deleted and rebuilt on every run; do not edit by hand)
 
 Every IRI the overlay mints under its namespace gets a page at its own path:
@@ -18,10 +18,10 @@ Every IRI the overlay mints under its namespace gets a page at its own path:
 RDF is served as files only, the whole graph: GitHub Pages has no content
 negotiation. Every page links to graphs/overlay.ttl as its RDF alternate.
 
-Two reading pages sit beside the minted IRIs: docs/explorer/ (the graphs as
+Two reading paths sit beside the minted IRIs: docs/explorer/ (the graphs as
 an explorable page, its data computed here on every build) and
-docs/design-elements/ (a plain-language page). No minted IRI may start with
-their path names.
+docs/design-elements/ (the slides PDF; the folder URL forwards to it). No
+minted IRI may start with their path names.
 """
 import html
 import json
@@ -47,14 +47,11 @@ OVERLAY_FILES = ["usdm_overlay.ttl"] + [
 ]
 
 CSS = """
-:root { --bg: #fdfdfb; --fg: #1d1d1b; --muted: #5f5f5a; --rule: #d9d9d2; --accent: #1f5c99; --code: #f1f1ec;
-    --data-bg: #dce7f5; --data-fg: #1e4f8a; --words-bg: #f6e3d2; --words-fg: #7a3d10; --tint: #eef3fa; }
+:root { --bg: #fdfdfb; --fg: #1d1d1b; --muted: #5f5f5a; --rule: #d9d9d2; --accent: #1f5c99; --code: #f1f1ec; }
 @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f;
-        --data-bg: #233a57; --data-fg: #b9d3f2; --words-bg: #4a3020; --words-fg: #f0c9a6; --tint: #1c2531; }
+    :root:not([data-theme="light"]) { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f; }
 }
-:root[data-theme="dark"] { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f;
-    --data-bg: #233a57; --data-fg: #b9d3f2; --words-bg: #4a3020; --words-fg: #f0c9a6; --tint: #1c2531; }
+:root[data-theme="dark"] { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f; }
 body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; margin: 0; }
 main { max-width: 64rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
 a { color: var(--accent); }
@@ -80,31 +77,6 @@ blockquote { margin: 0.5rem 0; padding-left: 0.75rem; border-left: 3px solid var
 .start a { display: block; border: 1px solid var(--rule); border-radius: 10px; padding: 1rem; text-decoration: none; color: var(--fg); }
 .start a b { color: var(--accent); }
 .start a span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
-.button { display: inline-block; background: var(--accent); color: var(--bg); font-weight: 600; text-decoration: none; padding: 0.55rem 1.1rem; border-radius: 8px; margin: 0.5rem 0; }
-.button:hover, .button:focus-visible { filter: brightness(1.1); outline: 2px solid var(--accent); outline-offset: 2px; }
-.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.chip { display: inline-block; font-size: 0.85rem; padding: 0.15rem 0.7rem; border-radius: 999px; font-weight: 600; }
-.chip.data { background: var(--data-bg); color: var(--data-fg); }
-.chip.words { background: var(--words-bg); color: var(--words-fg); }
-.chip.none { border: 1px dashed var(--muted); color: var(--muted); }
-.chip a { color: inherit; }
-.de-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.5rem; align-items: center; }
-.de-card { border: 1px solid var(--rule); border-radius: 14px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
-.wordblock { background: var(--words-bg); color: var(--words-fg); padding: 0.75rem 1rem; border-radius: 10px; font-style: italic; margin: 0; }
-.de-defs { display: flex; flex-direction: column; gap: 0.75rem; }
-.de-defs p { margin: 0; }
-.de-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
-.de-col { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
-.de-box { border: 1px solid var(--rule); border-radius: 14px; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.6rem; }
-.de-box h3 { margin: 0; font-size: 1.05rem; }
-.de-box.structured { background: var(--tint); border-color: var(--data-fg); }
-.de-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
-.de-grid span { text-align: center; font-size: 0.85rem; border: 1px solid var(--data-fg); color: var(--data-fg); border-radius: 6px; padding: 0.2rem; }
-.de-gaps { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
-.de-gap { border: 2px dashed var(--words-fg); border-radius: 14px; padding: 1rem 1.1rem; }
-.de-gap h3 { margin: 0 0 0.4rem; font-size: 1.05rem; }
-.de-gap p { margin: 0; }
-.de-short { grid-template-columns: max-content 1fr; gap: 0.6rem 1rem; align-items: center; }
 """
 
 
@@ -131,7 +103,7 @@ def page(path_dir, title, body):
 </head>
 <body>
 <main>
-<nav><a href="{up}">usdm-overlay</a> · <a href="{up}explorer/">explorer</a> · <a href="{up}design-elements/">design elements</a> · <a href="{up}reports/">reports</a> · <a href="{up}graphs/">graphs</a> · <a href="{REPO}">repository</a></nav>
+<nav><a href="{up}">usdm-overlay</a> · <a href="{up}explorer/">explorer</a> · <a href="{up}design-elements/design-elements-in-usdm.pdf">design elements (slides)</a> · <a href="{up}reports/">reports</a> · <a href="{up}graphs/">graphs</a> · <a href="{REPO}">repository</a></nav>
 {body}
 </main>
 </body>
@@ -511,7 +483,17 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
     data = json.dumps(explorer_data(usdm, overlay), ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     (SITE / "explorer").mkdir()
     (SITE / "explorer" / "index.html").write_text(template.replace("__DATA__", data))
-    write("design-elements", "Design elements in USDM", (SITE_SRC / "design-elements.html").read_text())
+    (SITE / "design-elements").mkdir()
+    (SITE / "design-elements" / "index.html").write_text("""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design elements in USDM</title>
+<meta http-equiv="refresh" content="0; url=design-elements-in-usdm.pdf">
+</head>
+<body><p><a href="design-elements-in-usdm.pdf">Design elements in USDM (slides, PDF)</a></p></body>
+</html>
+""")
     shutil.copyfile(SITE_SRC / "design-elements-in-usdm.pdf", SITE / "design-elements" / "design-elements-in-usdm.pdf")
 
     # ---------------------------------------------------------------- index
@@ -542,8 +524,7 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
 <p class="iri">{esc(NS)}</p>
 <p>{esc(vocab.value(URIRef(NS), DCTERMS.description))}</p>
 <div class="start">
-<a href="design-elements/"><b>Design elements in plain language</b><span>Objectives, endpoints, eligibility criteria and the schedule: what USDM holds as data, and what is still words.</span></a>
-<a href="design-elements/design-elements-in-usdm.pdf"><b>Design elements as slides (PDF)</b><span>The same content as four slides, ready to present or send.</span></a>
+<a href="design-elements/design-elements-in-usdm.pdf"><b>Design elements in USDM (slides, PDF)</b><span>Objectives, endpoints, eligibility criteria and the schedule: what USDM holds as data, and what is still words. Five slides, ready to present or send.</span></a>
 <a href="explorer/"><b>Explore the overlay</b><span>Every class and attribute, filterable by role, with the evidence for each reading, and the findings.</span></a>
 </div>
 <p class="note">{esc(vocab.value(URIRef(NS), RDFS.comment))} RDF: <a href="graphs/overlay.ttl">graphs/overlay.ttl</a> (whole graph).</p>

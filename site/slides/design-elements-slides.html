@@ -1,0 +1,205 @@
+<!doctype html>
+<!-- Source of design-elements-in-usdm.pdf: five 16:9 slides (1920 x 1080 px each).
+     Hand-maintained. Rendered to PDF by scripts/render_slides.py; the PDF is then
+     copied into the site by scripts/build_site.py.
+     Arrows: <svg class="arrow" data-from="id:side" data-to="id:side"> are drawn by the
+     script at the end of this file between the named boxes (side = left|right|top|bottom).
+     Content: published USDM v4 model and the CDISC Pilot Study example (DDF-RA v4.0.0) only. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design elements in USDM</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Domine:wght@500;700&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+@page { size: 1920px 1080px; margin: 0; }
+html, body { margin: 0; padding: 0; background: #FAF8F3; }
+* { box-sizing: border-box; }
+p, h1, h2, h3, ul { margin: 0; }
+section { width: 1920px; height: 1080px; position: relative; overflow: hidden; break-after: page;
+  font-family: 'Nunito Sans', Verdana, sans-serif; color: #1E2A44; background: #FAF8F3; padding: 112px 128px; display: flex; flex-direction: column; gap: 44px; }
+section.dark { background: #1E2A44; color: #FAF8F3; }
+.serif { font-family: Domine, Georgia, serif; font-weight: 700; }
+.eyebrow { font-size: 30px; font-weight: 700; color: #A3561B; }
+.dark .eyebrow { color: #E8B27A; }
+h2.serif { font-size: 64px; line-height: 1.15; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { font-size: 24px; padding: 4px 16px; border-radius: 999px; border: 2px solid transparent; white-space: nowrap; }
+.chip.data { background: #DCE7F5; color: #1E4F8A; }
+.chip.str { background: #FFFDF8; color: #1E4F8A; border: 2px dashed #2B67B0; }
+.chip.words { background: #F6E3D2; color: #7A3D10; }
+.chip.none { background: transparent; color: #4A5468; border: 2px dashed #8A93A6; }
+.chip.big { font-size: 30px; padding: 8px 22px; font-weight: 700; }
+.box { background: #FFFDF8; border: 2px solid #D8D2C4; border-radius: 20px; padding: 20px 26px; display: flex; flex-direction: column; gap: 10px; }
+.box h3 { font-size: 30px; font-weight: 700; }
+.box.struct { background: #E6EEF8; border-color: #2B67B0; }
+.box.struct h3 { color: #1E4F8A; }
+.box.doc { background: transparent; border: 2px dashed #8A93A6; }
+.grid { display: grid; gap: 6px; font-size: 22px; }
+.grid .h { color: #1E4F8A; font-weight: 700; text-align: center; padding: 4px 6px; }
+.grid .rh { color: #1E4F8A; font-weight: 700; padding: 6px 4px; }
+.grid .c { background: #FFFDF8; border: 2px solid #2B67B0; border-radius: 8px; text-align: center; padding: 4px; color: #1E4F8A; }
+.grid .dot { text-align: center; color: #2B67B0; font-size: 26px; line-height: 1.2; }
+.legend { display: flex; gap: 12px; }
+.idstrip { display: grid; grid-template-columns: 260px 1fr; gap: 10px 28px; font-size: 26px; color: #D3DAE8; border: 2px solid #3A4766; border-radius: 16px; padding: 22px 28px; }
+.idstrip .k { grid-column: 1 / -1; font-size: 24px; font-weight: 700; color: #E8B27A; }
+.idstrip .r { font-weight: 700; color: #FAF8F3; }
+.idstrip .rdf { color: #9CC0EE; }
+a.u { color: inherit; text-decoration: underline dotted; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+h3 a.u::after { content: " ↗"; font-size: 0.75em; font-weight: 400; }
+.idstrip a { color: inherit; }
+.idstrip code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 24px; color: #FAF8F3; }
+.col { position: absolute; top: 0; display: flex; flex-direction: column; gap: 28px; }
+svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="dark" style="justify-content: space-between;">
+  <p class="eyebrow">Protocol design elements and USDM</p>
+  <div style="display:flex;flex-direction:column;gap:40px">
+    <h1 class="serif" style="font-size:112px;line-height:1.1">Data or words?</h1>
+    <p style="font-size:46px;line-height:1.3;color:#D3DAE8;width:1500px">What USDM holds for objectives, endpoints, eligibility criteria and the schedule</p>
+    <div class="chips" style="gap:16px">
+      <span class="chip data big">Data</span><span class="chip str big">Data in a string</span><span class="chip words big">Words</span>
+    </div>
+  </div>
+  <p style="font-size:28px;color:#D3DAE8">Kerstin Forsberg · the published USDM v4 model and its CDISC example files, read as a knowledge graph</p>
+</section>
+
+<!-- 2 -->
+<section>
+  <div style="display:flex;flex-direction:column;gap:18px">
+    <p class="eyebrow">The question</p>
+    <h2 class="serif">For each design element: which parts are data, and which are still words?</h2>
+  </div>
+  <div style="display:flex;gap:64px;align-items:center">
+    <div style="width:860px;display:flex;flex-direction:column;gap:18px;background:#FFFDF8;padding:40px;border-radius:24px;border:2px solid #D8D2C4;box-shadow:0 12px 32px rgba(30,42,68,.10)">
+      <p style="font-size:24px;color:#4A5468;font-weight:700;letter-spacing:2px;text-transform:uppercase"><a class="u" href="https://w3id.org/cdisc/usdm/v4/Objective">An objective in USDM</a> · CDISC Pilot Study example</p>
+      <div class="chips"><span class="chip data">Level: secondary objective</span><span class="chip data">Its 3 endpoints, linked</span></div>
+      <p style="font-size:29px;line-height:1.45;background:#F6E3D2;color:#7A3D10;padding:22px 26px;border-radius:16px">“To assess the dose-dependent improvement in behavior. Improved scores on the Revised Neuropsychiatric Inventory (NPI-X) will indicate improvement in these areas.”</p>
+      <p style="font-size:24px;color:#4A5468">What is measured, and how it is judged, sits inside the sentence.</p>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:30px">
+      <div style="display:flex;flex-direction:column;gap:8px"><span class="chip data big" style="align-self:flex-start">Data</span><p style="font-size:28px;line-height:1.4;color:#4A5468">Choices from a list, numbers, links. A system can check and reuse them.</p></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span class="chip str big" style="align-self:flex-start">Data in a string</span><p style="font-size:28px;line-height:1.4;color:#4A5468">An identifier or a duration written as text. Usable only if you know the convention.</p></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span class="chip words big" style="align-self:flex-start">Words</span><p style="font-size:28px;line-height:1.4;color:#4A5468">Sentences and written rules. A person has to read them.</p></div>
+      <p style="font-size:24px;line-height:1.4;color:#4A5468;border-top:2px solid #D8D2C4;padding-top:16px">Each reading here comes from USDM v4 read as a knowledge graph.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section style="padding:84px 128px 96px;gap:28px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+    <h2 class="serif" style="font-size:50px;width:1180px">Five design elements: the schedule is data, the rest is mostly words</h2>
+    <div class="legend"><span class="chip data">Data</span><span class="chip str">Data in a string</span><span class="chip words">Words</span></div>
+  </div>
+  <div style="position:relative;width:1664px;height:760px">
+    <div class="col" style="left:0;width:500px">
+    <div class="box" id="obj">
+      <h3><a class="u" href="https://w3id.org/cdisc/usdm/v4/Objective">Objective</a></h3>
+      <div class="chips"><span class="chip data">Level</span><span class="chip data">Its endpoints</span></div>
+      <div class="chips"><span class="chip words">The objective, written</span></div>
+    </div>
+    <div class="box" id="ep">
+      <h3><a class="u" href="https://w3id.org/cdisc/usdm/v4/Endpoint">Endpoint</a></h3>
+      <div class="chips"><span class="chip data">Level</span></div>
+      <div class="chips"><span class="chip words">The endpoint, written</span><span class="chip words">Its purpose</span></div>
+    </div>
+    <div class="box" id="ec">
+      <h3><a class="u" href="https://w3id.org/cdisc/usdm/v4/EligibilityCriterion">Eligibility criterion</a></h3>
+      <div class="chips"><span class="chip data">Inclusion or exclusion</span><span class="chip data">Order</span><span class="chip str">Label like “I1”</span></div>
+      <div class="chips"><span class="chip words">The criterion, written</span></div>
+    </div>
+    <div class="box doc" id="doc" style="padding:14px 26px;margin-top:20px">
+      <h3 style="font-size:26px;color:#4A5468"><a class="u" href="https://w3id.org/cdisc/usdm/v4/StudyDefinitionDocument">Protocol document, its sections</a></h3>
+    </div>
+    </div>
+
+    <div class="col" style="left:690px;width:974px">
+    <div class="box struct" id="soa" style="gap:12px">
+      <h3><a class="u" href="https://w3id.org/cdisc/usdm/v4/ScheduleTimeline">Schedule of activities</a></h3>
+      <div style="display:flex;gap:28px;align-items:flex-start">
+        <div class="grid" id="soagrid" style="grid-template-columns:150px repeat(4,90px)">
+          <span></span><span class="h">Visit</span><span class="h">Visit</span><span class="h">Visit</span><span class="h">Visit</span>
+          <span class="rh">Activity</span><span class="dot">●</span><span class="dot">●</span><span></span><span class="dot">●</span>
+          <span class="rh">Activity</span><span></span><span class="dot">●</span><span class="dot">●</span><span class="dot">●</span>
+          <span class="rh">Activity</span><span class="dot">●</span><span></span><span></span><span class="dot">●</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="chips"><span class="chip data">visit type, contact mode</span><span class="chip data" id="measured">what is measured</span></div>
+          <div class="chips"><span class="chip str">timing and windows</span></div>
+          <div class="chips"><span class="chip words">Conditions for branching</span><span class="chip words">Visit start and end rules</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box struct" id="arms" style="gap:12px">
+      <h3><a class="u" href="https://w3id.org/cdisc/usdm/v4/StudyCell">Arms × epochs</a></h3>
+      <div class="grid" style="grid-template-columns:110px repeat(3,1fr)">
+        <span></span><span class="h">Screening</span><span class="h">Treatment</span><span class="h">Follow-up</span>
+        <span class="rh">Arm 1</span><span class="c"><a class="u" href="https://w3id.org/cdisc/usdm/v4/StudyElement">element</a></span><span class="c"><a class="u" href="https://w3id.org/cdisc/usdm/v4/StudyElement">element</a></span><span class="c"><a class="u" href="https://w3id.org/cdisc/usdm/v4/StudyElement">element</a></span>
+        <span class="rh">Arm 2</span><span class="c"><a class="u" href="https://w3id.org/cdisc/usdm/v4/StudyElement">element</a></span><span class="c"><a class="u" href="https://w3id.org/cdisc/usdm/v4/StudyElement">element</a></span><span class="c"><a class="u" href="https://w3id.org/cdisc/usdm/v4/StudyElement">element</a></span>
+      </div>
+      <div class="chips"><span class="chip words">Inside each element: what happens, start rule, end rule</span></div>
+    </div>
+    </div>
+
+    <svg class="arrow" data-from="obj:bottom" data-to="ep:top" data-color="#2B67B0"></svg>
+    <svg class="arrow" data-from="ep:right" data-to="soagrid:left" data-color="#A3561B" data-dash="1" data-label="no link|in USDM" data-label-dx="-36" data-label-dy="58"></svg>
+    <svg class="arrow" data-from="ec:bottom" data-to="doc:top" data-color="#A3561B" data-dash="1" data-label="no link in USDM" data-label-dx="22" data-label-dy="8"></svg>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="dark" style="gap:40px;justify-content:center">
+  <div style="display:flex;flex-direction:column;gap:18px">
+    <p class="eyebrow">In short</p>
+    <h2 class="serif" style="color:#FAF8F3">USDM gives every design element an identity. Much of the content is still words.</h2>
+  </div>
+  <div class="idstrip">
+    <p class="k">Identity, for the objective on slide 2</p>
+    <p class="r">USDM, the kind</p><p>name <code>Objective</code> · C-code <code>C142450</code> (Study Objective)</p>
+    <p class="r">USDM, this one</p><p>id <code>Objective_3</code> · name <code>OBJ3</code> · unique within the study file</p>
+    <p class="r rdf">usdm-rdf adds</p><p>a global identifier for the kind, linked to NCIt C142450: <a href="https://w3id.org/cdisc/usdm/v4/Objective"><code>https://w3id.org/cdisc/usdm/v4/Objective</code></a></p>
+  </div>
+  <div style="display:grid;grid-template-columns:330px 1fr;gap:20px 28px;align-items:center;font-size:30px">
+    <span class="chip data big" style="justify-self:start">Held as data</span><p>The schedule of activities, and the arm and epoch grid</p>
+    <span class="chip str big" style="justify-self:start;background:transparent;color:#9CC0EE;border-color:#9CC0EE">Data in a string</span><p>Timing values and windows; labels like “I1”</p>
+    <span class="chip words big" style="justify-self:start">Held as words</span><p>Objectives, endpoints, eligibility criteria, rules inside elements</p>
+    <span class="chip none big" style="justify-self:start;color:#D3DAE8;border-color:#D3DAE8">Not held</span><p>Endpoint to assessments; design element to protocol section</p>
+  </div>
+</section>
+
+<!-- 5 -->
+<section style="gap:48px;justify-content:center">
+  <div style="display:flex;flex-direction:column;gap:18px">
+    <p class="eyebrow">Beyond USDM</p>
+    <h2 class="serif">The words are not a dead end</h2>
+  </div>
+  <p style="font-size:40px;line-height:1.4;width:1500px">A knowledge graph can represent the entities and relationships from study design to data capture. Structuring what the words say in such a graph turns them into data, and that is where the link from an endpoint to its assessments can live.</p>
+</section>
+
+<script>
+document.fonts.ready.then(() => {
+  document.querySelectorAll('svg.arrow').forEach((svg, i) => {
+    const host = svg.parentElement.getBoundingClientRect();
+    const pt = (spec) => {
+      const [id, side] = spec.split(':');
+      const r = document.getElementById(id).getBoundingClientRect();
+      const x = { left: r.left, right: r.right, top: (r.left + r.right) / 2, bottom: (r.left + r.right) / 2 }[side] - host.left;
+      const y = { top: r.top, bottom: r.bottom, left: (r.top + r.bottom) / 2, right: (r.top + r.bottom) / 2 }[side] - host.top;
+      return [x, y];
+    };
+    const [x1, y1] = pt(svg.dataset.from), [x2, y2] = pt(svg.dataset.to);
+    const c = svg.dataset.color, id = 'h' + i;
+    svg.innerHTML = `<defs><marker id="${id}" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 z" fill="${c}"/></marker></defs>` +
+      `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2 - (y2 > y1 && Math.abs(x2 - x1) < 2 ? 2 : 0)}" stroke="${c}" stroke-width="4" ${svg.dataset.dash ? 'stroke-dasharray="14 10"' : ''} marker-end="url(#${id})"/>` +
+      (svg.dataset.label ? `<text x="${(x1 + x2) / 2 + Number(svg.dataset.labelDx || 0)}" y="${(y1 + y2) / 2 + Number(svg.dataset.labelDy || 0)}" fill="${c}" font-family="Nunito Sans, Verdana, sans-serif" font-size="24" font-weight="700">${svg.dataset.label.split('|').map((t, k) => `<tspan x="${(x1 + x2) / 2 + Number(svg.dataset.labelDx || 0)}" dy="${k ? 28 : 0}">${t}</tspan>`).join('')}</text>` : '');
+  });
+  document.body.dataset.ready = '1';
+});
+</script>
+</body>
+</html>
