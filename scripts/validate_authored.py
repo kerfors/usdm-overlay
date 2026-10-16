@@ -51,9 +51,10 @@ def main():
             raise RuntimeError(f"{local(a)}: missing shortcut triple {local(about)} uo:contentKind {local(kind)}")
         cls, attr = local(about).split("-", 1)
         ct_row = ct.get((cls, attr))
-        if ct_row is None:
-            raise RuntimeError(f"{local(a)}: no USDM_CT.xlsx row for {cls}.{attr}")
-        for q in authored.objects(a, UO.quote):
+        quotes = list(authored.objects(a, UO.quote))
+        if quotes and ct_row is None:
+            raise RuntimeError(f"{local(a)}: quotes given but no USDM_CT.xlsx row for {cls}.{attr}")
+        for q in quotes:
             if str(q) not in str(ct_row["Definition"]):
                 raise RuntimeError(f"{local(a)}: quote not verbatim in USDM_CT.xlsx definition: {q}")
         companions = list(authored.objects(a, UO.companionOf))

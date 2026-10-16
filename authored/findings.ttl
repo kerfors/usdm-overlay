@@ -214,3 +214,28 @@ uof:timing-labels-restate-values a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:checkFunction "timing_labels_restate_values" ;
     dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:code-system-free-strings a uo:Finding ;
+    dcterms:title "Code systems are named by free strings" ;
+    uo:statement "Code.codeSystem and Code.codeSystemVersion are free strings. In the published examples the code system is given in mixed forms, a URL for CDISC terminology and names for the others, and versions in several formats. A coded value is identified by strings, not by an IRI." ;
+    dcterms:subject usdm:Code ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "code_system_free_strings" ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:bc-reference-library-paths a uo:Finding ;
+    dcterms:title "Biomedical concept references are relative API paths" ;
+    uo:statement "In the published examples, every BiomedicalConcept.reference is a relative CDISC Library API path, most into SDTM dataset specializations and some into biomedical concept packages. Resolving one needs a base URL and access to the Library." ;
+    dcterms:subject usdm:BiomedicalConcept ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "bc_reference_library_paths" ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:extension-attributes-undefined a uo:Finding ;
+    dcterms:title "Extension classes carry no definitions" ;
+    uo:statement "ExtensionAttribute and ExtensionClass have no rows in USDM_CT.xlsx and no definitions in usdm-rdf. No published example uses them." ;
+    dcterms:subject usdm:ExtensionAttribute, usdm:ExtensionClass ;
+    uo:evidenceTier uo:ModelStated ;
+    uo:checkFunction "extension_attributes_undefined" ;
+    dcterms:source ct:USDM_CT.xlsx, rdfrepo:usdm_v4.ttl ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .

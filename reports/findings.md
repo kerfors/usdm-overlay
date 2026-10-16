@@ -7,11 +7,14 @@ Statements are in `authored/findings.ttl`; this report adds what each test obser
 | --- | --- | --- |
 | [Abstract-class attributes carry a subclass's C-code](#abstract-class-attribute-ccodes) | Model-stated | yes |
 | [Biomedical concept property datatypes are uncontrolled names](#bc-property-datatype-names) | Example-observed | yes |
+| [Biomedical concept references are relative API paths](#bc-reference-library-paths) | Example-observed | yes |
+| [Code systems are named by free strings](#code-system-free-strings) | Example-observed | yes |
 | [Schedule conditions are strings, not Condition instances](#condition-not-referenced) | Model-stated | yes |
 | [Objectives, endpoints and criteria have no link to document sections](#design-elements-not-linked-to-document) | Model-stated | yes |
 | [Section references are used only for amendment changes](#document-content-reference-amendments-only) | Model-stated | yes |
 | [Eligibility identifier identifies only together with the category](#eligibility-identifier-needs-category) | Example-observed | yes |
 | [No link between Endpoint and what it requires](#endpoint-activity-gap) | Model-stated | yes |
+| [Extension classes carry no definitions](#extension-attributes-undefined) | Model-stated | yes |
 | [Intercurrent event strategy: fixed set, specified as text](#intercurrent-event-strategy-textual) | Authored | yes |
 | [Narrative refers to model instances by markup in text](#narrative-references-by-markup) | Example-observed | yes |
 | [Syntax-template parameters resolve through markup](#parameter-reference-by-markup) | Example-observed | yes |
@@ -38,6 +41,22 @@ For attributes declared on abstract classes, dataStructure.yml carries the C-cod
 BiomedicalConceptProperty.datatype has no value list. The published examples use a small set of datatype names, including both 'text' and 'string', with nothing in the model to say whether they differ.
 
 **Observed:** 638 BiomedicalConceptProperty instances, 420 with empty datatype. Names used: text 93, float 69, integer 26, datetime 20, string 8, decimal 2. USDM_CT.xlsx Has Value List: N.
+
+## Biomedical concept references are relative API paths
+
+<a id="bc-reference-library-paths"></a>`bc-reference-library-paths` · Example-observed
+
+In the published examples, every BiomedicalConcept.reference is a relative CDISC Library API path, most into SDTM dataset specializations and some into biomedical concept packages. Resolving one needs a base URL and access to the Library.
+
+**Observed:** 116 BiomedicalConcept instances, 46 distinct references: 43 of the form /mdr/specializations/sdtm/packages/<date>/datasetspecializations/<name>, 3 of the form /mdr/bc/packages/<date>/biomedicalconcepts/<C-code>.
+
+## Code systems are named by free strings
+
+<a id="code-system-free-strings"></a>`code-system-free-strings` · Example-observed
+
+Code.codeSystem and Code.codeSystemVersion are free strings. In the published examples the code system is given in mixed forms, a URL for CDISC terminology and names for the others, and versions in several formats. A coded value is identified by strings, not by an IRI.
+
+**Observed:** 2631 Code instances. codeSystem / codeSystemVersion pairs: 'http://www.cdisc.org' / '2024-09-27' 2534; 'ISO 3166 1 alpha3' / '2020-08' 42; 'SPONSOR' / '12' 25; 'SNOMED' / 'January 31, 2018' 20; 'ISO' / '1' 7; 'ICD-10-CM' / '1' 1; 'FDA' / '' 1; 'HL7' / '' 1.
 
 ## Schedule conditions are strings, not Condition instances
 
@@ -78,6 +97,14 @@ In some published examples, EligibilityCriterion.identifier restarts per categor
 No property connects Endpoint, or its superclass SyntaxTemplate, to Activity, Procedure, ScheduledActivityInstance or the biomedical concept classes, in either direction. The model does not carry which activities or biomedical concepts an endpoint depends on.
 
 **Observed:** ASK returned false, expected false.
+
+## Extension classes carry no definitions
+
+<a id="extension-attributes-undefined"></a>`extension-attributes-undefined` · Model-stated
+
+ExtensionAttribute and ExtensionClass have no rows in USDM_CT.xlsx and no definitions in usdm-rdf. No published example uses them.
+
+**Observed:** USDM_CT.xlsx rows for these classes: 0. usdm-rdf properties: 17, with skos:definition: 0. Instances in the published examples: 0.
 
 ## Intercurrent event strategy: fixed set, specified as text
 

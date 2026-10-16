@@ -368,3 +368,243 @@ uoa:Organization-identifierScheme a uo:Assessment ;
     dcterms:source ct:USDM_CT.xlsx ;
     dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 usdm:Organization-identifierScheme uo:contentKind uo:ClassificationAsText .
+
+# ---------------------------------------------------------------- code components, citations, lexical variants, contact details, extension content
+
+uoa:Code-code a uo:Assessment ;
+    uo:about usdm:Code-code ;
+    uo:assignedKind uo:CodeComponent ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Code-code ;
+    uo:quote "The literal value of a code." ;
+    uo:rationale "Identifies a concept only together with codeSystem and codeSystemVersion; the three strings stand in for one concept identifier. See finding code-system-free-strings." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Code-code uo:contentKind uo:CodeComponent .
+
+uoa:Code-codeSystem a uo:Assessment ;
+    uo:about usdm:Code-codeSystem ;
+    uo:assignedKind uo:CodeComponent ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Code-codeSystem ;
+    uo:quote "The literal identifier (i.e., distinctive designation) of the system used to assign and/or manage codes." ;
+    uo:rationale "Names the code system as a string. See finding code-system-free-strings." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Code-codeSystem uo:contentKind uo:CodeComponent .
+
+uoa:Code-codeSystemVersion a uo:Assessment ;
+    uo:about usdm:Code-codeSystemVersion ;
+    uo:assignedKind uo:CodeComponent ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Code-codeSystemVersion ;
+    uo:quote "The version of the code system." ;
+    uo:rationale "Version of the code system as a string. See finding code-system-free-strings." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Code-codeSystemVersion uo:contentKind uo:CodeComponent .
+
+uoa:Code-decode a uo:Assessment ;
+    uo:about usdm:Code-decode ;
+    uo:assignedKind uo:DisplayLabel ;
+    uo:labelOf usdm:Code-code ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Code-decode ;
+    uo:quote "Standardized or dictionary-derived human readable text associated with a code." ;
+    uo:rationale "Human-readable text for the code held in the same instance." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Code-decode uo:contentKind uo:DisplayLabel .
+
+uoa:Address-text a uo:Assessment ;
+    uo:about usdm:Address-text ;
+    uo:assignedKind uo:DisplayLabel ;
+    uo:labelOf usdm:Address-lines ;
+    uo:labelOf usdm:Address-city ;
+    uo:labelOf usdm:Address-district ;
+    uo:labelOf usdm:Address-state ;
+    uo:labelOf usdm:Address-postalCode ;
+    uo:labelOf usdm:Address-country ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Address-text ;
+    uo:quote "A standardized representation of the complete set of components denoting the physical address" ;
+    uo:rationale "The definition describes a representation of the address components the same instance holds; the published values are those components joined." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Address-text uo:contentKind uo:DisplayLabel .
+
+uoa:BiomedicalConcept-reference a uo:Assessment ;
+    uo:about usdm:BiomedicalConcept-reference ;
+    uo:assignedKind uo:Citation ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:BiomedicalConcept-reference ;
+    uo:quote "A citation to an authoritative source for a biomedical concept." ;
+    uo:rationale "Cites the source of the concept. See finding bc-reference-library-paths." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:BiomedicalConcept-reference uo:contentKind uo:Citation .
+
+uoa:BiomedicalConceptSurrogate-reference a uo:Assessment ;
+    uo:about usdm:BiomedicalConceptSurrogate-reference ;
+    uo:assignedKind uo:Citation ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:BiomedicalConceptSurrogate-reference ;
+    uo:quote "A citation to an authoritative source for a biomedical concept surrogate." ;
+    uo:rationale "Cites the source of the surrogate concept." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:BiomedicalConceptSurrogate-reference uo:contentKind uo:Citation .
+
+uoa:BiomedicalConcept-synonyms a uo:Assessment ;
+    uo:about usdm:BiomedicalConcept-synonyms ;
+    uo:assignedKind uo:LexicalVariant ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:BiomedicalConcept-synonyms ;
+    uo:quote "A word or an expression that serves as a figurative, symbolic, or exact substitute for a biomedical concept, and which has the same meaning." ;
+    uo:rationale "Alternative wordings of the concept." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:BiomedicalConcept-synonyms uo:contentKind uo:LexicalVariant .
+
+uoa:Abbreviation-expandedText a uo:Assessment ;
+    uo:about usdm:Abbreviation-expandedText ;
+    uo:assignedKind uo:LexicalVariant ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Abbreviation-expandedText ;
+    uo:quote "The full literal representation of the abbreviation." ;
+    uo:rationale "The long form of the abbreviated text held in the same instance." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Abbreviation-expandedText uo:contentKind uo:LexicalVariant .
+
+uoa:Address-lines a uo:Assessment ;
+    uo:about usdm:Address-lines ;
+    uo:assignedKind uo:ContactDetail ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Address-lines ;
+    uo:quote "The street name and number, building number, apartment or unit number, or post office box number" ;
+    uo:rationale "Part of a postal address." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Address-lines uo:contentKind uo:ContactDetail .
+
+uoa:Address-city a uo:Assessment ;
+    uo:about usdm:Address-city ;
+    uo:assignedKind uo:ContactDetail ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Address-city ;
+    uo:quote "A relatively large and/or densely populated area of human habitation" ;
+    uo:rationale "Part of a postal address." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Address-city uo:contentKind uo:ContactDetail .
+
+uoa:Address-district a uo:Assessment ;
+    uo:about usdm:Address-district ;
+    uo:assignedKind uo:ContactDetail ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Address-district ;
+    uo:quote "An administrative or territorial division of a city, town, county, parish, state, country, or other locality" ;
+    uo:rationale "Part of a postal address." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Address-district uo:contentKind uo:ContactDetail .
+
+uoa:Address-state a uo:Assessment ;
+    uo:about usdm:Address-state ;
+    uo:assignedKind uo:ContactDetail ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Address-state ;
+    uo:quote "A sub-division of a country that forms part of a federal union." ;
+    uo:rationale "Part of a postal address." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Address-state uo:contentKind uo:ContactDetail .
+
+uoa:Address-postalCode a uo:Assessment ;
+    uo:about usdm:Address-postalCode ;
+    uo:assignedKind uo:ContactDetail ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Address-postalCode ;
+    uo:quote "An alphanumeric code assigned to a mail delivery area." ;
+    uo:rationale "Part of a postal address. A code in form, but assigned by postal services, not drawn from a value list." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:Address-postalCode uo:contentKind uo:ContactDetail .
+
+uoa:PersonName-familyName a uo:Assessment ;
+    uo:about usdm:PersonName-familyName ;
+    uo:assignedKind uo:ContactDetail ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:PersonName-familyName ;
+    uo:quote "A word or group of words indicating a person's last (family) name." ;
+    uo:rationale "Part of a person name." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:PersonName-familyName uo:contentKind uo:ContactDetail .
+
+uoa:PersonName-givenNames a uo:Assessment ;
+    uo:about usdm:PersonName-givenNames ;
+    uo:assignedKind uo:ContactDetail ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:PersonName-givenNames ;
+    uo:quote "A word or group of words indicating a person's first (personal or given) name" ;
+    uo:rationale "Part of a person name." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:PersonName-givenNames uo:contentKind uo:ContactDetail .
+
+uoa:PersonName-prefixes a uo:Assessment ;
+    uo:about usdm:PersonName-prefixes ;
+    uo:assignedKind uo:ContactDetail ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:PersonName-prefixes ;
+    uo:quote "An affix occurring at the start of the person name string" ;
+    uo:rationale "Part of a person name." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:PersonName-prefixes uo:contentKind uo:ContactDetail .
+
+uoa:PersonName-suffixes a uo:Assessment ;
+    uo:about usdm:PersonName-suffixes ;
+    uo:assignedKind uo:ContactDetail ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:PersonName-suffixes ;
+    uo:quote "An affix occurring at the end of the person name" ;
+    uo:rationale "Part of a person name." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:PersonName-suffixes uo:contentKind uo:ContactDetail .
+
+uoa:AssignedPerson-jobTitle a uo:Assessment ;
+    uo:about usdm:AssignedPerson-jobTitle ;
+    uo:assignedKind uo:ContactDetail ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:AssignedPerson-jobTitle ;
+    uo:quote "An identifying designation related to the assigned person's occupation." ;
+    uo:rationale "Job title of the assigned person." ;
+    dcterms:source ct:USDM_CT.xlsx .
+usdm:AssignedPerson-jobTitle uo:contentKind uo:ContactDetail .
+
+uoa:ExtensionAttribute-url a uo:Assessment ;
+    uo:about usdm:ExtensionAttribute-url ;
+    uo:assignedKind uo:ExtensionContent ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:ExtensionAttribute-url ;
+    uo:rationale "Identifies the extension definition. No definition in USDM_CT.xlsx or dataStructure.yml; see finding extension-attributes-undefined." ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> .
+usdm:ExtensionAttribute-url uo:contentKind uo:ExtensionContent .
+
+uoa:ExtensionAttribute-valueId a uo:Assessment ;
+    uo:about usdm:ExtensionAttribute-valueId ;
+    uo:assignedKind uo:ExtensionContent ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:ExtensionAttribute-valueId ;
+    uo:rationale "Value of an extension attribute given as an instance id in a string. No definition in USDM_CT.xlsx or dataStructure.yml." ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> .
+usdm:ExtensionAttribute-valueId uo:contentKind uo:ExtensionContent .
+
+uoa:ExtensionAttribute-valueString a uo:Assessment ;
+    uo:about usdm:ExtensionAttribute-valueString ;
+    uo:assignedKind uo:ExtensionContent ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:ExtensionAttribute-valueString ;
+    uo:rationale "Value of an extension attribute given as a string. No definition in USDM_CT.xlsx or dataStructure.yml." ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> .
+usdm:ExtensionAttribute-valueString uo:contentKind uo:ExtensionContent .
+
+uoa:ExtensionClass-url a uo:Assessment ;
+    uo:about usdm:ExtensionClass-url ;
+    uo:assignedKind uo:ExtensionContent ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:ExtensionClass-url ;
+    uo:rationale "Identifies the extension class definition. No definition in USDM_CT.xlsx or dataStructure.yml." ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> .
+usdm:ExtensionClass-url uo:contentKind uo:ExtensionContent .

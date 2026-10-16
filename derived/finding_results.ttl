@@ -13,6 +13,14 @@
     uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx>,
         <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
 
+<https://kerfors.github.io/usdm-overlay/finding/bc-reference-library-paths> uo:holds true ;
+    uo:observation "116 BiomedicalConcept instances, 46 distinct references: 43 of the form /mdr/specializations/sdtm/packages/<date>/datasetspecializations/<name>, 3 of the form /mdr/bc/packages/<date>/biomedicalconcepts/<C-code>." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+<https://kerfors.github.io/usdm-overlay/finding/code-system-free-strings> uo:holds true ;
+    uo:observation "2631 Code instances. codeSystem / codeSystemVersion pairs: 'http://www.cdisc.org' / '2024-09-27' 2534; 'ISO 3166 1 alpha3' / '2020-08' 42; 'SPONSOR' / '12' 25; 'SNOMED' / 'January 31, 2018' 20; 'ISO' / '1' 7; 'ICD-10-CM' / '1' 1; 'FDA' / '' 1; 'HL7' / '' 1." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
 <https://kerfors.github.io/usdm-overlay/finding/condition-not-referenced> uo:holds true ;
     uo:observation "ASK returned true, expected true." ;
     uo:testedAgainst <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
@@ -32,6 +40,12 @@
 <https://kerfors.github.io/usdm-overlay/finding/endpoint-activity-gap> uo:holds true ;
     uo:observation "ASK returned false, expected false." ;
     uo:testedAgainst <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
+
+<https://kerfors.github.io/usdm-overlay/finding/extension-attributes-undefined> uo:holds true ;
+    uo:observation "USDM_CT.xlsx rows for these classes: 0. usdm-rdf properties: 17, with skos:definition: 0. Instances in the published examples: 0." ;
+    uo:testedAgainst <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx>,
+        <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples>,
+        <https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl> .
 
 <https://kerfors.github.io/usdm-overlay/finding/intercurrent-event-strategy-textual> uo:holds true ;
     uo:observation "C188857 Intercurrent Event Strategy: A textual description of the planned strategy to manage and/or mitigate intercurrent events. Has Value List N." ;

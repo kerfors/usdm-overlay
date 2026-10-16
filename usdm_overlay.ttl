@@ -306,6 +306,31 @@ uo:DisplayLabel
     skos:prefLabel "Display label" ;
     skos:definition "Human-readable rendering of a value that the same instance holds in another attribute. The assessment names that attribute with uo:labelOf. Authored kind." .
 
+uo:ExtensionContent
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Housekeeping ;
+    skos:prefLabel "Extension content" ;
+    skos:definition "Attributes of the extension mechanism itself (ExtensionAttribute, ExtensionClass). Authored kind." .
+
+uo:CodeComponent
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Code component" ;
+    skos:definition "One of the strings that together identify a concept in a code system: the code, the code system, the code system version. Authored kind." .
+
+uo:Citation
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Citation" ;
+    skos:definition "String that cites an outside source. Authored kind." .
+
+uo:LexicalVariant
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Lexical variant" ;
+    skos:definition "Alternative wording of the same concept or term: a synonym, an expanded form. Authored kind." .
+
+uo:ContactDetail
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Contact detail" ;
+    skos:definition "Part of a person name, a postal address or a job title. Authored kind." .
+
 # ---------------------------------------------------------------- rules
 
 uo:rule-identity a uo:Rule ; uo:order 1 ;

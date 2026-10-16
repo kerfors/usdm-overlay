@@ -38,7 +38,7 @@ input version stops the build.
 
 | # | Layer | Status |
 | --- | --- | --- |
-| 1 | Content kind per attribute | Derived for all properties (`derived/content_kind.ttl`). Authored for logic, classification, prose and companion text (`authored/content_kind.ttl`). Other unclassified strings pending. |
+| 1 | Content kind per attribute | Complete. Derived for all properties (`derived/content_kind.ttl`); every string the derivation leaves unclassified has an authored kind (`authored/content_kind.ttl`), except Estimand.populationSummary, held open by a finding. |
 | 2 | Role per class | Not started |
 | 3 | Findings about the model, each with a test | Started: `authored/findings.ttl`, results in `derived/finding_results.ttl` and `reports/findings.md` |
 | 4 | Observed practice in the CDISC example files | Started, as example-observed findings in layer 3 |

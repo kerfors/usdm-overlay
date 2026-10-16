@@ -10,7 +10,7 @@ import sys
 from collections import Counter, defaultdict
 
 from rdflib import Graph, Literal, URIRef
-from rdflib.namespace import DCTERMS, RDF, SKOS, XSD
+from rdflib.namespace import DCTERMS, RDF, RDFS, SKOS, XSD
 
 from common import NCIT, ROOT, UO, USDM, example_files, load_ct, load_usdm, load_yaml, local
 
@@ -322,6 +322,62 @@ def timing_labels_restate_values(ctx):
     return holds, obs, [PINNED["examples"]]
 
 
+def code_system_free_strings(ctx):
+    pairs = Counter()
+    for f in example_files():
+        for c in instances(json.loads(f.read_text()), "Code", []):
+            pairs[(c["codeSystem"], c["codeSystemVersion"])] += 1
+    systems = Counter()
+    for (system, _), n in pairs.items():
+        systems[system] += n
+    url_like = [x for x in systems if x.startswith("http")]
+    named = [x for x in systems if not x.startswith("http")]
+    versions = {v for _, v in pairs}
+    holds = bool(url_like) and bool(named) and len(versions) > 1
+    obs = (
+        f"{sum(pairs.values())} Code instances. codeSystem / codeSystemVersion pairs: "
+        + "; ".join(f"'{s_}' / '{v}' {n}" for (s_, v), n in pairs.most_common())
+        + "."
+    )
+    return holds, obs, [PINNED["examples"]]
+
+
+def bc_reference_library_paths(ctx):
+    refs = Counter()
+    for f in example_files():
+        for b in instances(json.loads(f.read_text()), "BiomedicalConcept", []):
+            refs[b["reference"]] += 1
+    dss = [r for r in refs if r.startswith("/mdr/specializations/sdtm/packages/") and "/datasetspecializations/" in r]
+    bc = [r for r in refs if r.startswith("/mdr/bc/packages/") and "/biomedicalconcepts/" in r]
+    others = [r for r in refs if r not in dss and r not in bc]
+    holds = bool(dss) and bool(bc) and not others
+    obs = (
+        f"{sum(refs.values())} BiomedicalConcept instances, {len(refs)} distinct references: "
+        f"{len(dss)} of the form /mdr/specializations/sdtm/packages/<date>/datasetspecializations/<name>, "
+        f"{len(bc)} of the form /mdr/bc/packages/<date>/biomedicalconcepts/<C-code>."
+        + (" Others: " + "; ".join(others) + "." if others else "")
+    )
+    return holds, obs, [PINNED["examples"]]
+
+
+def extension_attributes_undefined(ctx):
+    ct, usdm = ctx["ct"], ctx["usdm"]
+    classes = ("ExtensionAttribute", "ExtensionClass")
+    ct_rows = [k for k in ct if k[0] in classes]
+    props = [p for p in usdm.subjects(RDFS.domain, None) if local(usdm.value(p, RDFS.domain)) in classes]
+    defined = [local(p) for p in props if usdm.value(p, SKOS.definition) is not None]
+    used = 0
+    for f in example_files():
+        d = json.loads(f.read_text())
+        used += sum(len(instances(d, c, [])) for c in classes)
+    holds = not ct_rows and not defined and used == 0 and bool(props)
+    obs = (
+        f"USDM_CT.xlsx rows for these classes: {len(ct_rows)}. usdm-rdf properties: {len(props)}, "
+        f"with skos:definition: {len(defined)}. Instances in the published examples: {used}."
+    )
+    return holds, obs, [PINNED["USDM_CT.xlsx"], PINNED["usdm_v4.ttl"], PINNED["examples"]]
+
+
 CHECKS = {
     "abstract_class_attribute_ccodes": abstract_class_attribute_ccodes,
     "procedure_type_uncoded": procedure_type_uncoded,
@@ -336,6 +392,9 @@ CHECKS = {
     "eligibility_identifier_needs_category": eligibility_identifier_needs_category,
     "template_tags_by_markup": template_tags_by_markup,
     "timing_labels_restate_values": timing_labels_restate_values,
+    "code_system_free_strings": code_system_free_strings,
+    "bc_reference_library_paths": bc_reference_library_paths,
+    "extension_attributes_undefined": extension_attributes_undefined,
 }
 
 
