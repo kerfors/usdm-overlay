@@ -21,6 +21,11 @@ PINNED = {
     "examples": URIRef("https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples"),
 }
 
+ISO_DURATION = re.compile(
+    r"^-?P(?!$)(\d+(\.\d+)?Y)?(\d+(\.\d+)?M)?(\d+(\.\d+)?W)?(\d+(\.\d+)?D)?"
+    r"(T(?=\d)(\d+(\.\d+)?H)?(\d+(\.\d+)?M)?(\d+(\.\d+)?S)?)?$"
+)
+
 SYNTAX_TEMPLATE_TYPES = {"Objective", "Endpoint", "EligibilityCriterionItem", "IntercurrentEvent", "Condition", "Characteristic"}
 
 
@@ -144,6 +149,83 @@ def syntax_template_parameters_rarely_used(ctx):
     return holds, obs, [PINNED["examples"]]
 
 
+def instances(node, instance_type, found):
+    if isinstance(node, dict):
+        if node.get("instanceType") == instance_type:
+            found.append(node)
+        for v in node.values():
+            instances(v, instance_type, found)
+    elif isinstance(node, list):
+        for v in node:
+            instances(v, instance_type, found)
+    return found
+
+
+def timing_iso8601_convention(ctx):
+    attrs = ("value", "windowLower", "windowUpper")
+    counts = {a: [0, 0] for a in attrs}
+    bad = []
+    for f in example_files():
+        for t in instances(json.loads(f.read_text()), "Timing", []):
+            for a in attrs:
+                v = t.get(a)
+                if v in (None, ""):
+                    continue
+                counts[a][0] += 1
+                if ISO_DURATION.match(v):
+                    counts[a][1] += 1
+                else:
+                    bad.append(f"{f.name} {t['id']}.{a}={v}")
+    in_yaml = "8601" in (ROOT / "downloads" / "dataStructure.yml").read_text()
+    in_ct = any("8601" in str(r["Definition"]) for r in ctx["ct"].values())
+    holds = not bad and all(n > 0 for n, _ in counts.values()) and not in_yaml and not in_ct
+    obs = (
+        "ISO 8601 durations among non-empty values: "
+        + "; ".join(f"{a} {ok} of {n}" for a, (n, ok) in counts.items())
+        + (". Not parsing: " + "; ".join(bad) if bad else "")
+        + f". '8601' in dataStructure.yml: {'yes' if in_yaml else 'no'}; in USDM_CT.xlsx definitions: {'yes' if in_ct else 'no'}."
+    )
+    return holds, obs, [PINNED["examples"], PINNED["dataStructure.yml"], PINNED["USDM_CT.xlsx"]]
+
+
+def parameter_reference_by_markup(ctx):
+    total = markup = 0
+    other = []
+    for f in example_files():
+        for m in instances(json.loads(f.read_text()), "ParameterMap", []):
+            total += 1
+            if m["reference"].startswith("<usdm:ref "):
+                markup += 1
+            else:
+                other.append(f"{f.name} tag {m['tag']} = {m['reference']}")
+    holds = total > 0 and markup * 2 > total
+    obs = f"usdm:ref markup in {markup} of {total} ParameterMap.reference values." + (
+        " Other values: " + "; ".join(other) + "." if other else ""
+    )
+    return holds, obs, [PINNED["examples"]]
+
+
+def bc_property_datatype_names(ctx):
+    names = Counter()
+    empty = total = 0
+    for f in example_files():
+        for p in instances(json.loads(f.read_text()), "BiomedicalConceptProperty", []):
+            total += 1
+            v = p.get("datatype")
+            if v in (None, ""):
+                empty += 1
+            else:
+                names[v] += 1
+    row = ctx["ct"][("BiomedicalConceptProperty", "datatype")]
+    holds = "text" in names and "string" in names and row["Has Value List"] == "N"
+    obs = (
+        f"{total} BiomedicalConceptProperty instances, {empty} with empty datatype. Names used: "
+        + ", ".join(f"{n} {c}" for n, c in names.most_common())
+        + f". USDM_CT.xlsx Has Value List: {row['Has Value List']}."
+    )
+    return holds, obs, [PINNED["examples"], PINNED["USDM_CT.xlsx"]]
+
+
 CHECKS = {
     "abstract_class_attribute_ccodes": abstract_class_attribute_ccodes,
     "procedure_type_uncoded": procedure_type_uncoded,
@@ -151,6 +233,9 @@ CHECKS = {
     "intercurrent_event_strategy_textual": intercurrent_event_strategy_textual,
     "narrative_references_by_markup": narrative_references_by_markup,
     "syntax_template_parameters_rarely_used": syntax_template_parameters_rarely_used,
+    "timing_iso8601_convention": timing_iso8601_convention,
+    "parameter_reference_by_markup": parameter_reference_by_markup,
+    "bc_property_datatype_names": bc_property_datatype_names,
 }
 
 

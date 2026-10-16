@@ -154,3 +154,29 @@ uof:syntax-template-parameters-rarely-used a uo:Finding ;
     uo:evidenceTier uo:ExampleObserved ;
     uo:checkFunction "syntax_template_parameters_rarely_used" ;
     dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:timing-iso8601-convention a uo:Finding ;
+    dcterms:title "Timing values follow ISO 8601 by convention only" ;
+    uo:statement "In the published examples, every non-empty Timing.value, windowLower and windowUpper is an ISO 8601 duration. Neither dataStructure.yml nor USDM_CT.xlsx names a syntax for them; the range is xsd:string." ;
+    dcterms:subject usdm:Timing ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "timing_iso8601_convention" ;
+    dcterms:source uml:dataStructure.yml, ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:parameter-reference-by-markup a uo:Finding ;
+    dcterms:title "Syntax-template parameters resolve through markup" ;
+    uo:statement "In the published examples, ParameterMap.reference holds usdm:ref markup, the same convention as narrative text. A syntax-template parameter resolves to a model value through markup in a string, not through a model reference." ;
+    dcterms:subject usdm:ParameterMap, usdm:SyntaxTemplateDictionary, usdm:SyntaxTemplate ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "parameter_reference_by_markup" ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+
+uof:bc-property-datatype-names a uo:Finding ;
+    dcterms:title "Biomedical concept property datatypes are uncontrolled names" ;
+    uo:statement "BiomedicalConceptProperty.datatype has no value list. The published examples use a small set of datatype names, including both 'text' and 'string', with nothing in the model to say whether they differ." ;
+    dcterms:subject usdm:BiomedicalConceptProperty ;
+    uo:evidenceTier uo:ExampleObserved ;
+    uo:checkFunction "bc_property_datatype_names" ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .

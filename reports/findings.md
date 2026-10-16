@@ -6,15 +6,18 @@ Statements are in `authored/findings.ttl`; this report adds what each test obser
 | Finding | Evidence tier | Holds |
 | --- | --- | --- |
 | [Abstract-class attributes carry a subclass's C-code](#abstract-class-attribute-ccodes) | Model-stated | yes |
+| [Biomedical concept property datatypes are uncontrolled names](#bc-property-datatype-names) | Example-observed | yes |
 | [Schedule conditions are strings, not Condition instances](#condition-not-referenced) | Model-stated | yes |
 | [Objectives, endpoints and criteria have no link to document sections](#design-elements-not-linked-to-document) | Model-stated | yes |
 | [Section references are used only for amendment changes](#document-content-reference-amendments-only) | Model-stated | yes |
 | [No link between Endpoint and what it requires](#endpoint-activity-gap) | Model-stated | yes |
 | [Intercurrent event strategy: fixed set, specified as text](#intercurrent-event-strategy-textual) | Authored | yes |
 | [Narrative refers to model instances by markup in text](#narrative-references-by-markup) | Example-observed | yes |
+| [Syntax-template parameters resolve through markup](#parameter-reference-by-markup) | Example-observed | yes |
 | [Population-level summary: term and definition disagree](#population-summary-term-vs-definition) | Authored | yes |
 | [Procedure type is an uncoded classification](#procedure-type-uncoded) | Definition-stated | yes |
 | [Syntax-template parameters are rarely used](#syntax-template-parameters-rarely-used) | Example-observed | yes |
+| [Timing values follow ISO 8601 by convention only](#timing-iso8601-convention) | Example-observed | yes |
 
 ## Abstract-class attributes carry a subclass's C-code
 
@@ -23,6 +26,14 @@ Statements are in `authored/findings.ttl`; this report adds what each test obser
 For attributes declared on abstract classes, dataStructure.yml carries the C-code, preferred term and definition of one concrete subclass, not the abstract class's own entry in USDM_CT.xlsx. usdm-rdf renders the YAML, so its skos:exactMatch on these properties points to the subclass concept. Example: SyntaxTemplate.text carries C207478 Characteristic Text; USDM_CT.xlsx lists C207578 Syntax Template Text for SyntaxTemplate.text.
 
 **Observed:** 27 of 388 C-coded attributes in dataStructure.yml differ from USDM_CT.xlsx. All differences are on abstract classes (Identifier 1, PopulationDefinition 9, ScheduledInstance 3, StudyDesign 9, SyntaxTemplate 5); 27 C-coded attributes are declared on abstract classes in total. usdm-rdf skos:exactMatch follows the YAML code for all 27.
+
+## Biomedical concept property datatypes are uncontrolled names
+
+<a id="bc-property-datatype-names"></a>`bc-property-datatype-names` · Example-observed
+
+BiomedicalConceptProperty.datatype has no value list. The published examples use a small set of datatype names, including both 'text' and 'string', with nothing in the model to say whether they differ.
+
+**Observed:** 638 BiomedicalConceptProperty instances, 420 with empty datatype. Names used: text 93, float 69, integer 26, datetime 20, string 8, decimal 2. USDM_CT.xlsx Has Value List: N.
 
 ## Schedule conditions are strings, not Condition instances
 
@@ -72,6 +83,14 @@ In the published examples, NarrativeContentItem.text refers to model instances b
 
 **Observed:** Alexion_NCT04573309_Wilsons.json: 467 usdm:ref in 105 narrative items, 17 classes; CDISC_Pilot_Study.json: 350 usdm:ref in 85 narrative items, 14 classes; EliLilly_NCT03421379_Diabetes.json: 234 usdm:ref in 112 narrative items, 16 classes; devices.json: 41 usdm:ref in 133 narrative items, 14 classes; observational.json: 26 usdm:ref in 6 narrative items, 11 classes. dataStructure.yml mentions usdm:ref: no.
 
+## Syntax-template parameters resolve through markup
+
+<a id="parameter-reference-by-markup"></a>`parameter-reference-by-markup` · Example-observed
+
+In the published examples, ParameterMap.reference holds usdm:ref markup, the same convention as narrative text. A syntax-template parameter resolves to a model value through markup in a string, not through a model reference.
+
+**Observed:** usdm:ref markup in 14 of 15 ParameterMap.reference values. Other values: observational.json tag value_key = 1234.0.
+
 ## Population-level summary: term and definition disagree
 
 <a id="population-summary-term-vs-definition"></a>`population-summary-term-vs-definition` · Authored
@@ -95,3 +114,11 @@ Procedure.procedureType and Endpoint.level share the definition pattern "A chara
 In the published examples, most syntax-template instances (Objective, Endpoint, EligibilityCriterionItem, IntercurrentEvent, Condition, Characteristic) have no dictionary, so their text carries no parameters the model can see.
 
 **Observed:** Syntax-template instances with a dictionary: 13 of 245. Per example: Alexion_NCT04573309_Wilsons.json: 1 of 87; CDISC_Pilot_Study.json: 4 of 51; EliLilly_NCT03421379_Diabetes.json: 0 of 73; devices.json: 3 of 17; observational.json: 5 of 17.
+
+## Timing values follow ISO 8601 by convention only
+
+<a id="timing-iso8601-convention"></a>`timing-iso8601-convention` · Example-observed
+
+In the published examples, every non-empty Timing.value, windowLower and windowUpper is an ISO 8601 duration. Neither dataStructure.yml nor USDM_CT.xlsx names a syntax for them; the range is xsd:string.
+
+**Observed:** ISO 8601 durations among non-empty values: value 153 of 153; windowLower 30 of 30; windowUpper 30 of 30. '8601' in dataStructure.yml: no; in USDM_CT.xlsx definitions: no.

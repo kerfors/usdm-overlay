@@ -132,3 +132,67 @@ uoa:Duration-reasonDurationWillVary a uo:Assessment ;
     uo:rationale "Free text explaining the boolean sibling attribute durationWillVary." ;
     dcterms:source ct:USDM_CT.xlsx .
 usdm:Duration-reasonDurationWillVary uo:contentKind uo:CompanionText .
+
+# ---------------------------------------------------------------- encoded value
+
+uoa:Timing-value a uo:Assessment ;
+    uo:about usdm:Timing-value ;
+    uo:assignedKind uo:EncodedValue ;
+    uo:syntax "ISO 8601 duration" ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Timing-value ;
+    uo:quote "The temporal value of the chronological relationship between temporal events." ;
+    uo:rationale "Every value in the published examples parses as an ISO 8601 duration. The model files name no syntax and the range is xsd:string. See finding timing-iso8601-convention." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Timing-value uo:contentKind uo:EncodedValue .
+
+uoa:Timing-windowLower a uo:Assessment ;
+    uo:about usdm:Timing-windowLower ;
+    uo:assignedKind uo:EncodedValue ;
+    uo:syntax "ISO 8601 duration" ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Timing-windowLower ;
+    uo:quote "The earliest chronological value of an allowable period of time during which a temporal event takes place." ;
+    uo:rationale "Every non-empty value in the published examples parses as an ISO 8601 duration. The model files name no syntax and the range is xsd:string. See finding timing-iso8601-convention." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Timing-windowLower uo:contentKind uo:EncodedValue .
+
+uoa:Timing-windowUpper a uo:Assessment ;
+    uo:about usdm:Timing-windowUpper ;
+    uo:assignedKind uo:EncodedValue ;
+    uo:syntax "ISO 8601 duration" ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:Timing-windowUpper ;
+    uo:quote "The latest chronological value of an allowable period of time during which a temporal event takes place." ;
+    uo:rationale "Every non-empty value in the published examples parses as an ISO 8601 duration. The model files name no syntax and the range is xsd:string. See finding timing-iso8601-convention." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:Timing-windowUpper uo:contentKind uo:EncodedValue .
+
+# ---------------------------------------------------------------- embedded reference
+
+uoa:ParameterMap-reference a uo:Assessment ;
+    uo:about usdm:ParameterMap-reference ;
+    uo:assignedKind uo:EmbeddedReference ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:ParameterMap-reference ;
+    uo:quote "The reference for a tag used in programming languages, such as a markup language (e.g., HTML, XML), to store attributes and elements." ;
+    uo:rationale "In the published examples the values are usdm:ref markup naming a class, an instance and an attribute, with a literal value as the exception. The pointer to the model lives inside a string, not in a model reference. See finding parameter-reference-by-markup." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:ParameterMap-reference uo:contentKind uo:EmbeddedReference .
+
+# ---------------------------------------------------------------- classification as text (from examples)
+
+uoa:BiomedicalConceptProperty-datatype a uo:Assessment ;
+    uo:about usdm:BiomedicalConceptProperty-datatype ;
+    uo:assignedKind uo:ClassificationAsText ;
+    uo:evidenceTier uo:Authored ;
+    uo:refines uod:BiomedicalConceptProperty-datatype ;
+    uo:quote "The structural format of the biomedical concept property response value." ;
+    uo:rationale "The value names a datatype for the response value. The published examples use a small set of datatype names, and USDM_CT.xlsx gives no value list. See finding bc-property-datatype-names." ;
+    dcterms:source ct:USDM_CT.xlsx ;
+    dcterms:source <https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples> .
+usdm:BiomedicalConceptProperty-datatype uo:contentKind uo:ClassificationAsText .

@@ -67,6 +67,12 @@ def main():
                 raise RuntimeError(f"{local(a)}: companionOf points to itself")
         elif companions:
             raise RuntimeError(f"{local(a)}: uo:companionOf only allowed on companion text")
+        syntaxes = list(authored.objects(a, UO.syntax))
+        if kind == UO.EncodedValue:
+            if len(syntaxes) != 1 or not str(syntaxes[0]).strip():
+                raise RuntimeError(f"{local(a)}: encoded value needs exactly one uo:syntax")
+        elif syntaxes:
+            raise RuntimeError(f"{local(a)}: uo:syntax only allowed on encoded values")
 
     findings = sorted(authored.subjects(RDF.type, UO.Finding), key=str)
     for f in findings:

@@ -81,6 +81,13 @@ uo:companionOf
     rdfs:domain uo:Assessment ;
     skos:definition "For companion text: the sibling attribute, coded or typed, that the text qualifies." .
 
+uo:syntax
+    a owl:DatatypeProperty ;
+    rdfs:label "syntax" ;
+    rdfs:domain uo:Assessment ;
+    rdfs:range xsd:string ;
+    skos:definition "For encoded values: the syntax the values follow." .
+
 uo:Finding
     a owl:Class ;
     rdfs:label "Finding" ;
@@ -267,6 +274,16 @@ uo:CompanionText
     a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Prose ;
     skos:prefLabel "Companion text" ;
     skos:definition "Prose that qualifies a coded or typed sibling attribute of the same class. The assessment names the sibling with uo:companionOf. Authored kind." .
+
+uo:EncodedValue
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Encoded value" ;
+    skos:definition "String in a formal syntax that software is expected to parse. The assessment names the syntax with uo:syntax. Authored kind." .
+
+uo:EmbeddedReference
+    a skos:Concept ; skos:inScheme uo:ContentKindScheme ; skos:broader uo:Text ;
+    skos:prefLabel "Embedded reference" ;
+    skos:definition "String holding markup that points at an attribute of a model instance (usdm:ref), in place of a model reference. Authored kind." .
 
 # ---------------------------------------------------------------- rules
 
