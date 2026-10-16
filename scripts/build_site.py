@@ -3,7 +3,8 @@
 Input:  usdm_overlay.ttl, derived/*.ttl, authored/*.ttl, reports/*.md,
         downloads/usdm_v4.ttl (labels, domains, superclasses),
         site/explorer.html (explorer page template), site/design-elements.html
-        (plain-language page, hand-maintained)
+        (plain-language page, hand-maintained), site/design-elements-in-usdm.pdf
+        (the same content as slides, copied as is)
 Output: docs/ (deleted and rebuilt on every run; do not edit by hand)
 
 Every IRI the overlay mints under its namespace gets a page at its own path:
@@ -509,6 +510,7 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
     (SITE / "explorer").mkdir()
     (SITE / "explorer" / "index.html").write_text(template.replace("__DATA__", data))
     write("design-elements", "Design elements in USDM", (SITE_SRC / "design-elements.html").read_text())
+    shutil.copyfile(SITE_SRC / "design-elements-in-usdm.pdf", SITE / "design-elements" / "design-elements-in-usdm.pdf")
 
     # ---------------------------------------------------------------- index
     def term_list(rdf_type):
@@ -538,7 +540,7 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
 <p class="iri">{esc(NS)}</p>
 <p>{esc(vocab.value(URIRef(NS), DCTERMS.description))}</p>
 <div class="start">
-<a href="design-elements/"><b>Design elements in plain language</b><span>Objectives, endpoints, eligibility criteria and the schedule: what USDM holds as data, and what is still words.</span></a>
+<a href="design-elements/"><b>Design elements in plain language</b><span>Objectives, endpoints, eligibility criteria and the schedule: what USDM holds as data, and what is still words. Also as four slides (PDF).</span></a>
 <a href="explorer/"><b>Explore the overlay</b><span>Every class and attribute, filterable by role, with the evidence for each reading, and the findings.</span></a>
 </div>
 <p class="note">{esc(vocab.value(URIRef(NS), RDFS.comment))} RDF: <a href="graphs/overlay.ttl">graphs/overlay.ttl</a> (whole graph).</p>
