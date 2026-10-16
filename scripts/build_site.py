@@ -1,7 +1,9 @@
 """Build the static GitHub Pages site for the overlay namespace.
 
 Input:  usdm_overlay.ttl, derived/*.ttl, authored/*.ttl, reports/*.md,
-        downloads/usdm_v4.ttl (labels, domains, superclasses)
+        downloads/usdm_v4.ttl (labels, domains, superclasses),
+        site/explorer.html (explorer page template), site/design-elements.html
+        (plain-language page, hand-maintained)
 Output: docs/ (deleted and rebuilt on every run; do not edit by hand)
 
 Every IRI the overlay mints under its namespace gets a page at its own path:
@@ -14,13 +16,20 @@ Every IRI the overlay mints under its namespace gets a page at its own path:
 - findings: docs/id/finding/<id>/index.html
 RDF is served as files only, the whole graph: GitHub Pages has no content
 negotiation. Every page links to graphs/overlay.ttl as its RDF alternate.
+
+Two reading pages sit beside the minted IRIs: docs/explorer/ (the graphs as
+an explorable page, its data computed here on every build) and
+docs/design-elements/ (a plain-language page). No minted IRI may start with
+their path names.
 """
 import html
+import json
 import shutil
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 import markdown
 from rdflib import Graph, URIRef
+from rdflib.collection import Collection
 from rdflib.namespace import DCTERMS, OWL, RDF, RDFS, SKOS
 
 from common import ROOT, UO, USDM, load_usdm, local
@@ -28,6 +37,8 @@ from common import ROOT, UO, USDM, load_usdm, local
 NS = str(UO)
 SITE = ROOT / "docs"
 REPO = "https://github.com/kerfors/usdm-overlay"
+SITE_SRC = ROOT / "site"
+READING_PAGES = ("explorer", "design-elements")
 OVERLAY_FILES = ["usdm_overlay.ttl"] + [
     f"{folder}/{name}"
     for folder in ("derived", "authored")
@@ -35,11 +46,14 @@ OVERLAY_FILES = ["usdm_overlay.ttl"] + [
 ]
 
 CSS = """
-:root { --bg: #fdfdfb; --fg: #1d1d1b; --muted: #5f5f5a; --rule: #d9d9d2; --accent: #1f5c99; --code: #f1f1ec; }
+:root { --bg: #fdfdfb; --fg: #1d1d1b; --muted: #5f5f5a; --rule: #d9d9d2; --accent: #1f5c99; --code: #f1f1ec;
+    --data-bg: #dce7f5; --data-fg: #1e4f8a; --words-bg: #f6e3d2; --words-fg: #7a3d10; --tint: #eef3fa; }
 @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f; }
+    :root:not([data-theme="light"]) { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f;
+        --data-bg: #233a57; --data-fg: #b9d3f2; --words-bg: #4a3020; --words-fg: #f0c9a6; --tint: #1c2531; }
 }
-:root[data-theme="dark"] { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f; }
+:root[data-theme="dark"] { --bg: #161615; --fg: #e8e8e3; --muted: #a3a39c; --rule: #3a3a36; --accent: #8ab8e6; --code: #23231f;
+    --data-bg: #233a57; --data-fg: #b9d3f2; --words-bg: #4a3020; --words-fg: #f0c9a6; --tint: #1c2531; }
 body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; margin: 0; }
 main { max-width: 64rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
 a { color: var(--accent); }
@@ -59,6 +73,35 @@ pre, code { font-family: ui-monospace, monospace; font-size: 0.85rem; background
 pre { padding: 0.75rem; overflow-x: auto; }
 blockquote { margin: 0.5rem 0; padding-left: 0.75rem; border-left: 3px solid var(--rule); color: var(--muted); }
 .note { color: var(--muted); font-size: 0.9rem; }
+.eyebrow { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0; }
+.lede { font-size: 1.1rem; color: var(--muted); max-width: 42rem; }
+.start { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin-top: 1rem; }
+.start a { display: block; border: 1px solid var(--rule); border-radius: 10px; padding: 1rem; text-decoration: none; color: var(--fg); }
+.start a b { color: var(--accent); }
+.start a span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chip { display: inline-block; font-size: 0.85rem; padding: 0.15rem 0.7rem; border-radius: 999px; font-weight: 600; }
+.chip.data { background: var(--data-bg); color: var(--data-fg); }
+.chip.words { background: var(--words-bg); color: var(--words-fg); }
+.chip.none { border: 1px dashed var(--muted); color: var(--muted); }
+.chip a { color: inherit; }
+.de-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.5rem; align-items: center; }
+.de-card { border: 1px solid var(--rule); border-radius: 14px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.wordblock { background: var(--words-bg); color: var(--words-fg); padding: 0.75rem 1rem; border-radius: 10px; font-style: italic; margin: 0; }
+.de-defs { display: flex; flex-direction: column; gap: 0.75rem; }
+.de-defs p { margin: 0; }
+.de-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.de-col { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+.de-box { border: 1px solid var(--rule); border-radius: 14px; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.de-box h3 { margin: 0; font-size: 1.05rem; }
+.de-box.structured { background: var(--tint); border-color: var(--data-fg); }
+.de-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+.de-grid span { text-align: center; font-size: 0.85rem; border: 1px solid var(--data-fg); color: var(--data-fg); border-radius: 6px; padding: 0.2rem; }
+.de-gaps { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+.de-gap { border: 2px dashed var(--words-fg); border-radius: 14px; padding: 1rem 1.1rem; }
+.de-gap h3 { margin: 0 0 0.4rem; font-size: 1.05rem; }
+.de-gap p { margin: 0; }
+.de-short { grid-template-columns: max-content 1fr; gap: 0.6rem 1rem; align-items: center; }
 """
 
 
@@ -85,7 +128,7 @@ def page(path_dir, title, body):
 </head>
 <body>
 <main>
-<nav><a href="{up}">usdm-overlay</a> · <a href="{up}reports/">reports</a> · <a href="{up}graphs/">graphs</a> · <a href="{REPO}">repository</a></nav>
+<nav><a href="{up}">usdm-overlay</a> · <a href="{up}explorer/">explorer</a> · <a href="{up}design-elements/">design elements</a> · <a href="{up}reports/">reports</a> · <a href="{up}graphs/">graphs</a> · <a href="{REPO}">repository</a></nav>
 {body}
 </main>
 </body>
@@ -122,6 +165,87 @@ def site_path(iri):
     if not text.startswith(NS):
         raise RuntimeError(f"{text} is not in the overlay namespace")
     return text[len(NS):]
+
+
+def explorer_data(usdm, overlay):
+    """The data the explorer page renders, computed from the graphs."""
+    def label(term):
+        return str(overlay.value(term, SKOS.prefLabel) or local(term))
+
+    def top(kind):
+        while overlay.value(kind, SKOS.broader) is not None:
+            kind = overlay.value(kind, SKOS.broader)
+        return kind
+
+    def group(kind):
+        if top(kind) == UO.Text:
+            return "read" if (UO.ReadText, SKOS.member, kind) in overlay else "structure"
+        return local(top(kind))
+
+    assessments = set(overlay.subjects(RDF.type, UO.Assessment))
+    refined_by = {overlay.value(a, UO.refines): a for a in assessments if overlay.value(a, UO.refines) is not None}
+    derived = {overlay.value(a, UO.about): a for a in assessments if overlay.value(a, UO.refines) is None}
+
+    def effective(term):
+        d = derived[term]
+        return refined_by.get(d, d), d
+
+    classes = sorted((c for c in usdm.subjects(RDF.type, OWL.Class) if str(c).startswith(str(USDM))), key=str)
+    class_set = set(classes)
+    own = defaultdict(list)
+    for term in derived:
+        if term not in class_set:
+            own[usdm.value(term, RDFS.domain)].append(term)
+    findings_by_class = defaultdict(list)
+    findings = sorted(overlay.subjects(RDF.type, UO.Finding), key=str)
+    for f in findings:
+        for s in overlay.objects(f, DCTERMS.subject):
+            findings_by_class[s].append(local(f))
+    profile_keys = ["hasNaming", "isReferenced", "composedInCount", "readTextCount", "stringStructureCount",
+                    "valueCount", "referenceCount", "partCount"]
+    out_classes = []
+    for c in classes:
+        e, d = effective(c)
+        attrs = []
+        for prop in sorted(own[c], key=str):
+            pe, pd = effective(prop)
+            kind = overlay.value(pe, UO.assignedKind)
+            rng = usdm.value(prop, RDFS.range)
+            union = usdm.value(rng, OWL.unionOf)
+            rng_text = " or ".join(sorted(local(m) for m in Collection(usdm, union))) if union is not None else local(rng)
+            attrs.append({
+                "a": local(prop).split("-", 1)[1], "range": rng_text, "kind": label(kind), "group": group(kind),
+                "tier": label(overlay.value(pe, UO.evidenceTier)),
+                "derived": label(overlay.value(pd, UO.assignedKind)) if pe != pd else None,
+                "why": str(overlay.value(pe, UO.rationale)) if overlay.value(pe, UO.rationale) is not None else None,
+            })
+        out_classes.append({
+            "name": local(c), "abstract": str(usdm.value(c, USDM.modifier)) == "Abstract",
+            "super": [local(s) for s in usdm.objects(c, RDFS.subClassOf) if s in class_set],
+            "role": label(overlay.value(e, UO.assignedKind)),
+            "derivedRole": label(overlay.value(d, UO.assignedKind)) if e != d else None,
+            "rule": local(overlay.value(d, UO.byRule)),
+            "why": str(overlay.value(e, UO.rationale)) if e != d else None,
+            "profile": {k: overlay.value(d, UO[k]).toPython() for k in profile_keys},
+            "attrs": attrs, "findings": sorted(findings_by_class[c]),
+            "def": str(usdm.value(c, SKOS.definition) or ""),
+        })
+    out_findings = [{
+        "id": local(f), "title": str(overlay.value(f, DCTERMS.title)),
+        "standing": label(overlay.value(f, UO.standing)), "standingWhy": str(overlay.value(f, UO.standingRationale)),
+        "tier": label(overlay.value(f, UO.evidenceTier)), "statement": str(overlay.value(f, UO.statement)),
+        "obs": str(overlay.value(f, UO.observation)),
+        "rationale": str(overlay.value(f, UO.rationale)) if overlay.value(f, UO.rationale) is not None else None,
+        "subjects": sorted(local(s) for s in overlay.objects(f, DCTERMS.subject)),
+    } for f in findings]
+    all_attrs = [a for c in out_classes for a in c["attrs"]]
+    summary = {
+        "attributes": len(all_attrs), "classes": len(out_classes), "findings": len(out_findings),
+        "groups": dict(Counter(a["group"] for a in all_attrs)),
+        "kinds": dict(Counter(a["kind"] for a in all_attrs if a["group"] in ("read", "structure"))),
+        "roles": dict(Counter(c["role"] for c in out_classes)),
+    }
+    return {"summary": summary, "classes": out_classes, "findings": out_findings}
 
 
 def main():
@@ -377,6 +501,15 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
 {used}"""
         write(d, pref(term), body)
 
+    # ---------------------------------------------------------------- reading pages
+    template = (SITE_SRC / "explorer.html").read_text()
+    if template.count("__DATA__") != 1:
+        raise RuntimeError("site/explorer.html must hold exactly one __DATA__ placeholder")
+    data = json.dumps(explorer_data(usdm, overlay), ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    (SITE / "explorer").mkdir()
+    (SITE / "explorer" / "index.html").write_text(template.replace("__DATA__", data))
+    write("design-elements", "Design elements in USDM", (SITE_SRC / "design-elements.html").read_text())
+
     # ---------------------------------------------------------------- index
     def term_list(rdf_type):
         members = sorted(vocab.subjects(RDF.type, rdf_type), key=str)
@@ -404,6 +537,10 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
     body = f"""<h1>usdm-overlay</h1>
 <p class="iri">{esc(NS)}</p>
 <p>{esc(vocab.value(URIRef(NS), DCTERMS.description))}</p>
+<div class="start">
+<a href="design-elements/"><b>Design elements in plain language</b><span>Objectives, endpoints, eligibility criteria and the schedule: what USDM holds as data, and what is still words.</span></a>
+<a href="explorer/"><b>Explore the overlay</b><span>Every class and attribute, filterable by role, with the evidence for each reading, and the findings.</span></a>
+</div>
 <p class="note">{esc(vocab.value(URIRef(NS), RDFS.comment))} RDF: <a href="graphs/overlay.ttl">graphs/overlay.ttl</a> (whole graph).</p>
 <h2>Classes by role</h2>
 <ul>{role_items}</ul>
@@ -435,7 +572,10 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
     clashes = sorted(sorted(v) for v in lowered.values() if len(v) > 1)
     if clashes:
         raise RuntimeError(f"Paths that differ only by case collide on case-insensitive file systems: {clashes[:5]}")
-    print(f"OK: {len(minted)} minted IRIs, each with a page in docs/")
+    taken = [i for i in minted if site_path(i).split("/")[0].lower() in READING_PAGES]
+    if taken:
+        raise RuntimeError(f"Minted IRIs collide with the reading pages: {taken[:5]}")
+    print(f"OK: {len(minted)} minted IRIs, each with a page in docs/; reading pages: {', '.join(READING_PAGES)}")
 
 
 if __name__ == "__main__":

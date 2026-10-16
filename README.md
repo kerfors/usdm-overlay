@@ -58,6 +58,7 @@ one-line rationale.
 | `derived/` | Generated graphs. Do not edit by hand. |
 | `reports/` | Generated reports. Do not edit by hand. |
 | `docs/` | Generated GitHub Pages site for the namespace. Do not edit by hand. |
+| `site/` | Hand-maintained sources for the site's two reading pages: `explorer.html` (template; its data is computed from the graphs on every build) and `design-elements.html` (plain-language page). |
 | `downloads/` | Pinned inputs and `MANIFEST.md` with tag, commit and SHA-256: `usdm_v4.ttl` (usdm-rdf v0.7.1), `USDM_CT.xlsx`, `dataStructure.yml` and the five example studies (DDF-RA v4.0.0). |
 | `queries/` | Example SPARQL queries over usdm-rdf plus the overlay. Results in `reports/queries.md`. |
 | `scripts/` | `fetch_inputs.py`, `build_content_kind.py`, `build_class_role.py`, `validate_authored.py`, `check_findings.py`, `run_queries.py`, `build_site.py`, `common.py`. |
@@ -96,6 +97,12 @@ Every IRI the overlay mints resolves to a page at its own path (slash IRIs):
 | `id/assessment/classRole/<Class>` | the page for that USDM class: role, profile, every attribute assessment as an anchor |
 | other assessments | a stub that forwards to the anchor on the class page |
 | `id/finding/<id>` | the finding, its test and its last result |
+
+Two reading pages sit beside them: [`explorer/`](https://kerfors.github.io/usdm-overlay/explorer/),
+every class and attribute with its reading and evidence, filterable by role, plus
+the findings; and [`design-elements/`](https://kerfors.github.io/usdm-overlay/design-elements/),
+a plain-language page on what USDM holds as data and as words for objectives,
+endpoints, eligibility criteria and the schedule.
 
 GitHub Pages has no content negotiation. RDF is served as files, the whole
 graph: `graphs/overlay.ttl` merges all overlay graphs, and every page links to
