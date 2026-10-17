@@ -58,10 +58,10 @@ one-line rationale.
 | `derived/` | Generated graphs. Do not edit by hand. |
 | `reports/` | Generated reports. Do not edit by hand. |
 | `docs/` | Generated GitHub Pages site for the namespace. Do not edit by hand. |
-| `site/` | Hand-maintained sources for the site's reading material: `explorer.html` (template; its data is computed from the graphs on every build), `slides/design-elements-slides.html` (six slides on design elements) and `design-elements-in-usdm.pdf` (rendered from the slides by `scripts/render_slides.py`, which needs Playwright with Chromium and is not part of the regular rebuild). |
+| `site/` | Hand-maintained sources for the site's reading material: `explorer.html` (template; its data is computed from the graphs on every build), `slides/design-elements-slides.html` (five slides on design elements) and `design-elements-in-usdm.pdf` (rendered from the slides by `scripts/render_slides.py`, which needs Playwright with Chromium and is not part of the regular rebuild). |
 | `downloads/` | Pinned inputs and `MANIFEST.md` with tag, commit and SHA-256: `usdm_v4.ttl` (usdm-rdf v0.7.1), `USDM_CT.xlsx`, `dataStructure.yml` and the five example studies (DDF-RA v4.0.0). |
 | `queries/` | Example SPARQL queries over usdm-rdf plus the overlay. Results in `reports/queries.md`. |
-| `scripts/` | `fetch_inputs.py`, `build_content_kind.py`, `build_class_role.py`, `validate_authored.py`, `check_findings.py`, `run_queries.py`, `build_site.py`, `build_clouds.py`, `render_slides.py`, `common.py`. |
+| `scripts/` | `fetch_inputs.py`, `build_content_kind.py`, `build_class_role.py`, `validate_authored.py`, `check_findings.py`, `run_queries.py`, `build_site.py`, `render_slides.py`, `common.py`. |
 
 ## Rebuild
 
@@ -101,7 +101,7 @@ Every IRI the overlay mints resolves to a page at its own path (slash IRIs):
 Two reading pages sit beside them: [`explorer/`](https://kerfors.github.io/usdm-overlay/explorer/),
 every class and attribute with its reading and evidence, filterable by role, plus
 the findings; and [`design-elements/`](https://kerfors.github.io/usdm-overlay/design-elements/design-elements-in-usdm.pdf),
-six slides (PDF) on what USDM holds as data and as words for objectives,
+five slides (PDF) on what USDM holds as data and as words for objectives,
 endpoints, eligibility criteria and the schedule.
 
 GitHub Pages has no content negotiation. RDF is served as files, the whole
