@@ -524,7 +524,7 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
 <p class="iri">{esc(NS)}</p>
 <p>{esc(vocab.value(URIRef(NS), DCTERMS.description))}</p>
 <div class="start">
-<a href="design-elements/design-elements-in-usdm.pdf"><b>Design elements in USDM (slides, PDF)</b><span>Objectives, endpoints, eligibility criteria and the schedule: what USDM holds as data, and what is still words. Five slides, ready to present or send.</span></a>
+<a href="design-elements/design-elements-in-usdm.pdf"><b>Design elements in USDM (slides, PDF)</b><span>Objectives, endpoints, eligibility criteria and the schedule: what USDM holds as data, and what is still words. Six slides, ready to present or send.</span></a>
 <a href="explorer/"><b>Explore the overlay</b><span>Every class and attribute, filterable by role, with the evidence for each reading, and the findings.</span></a>
 </div>
 <p class="note">{esc(vocab.value(URIRef(NS), RDFS.comment))} RDF: <a href="graphs/overlay.ttl">graphs/overlay.ttl</a> (whole graph).</p>
