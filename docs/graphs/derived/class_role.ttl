@@ -1,4 +1,4 @@
-# Derived by scripts/build_class_role.py from downloads/usdm_v4.ttl (usdm-rdf v0.7.1)
+# Derived by scripts/build_class_role.py from downloads/usdm_v4.ttl (usdm-rdf v0.7.0)
 # and the layer 1 content kinds. Do not edit by hand.
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix uo: <https://kerfors.github.io/usdm-overlay/> .
@@ -6,7 +6,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Abbreviation> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Abbreviation ;
     uo:assignedKind uo:ValueType ;
     uo:byRule uo:rule-role-value-type ;
@@ -21,7 +21,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Activity> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Activity ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -36,7 +36,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Address> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Address ;
     uo:assignedKind uo:ValueType ;
     uo:byRule uo:rule-role-value-type ;
@@ -51,7 +51,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/AdministrableProduct> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:AdministrableProduct ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -66,7 +66,7 @@
     uo:valueCount 4 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/AdministrableProductIdentifier> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:AdministrableProductIdentifier ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -81,7 +81,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/AdministrableProductProperty> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:AdministrableProductProperty ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -96,7 +96,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Administration> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Administration ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -111,7 +111,7 @@
     uo:valueCount 3 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/AliasCode> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:AliasCode ;
     uo:assignedKind uo:ValueType ;
     uo:byRule uo:rule-role-value-type ;
@@ -126,7 +126,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/AnalysisPopulation> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:AnalysisPopulation ;
     uo:assignedKind uo:TextCarrier ;
     uo:byRule uo:rule-role-text-carrier ;
@@ -141,7 +141,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/AssignedPerson> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:AssignedPerson ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -156,7 +156,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/BiomedicalConcept> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:BiomedicalConcept ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -171,7 +171,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/BiomedicalConceptCategory> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:BiomedicalConceptCategory ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -186,7 +186,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/BiomedicalConceptProperty> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:BiomedicalConceptProperty ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -201,7 +201,7 @@
     uo:valueCount 3 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/BiomedicalConceptSurrogate> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:BiomedicalConceptSurrogate ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -216,7 +216,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/BiospecimenRetention> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:BiospecimenRetention ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -231,7 +231,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Characteristic> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Characteristic ;
     uo:assignedKind uo:TemplatedText ;
     uo:byRule uo:rule-role-templated-text ;
@@ -246,7 +246,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Code> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Code ;
     uo:assignedKind uo:ValueType ;
     uo:byRule uo:rule-role-value-type ;
@@ -261,7 +261,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/CommentAnnotation> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:CommentAnnotation ;
     uo:assignedKind uo:TextCarrier ;
     uo:byRule uo:rule-role-text-carrier ;
@@ -276,7 +276,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Condition> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Condition ;
     uo:assignedKind uo:TemplatedText ;
     uo:byRule uo:rule-role-templated-text ;
@@ -291,7 +291,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ConditionAssignment> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ConditionAssignment ;
     uo:assignedKind uo:TextCarrier ;
     uo:byRule uo:rule-role-text-carrier ;
@@ -306,7 +306,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/DocumentContentReference> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:DocumentContentReference ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -321,7 +321,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Duration> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Duration ;
     uo:assignedKind uo:TextCarrier ;
     uo:byRule uo:rule-role-text-carrier ;
@@ -336,7 +336,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/EligibilityCriterion> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:EligibilityCriterion ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -351,7 +351,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/EligibilityCriterionItem> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:EligibilityCriterionItem ;
     uo:assignedKind uo:TemplatedText ;
     uo:byRule uo:rule-role-templated-text ;
@@ -366,7 +366,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Encounter> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Encounter ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -381,7 +381,7 @@
     uo:valueCount 3 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Endpoint> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Endpoint ;
     uo:assignedKind uo:TemplatedText ;
     uo:byRule uo:rule-role-templated-text ;
@@ -396,7 +396,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Estimand> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Estimand ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -411,7 +411,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ExtensionAttribute> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ExtensionAttribute ;
     uo:assignedKind uo:ExtensionRole ;
     uo:byRule uo:rule-role-extension ;
@@ -426,7 +426,7 @@
     uo:valueCount 6 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ExtensionClass> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ExtensionClass ;
     uo:assignedKind uo:ExtensionRole ;
     uo:byRule uo:rule-role-extension ;
@@ -441,7 +441,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/GeographicScope> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:GeographicScope ;
     uo:assignedKind uo:ValueType ;
     uo:byRule uo:rule-role-value-type ;
@@ -456,7 +456,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/GovernanceDate> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:GovernanceDate ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -471,7 +471,7 @@
     uo:valueCount 3 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Identifier> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Identifier ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -486,7 +486,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Indication> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Indication ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -501,7 +501,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Ingredient> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Ingredient ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -516,7 +516,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/IntercurrentEvent> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:IntercurrentEvent ;
     uo:assignedKind uo:TemplatedText ;
     uo:byRule uo:rule-role-templated-text ;
@@ -531,7 +531,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/InterventionalStudyDesign> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:InterventionalStudyDesign ;
     uo:assignedKind uo:Aggregate ;
     uo:byRule uo:rule-role-aggregate ;
@@ -546,7 +546,7 @@
     uo:valueCount 8 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Masking> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Masking ;
     uo:assignedKind uo:TextCarrier ;
     uo:byRule uo:rule-role-text-carrier ;
@@ -561,7 +561,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/MedicalDevice> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:MedicalDevice ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -576,7 +576,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/MedicalDeviceIdentifier> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:MedicalDeviceIdentifier ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -591,7 +591,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/NarrativeContent> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:NarrativeContent ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -606,7 +606,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/NarrativeContentItem> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:NarrativeContentItem ;
     uo:assignedKind uo:TextCarrier ;
     uo:byRule uo:rule-role-text-carrier ;
@@ -621,7 +621,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Objective> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Objective ;
     uo:assignedKind uo:TemplatedText ;
     uo:byRule uo:rule-role-templated-text ;
@@ -636,7 +636,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ObservationalStudyDesign> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ObservationalStudyDesign ;
     uo:assignedKind uo:Aggregate ;
     uo:byRule uo:rule-role-aggregate ;
@@ -651,7 +651,7 @@
     uo:valueCount 8 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Organization> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Organization ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -666,7 +666,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ParameterMap> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ParameterMap ;
     uo:assignedKind uo:ValueType ;
     uo:byRule uo:rule-role-value-type ;
@@ -681,7 +681,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/PersonName> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:PersonName ;
     uo:assignedKind uo:ValueType ;
     uo:byRule uo:rule-role-value-type ;
@@ -696,7 +696,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/PopulationDefinition> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:PopulationDefinition ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -711,7 +711,7 @@
     uo:valueCount 5 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Procedure> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Procedure ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -726,7 +726,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ProductOrganizationRole> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ProductOrganizationRole ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -741,7 +741,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Quantity> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Quantity ;
     uo:assignedKind uo:ValueType ;
     uo:byRule uo:rule-role-value-type ;
@@ -756,7 +756,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/QuantityRange> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:QuantityRange ;
     uo:assignedKind uo:ValueType ;
     uo:byRule uo:rule-role-value-type ;
@@ -771,7 +771,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Range> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Range ;
     uo:assignedKind uo:ValueType ;
     uo:byRule uo:rule-role-value-type ;
@@ -786,7 +786,7 @@
     uo:valueCount 3 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ReferenceIdentifier> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ReferenceIdentifier ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -801,7 +801,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ResponseCode> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ResponseCode ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -816,7 +816,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ScheduleTimeline> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ScheduleTimeline ;
     uo:assignedKind uo:Aggregate ;
     uo:byRule uo:rule-role-aggregate ;
@@ -831,7 +831,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ScheduleTimelineExit> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ScheduleTimelineExit ;
     uo:assignedKind uo:UnassignedRole ;
     uo:byRule uo:rule-role-unassigned ;
@@ -846,7 +846,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ScheduledActivityInstance> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ScheduledActivityInstance ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -861,7 +861,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ScheduledDecisionInstance> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ScheduledDecisionInstance ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -876,7 +876,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/ScheduledInstance> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:ScheduledInstance ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -891,7 +891,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Strength> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Strength ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -906,7 +906,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Study> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Study ;
     uo:assignedKind uo:Aggregate ;
     uo:byRule uo:rule-role-aggregate ;
@@ -921,7 +921,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyAmendment> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyAmendment ;
     uo:assignedKind uo:Aggregate ;
     uo:byRule uo:rule-role-aggregate ;
@@ -936,7 +936,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyAmendmentImpact> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyAmendmentImpact ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -951,7 +951,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyAmendmentReason> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyAmendmentReason ;
     uo:assignedKind uo:TextCarrier ;
     uo:byRule uo:rule-role-text-carrier ;
@@ -966,7 +966,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyArm> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyArm ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -981,7 +981,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyCell> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyCell ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -996,7 +996,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyChange> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyChange ;
     uo:assignedKind uo:TextCarrier ;
     uo:byRule uo:rule-role-text-carrier ;
@@ -1011,7 +1011,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyCohort> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyCohort ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1026,7 +1026,7 @@
     uo:valueCount 5 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyDefinitionDocument> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyDefinitionDocument ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1041,7 +1041,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyDefinitionDocumentVersion> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyDefinitionDocumentVersion ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1056,7 +1056,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyDesign> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyDesign ;
     uo:assignedKind uo:Aggregate ;
     uo:byRule uo:rule-role-aggregate ;
@@ -1071,7 +1071,7 @@
     uo:valueCount 4 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyDesignPopulation> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyDesignPopulation ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1086,7 +1086,7 @@
     uo:valueCount 5 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyElement> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyElement ;
     uo:assignedKind uo:Aggregate ;
     uo:byRule uo:rule-role-aggregate ;
@@ -1101,7 +1101,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyEpoch> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyEpoch ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1116,7 +1116,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyIdentifier> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyIdentifier ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1131,7 +1131,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyIntervention> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyIntervention ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1146,7 +1146,7 @@
     uo:valueCount 4 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyRole> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyRole ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1161,7 +1161,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudySite> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudySite ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1176,7 +1176,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyTitle> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyTitle ;
     uo:assignedKind uo:TextCarrier ;
     uo:byRule uo:rule-role-text-carrier ;
@@ -1191,7 +1191,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/StudyVersion> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:StudyVersion ;
     uo:assignedKind uo:Aggregate ;
     uo:byRule uo:rule-role-aggregate ;
@@ -1206,7 +1206,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/SubjectEnrollment> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:SubjectEnrollment ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1221,7 +1221,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Substance> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Substance ;
     uo:assignedKind uo:Aggregate ;
     uo:byRule uo:rule-role-aggregate ;
@@ -1236,7 +1236,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/SyntaxTemplate> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:SyntaxTemplate ;
     uo:assignedKind uo:TemplatedText ;
     uo:byRule uo:rule-role-templated-text ;
@@ -1251,7 +1251,7 @@
     uo:valueCount 0 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/SyntaxTemplateDictionary> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:SyntaxTemplateDictionary ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1266,7 +1266,7 @@
     uo:valueCount 1 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/Timing> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:Timing ;
     uo:assignedKind uo:StructuredEntity ;
     uo:byRule uo:rule-role-structured-entity ;
@@ -1281,7 +1281,7 @@
     uo:valueCount 2 .
 
 <https://kerfors.github.io/usdm-overlay/id/assessment/classRole/TransitionRule> a uo:Assessment ;
-    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/usdm_v4.ttl> ;
+    dcterms:source <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl> ;
     uo:about usdm:TransitionRule ;
     uo:assignedKind uo:TextCarrier ;
     uo:byRule uo:rule-role-text-carrier ;

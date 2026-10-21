@@ -15,7 +15,7 @@ from rdflib.namespace import DCTERMS, RDF, RDFS, SKOS, XSD
 from common import NCIT, ROOT, UO, USDM, example_files, load_ct, load_usdm, load_yaml, local
 
 PINNED = {
-    "usdm_v4.ttl": URIRef("https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl"),
+    "usdm_v4.ttl": URIRef("https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.0/usdm_v4.ttl"),
     "USDM_CT.xlsx": URIRef("https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx"),
     "dataStructure.yml": URIRef("https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/UML/dataStructure.yml"),
     "examples": URIRef("https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples"),

@@ -5,7 +5,7 @@
 @prefix uof: <https://kerfors.github.io/usdm-overlay/id/finding/> .
 @prefix ct: <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/> .
 @prefix uml: <https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/UML/> .
-@prefix rdfrepo: <https://github.com/kerfors/usdm-rdf/blob/v0.7.1/> .
+@prefix rdfrepo: <https://github.com/kerfors/usdm-rdf/blob/v0.7.0/> .
 
 # Findings about the USDM v4 model and its published examples. Hand-maintained.
 # Each finding has one test: a SPARQL ASK query over usdm_v4.ttl (uo:testQuery with

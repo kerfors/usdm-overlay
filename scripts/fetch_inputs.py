@@ -14,7 +14,7 @@ INPUTS = [
     {
         "name": "usdm_v4.ttl",
         "repo": "kerfors/usdm-rdf",
-        "tag": "v0.7.1",
+        "tag": "v0.7.0",
         "path": "usdm_v4.ttl",
     },
     {
