@@ -12,13 +12,21 @@ from collections import Counter, defaultdict
 from rdflib import Graph, Literal, URIRef
 from rdflib.namespace import DCTERMS, RDF, RDFS, SKOS, XSD
 
-from common import NCIT, ROOT, UO, USDM, example_files, load_ct, load_usdm, load_yaml, local
+from common import NCIT, ROOT, UO, USDM, example_files, load_ct, load_m11, load_usdm, load_yaml, local
 
 PINNED = {
     "usdm_v4.ttl": URIRef("https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.0/usdm_v4.ttl"),
     "USDM_CT.xlsx": URIRef("https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/CT/USDM_CT.xlsx"),
     "dataStructure.yml": URIRef("https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Deliverables/UML/dataStructure.yml"),
     "examples": URIRef("https://github.com/cdisc-org/DDF-RA/tree/v4.0.0/Documents/Examples"),
+    "m11-rdf.ttl": URIRef("https://raw.githubusercontent.com/kerfors/m11-rdf/v0.3.0/m11-rdf.ttl"),
+}
+
+# The pinned graphs a SPARQL test can run against, keyed by the IRI a finding
+# names in dcterms:source: (context key, pinned file).
+QUERY_GRAPHS = {
+    URIRef("https://github.com/kerfors/usdm-rdf/blob/v0.7.0/usdm_v4.ttl"): ("usdm", "usdm_v4.ttl"),
+    URIRef("https://github.com/kerfors/m11-rdf/blob/v0.3.0/m11-rdf.ttl"): ("m11", "m11-rdf.ttl"),
 }
 
 ISO_DURATION = re.compile(
@@ -399,7 +407,7 @@ CHECKS = {
 
 
 def main():
-    ctx = {"usdm": load_usdm(), "ct": load_ct(), "yaml": load_yaml()}
+    ctx = {"usdm": load_usdm(), "m11": load_m11(), "ct": load_ct(), "yaml": load_yaml()}
     findings_graph = Graph().parse(ROOT / "authored" / "findings.ttl")
     vocab = Graph().parse(ROOT / "usdm_overlay.ttl")
 
@@ -411,10 +419,19 @@ def main():
         query = findings_graph.value(f, UO.testQuery)
         if query is not None:
             expected = findings_graph.value(f, UO.expectedResult).toPython()
-            result = ctx["usdm"].query(str(query)).askAnswer
+            named = sorted({QUERY_GRAPHS[s] for s in findings_graph.objects(f, DCTERMS.source) if s in QUERY_GRAPHS})
+            if not named:
+                raise RuntimeError(f"{local(f)}: a test query needs a pinned graph in dcterms:source")
+            if len(named) == 1:
+                graph = ctx[named[0][0]]
+            else:
+                graph = Graph()
+                for key, _ in named:
+                    graph += ctx[key]
+            result = graph.query(str(query)).askAnswer
             holds = result == expected
             obs = f"ASK returned {str(result).lower()}, expected {str(expected).lower()}."
-            against = [PINNED["usdm_v4.ttl"]]
+            against = [PINNED[name] for _, name in named]
         else:
             name = str(findings_graph.value(f, UO.checkFunction))
             if name not in CHECKS:

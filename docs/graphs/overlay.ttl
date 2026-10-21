@@ -17,7 +17,7 @@
 
 uo: a owl:Ontology ;
     dcterms:creator "Kerstin Forsberg" ;
-    dcterms:description "Terms for an overlay graph that classifies and comments on the CDISC USDM v4 model as rendered in RDF/OWL by usdm-rdf. The overlay only points at usdm-rdf IRIs; it never changes them. Every assertion carries an evidence tier, so model-stated facts stay apart from readings of the model." ;
+    dcterms:description "Terms for an overlay graph that classifies and comments on the CDISC USDM v4 model as rendered in RDF/OWL by usdm-rdf, and on ICH M11 and the published M11-to-USDM mappings as rendered by m11-rdf. The overlay only points at usdm-rdf and m11-rdf IRIs; it never changes them. Every assertion carries an evidence tier, so model-stated facts stay apart from readings of the model." ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:title "usdm-overlay vocabulary" ;
     rdfs:comment "Draft. Not a CDISC artifact." .
@@ -6872,7 +6872,7 @@ uo:testQuery a owl:DatatypeProperty ;
     rdfs:label "test query" ;
     rdfs:domain uo:Finding ;
     rdfs:range xsd:string ;
-    skos:definition "A SPARQL ASK query run against usdm_v4.ttl." .
+    skos:definition "A SPARQL ASK query run against the pinned graphs the finding names in dcterms:source: usdm_v4.ttl, m11-rdf.ttl, or both together." .
 
 uo:testedAgainst a owl:ObjectProperty ;
     rdfs:label "tested against" ;

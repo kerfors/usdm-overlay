@@ -3,7 +3,9 @@
 An overlay graph on top of [usdm-rdf](https://github.com/kerfors/usdm-rdf), the
 RDF/OWL representation of the CDISC Unified Study Definitions Model (USDM) v4.
 It classifies and comments on the model: what each attribute actually holds,
-what role each class plays, and what the model does not connect.
+what role each class plays, and what the model does not connect. It also
+comments on ICH M11 and the published M11-to-USDM mappings, as rendered by
+[m11-rdf](https://github.com/kerfors/m11-rdf).
 
 **Early, exploratory work.** Draft, not a CDISC artifact.
 
@@ -11,8 +13,9 @@ what role each class plays, and what the model does not connect.
 
 usdm-rdf renders what CDISC publishes and nothing else. Anything that reads,
 classifies or judges the model belongs somewhere else, so that the rendering
-stays mechanical and the readings stay visible as readings. This repo only
-points at usdm-rdf IRIs. It never changes them.
+stays mechanical and the readings stay visible as readings. The same holds for
+m11-rdf. This repo only points at usdm-rdf and m11-rdf IRIs. It never changes
+them.
 
 ## Evidence tiers
 
@@ -30,10 +33,11 @@ Derived assessments also name the rule that produced them. Authored assessments
 refine a derived one and carry a rationale; where both exist, the authored kind
 is the one to use. Quotes are checked verbatim against `USDM_CT.xlsx`.
 
-Findings are statements with a test: a SPARQL ASK query over `usdm_v4.ttl`, or
-a named check in `scripts/check_findings.py`. Statements are qualitative; the
-counts come from the test run. A finding that stops holding against a new
-input version stops the build.
+Findings are statements with a test: a SPARQL ASK query over the pinned graphs
+the finding names as sources (`usdm_v4.ttl`, `m11-rdf.ttl`), or a named check in
+`scripts/check_findings.py`. Statements are qualitative; the counts come from
+the test run. A finding that stops holding against a new input version stops
+the build.
 
 Each finding also has a standing: *ready to raise* with the publisher when
 the published artefacts contradict themselves or what they state they follow,
@@ -48,7 +52,7 @@ files. The standing is authored and carries a one-line rationale.
 | 1 | Content kind per attribute | Complete. Derived for all properties (`derived/content_kind.ttl`); every string the derivation leaves unclassified has an authored kind (`authored/content_kind.ttl`), except Estimand.populationSummary, held open by a finding. |
 | 2 | Role per class | Derived for all classes (`derived/class_role.ttl`, `reports/class_role.md`), from the layer 1 kinds of each class's own and inherited attributes. Authored roles (`authored/class_role.ttl`) for five classes where the derived role misreads the class. |
 | 3 | Findings about the model, each with a test | Started: `authored/findings.ttl`, results in `derived/finding_results.ttl` and `reports/findings.md` |
-| 4 | Observed practice in the CDISC example files | Started, as example-observed findings in layer 3 |
+| 4 | Findings on ICH M11 and the M11-to-USDM mappings, as rendered by m11-rdf | Started: m11-rdf v0.3.0 pinned. (Observed practice in the CDISC example files is covered by example-observed findings in layer 3.) |
 
 ## Files
 
@@ -60,7 +64,7 @@ files. The standing is authored and carries a one-line rationale.
 | `reports/` | Generated reports. Do not edit by hand. |
 | `docs/` | Generated GitHub Pages site for the namespace. Do not edit by hand. |
 | `site/` | Hand-maintained sources for the site's reading material: `explorer.html` (template; its data is computed from the graphs on every build), `slides/design-elements-slides.html` (six slides on design elements) and `design-elements-in-usdm.pdf` (rendered from the slides by `scripts/render_slides.py`, which needs Playwright with Chromium and is not part of the regular rebuild). |
-| `downloads/` | Pinned inputs and `MANIFEST.md` with tag, commit and SHA-256: `usdm_v4.ttl` (usdm-rdf v0.7.0), `USDM_CT.xlsx`, `dataStructure.yml` and the five example studies (DDF-RA v4.0.0). |
+| `downloads/` | Pinned inputs and `MANIFEST.md` with tag, commit and SHA-256: `usdm_v4.ttl` (usdm-rdf v0.7.0), `USDM_CT.xlsx`, `dataStructure.yml` and the five example studies (DDF-RA v4.0.0); in `m11-rdf/`, `m11-rdf.ttl` and the reports `reconciliation.csv`, `d2-identification.csv`, `d2-residue.csv`, `d5-fields.csv`, `d5-residue.csv` (m11-rdf v0.3.0). |
 | `queries/` | Example SPARQL queries over usdm-rdf plus the overlay. Results in `reports/queries.md`. |
 | `scripts/` | `fetch_inputs.py`, `build_content_kind.py`, `build_class_role.py`, `validate_authored.py`, `check_findings.py`, `run_queries.py`, `build_site.py`, `render_slides.py`, `common.py`. |
 

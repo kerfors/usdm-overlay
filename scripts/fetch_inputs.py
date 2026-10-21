@@ -18,6 +18,42 @@ INPUTS = [
         "path": "usdm_v4.ttl",
     },
     {
+        "name": "m11-rdf/m11-rdf.ttl",
+        "repo": "kerfors/m11-rdf",
+        "tag": "v0.3.0",
+        "path": "m11-rdf.ttl",
+    },
+    {
+        "name": "m11-rdf/reconciliation.csv",
+        "repo": "kerfors/m11-rdf",
+        "tag": "v0.3.0",
+        "path": "reports/reconciliation.csv",
+    },
+    {
+        "name": "m11-rdf/d2-identification.csv",
+        "repo": "kerfors/m11-rdf",
+        "tag": "v0.3.0",
+        "path": "reports/d2-identification.csv",
+    },
+    {
+        "name": "m11-rdf/d2-residue.csv",
+        "repo": "kerfors/m11-rdf",
+        "tag": "v0.3.0",
+        "path": "reports/d2-residue.csv",
+    },
+    {
+        "name": "m11-rdf/d5-fields.csv",
+        "repo": "kerfors/m11-rdf",
+        "tag": "v0.3.0",
+        "path": "reports/d5-fields.csv",
+    },
+    {
+        "name": "m11-rdf/d5-residue.csv",
+        "repo": "kerfors/m11-rdf",
+        "tag": "v0.3.0",
+        "path": "reports/d5-residue.csv",
+    },
+    {
         "name": "USDM_CT.xlsx",
         "repo": "cdisc-org/DDF-RA",
         "tag": "v4.0.0",

@@ -2,14 +2,15 @@
 
 ## Scope
 
-An overlay on usdm-rdf. It points at usdm-rdf IRIs and never redefines or
-changes them. Describe usdm-rdf as an RDF/OWL representation of USDM, not as
-an "ontology". Resist scope creep: flag "let's also do X" before implementing.
+An overlay on usdm-rdf, and on m11-rdf for ICH M11 and its mappings to USDM.
+It points at usdm-rdf and m11-rdf IRIs and never redefines or changes them.
+Describe usdm-rdf as an RDF/OWL representation of USDM, not as an "ontology".
+Resist scope creep: flag "let's also do X" before implementing.
 
 ## Evidence
 
 - Every assertion carries an evidence tier: model-stated, definition-stated,
-  example-observed or authored.
+  mapping-stated, example-observed or authored.
 - Derived assessments name their rule. Authored assessments carry a rationale.
 - Quote sources verbatim. Never paraphrase a definition into a quote.
 

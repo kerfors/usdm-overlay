@@ -254,7 +254,7 @@ def main():
     items = "".join(f'<li><a href="{n}">{esc(n)}</a></li>' for n in ["overlay.ttl"] + OVERLAY_FILES)
     write("graphs", "usdm-overlay graphs", f"""<h1>Graphs</h1>
 <p>RDF is served as whole graphs. <code>overlay.ttl</code> merges all overlay graphs; the other files are the graphs as kept in the repository.
-The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a> IRIs; load <code>usdm_v4.ttl</code> from there alongside it to query both.</p>
+The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a> and <a href="https://github.com/kerfors/m11-rdf">m11-rdf</a> IRIs; load <code>usdm_v4.ttl</code> and <code>m11-rdf.ttl</code> from there alongside it to query them together.</p>
 <ul>{items}</ul>""")
 
     # ---------------------------------------------------------------- reports
@@ -423,7 +423,8 @@ The overlay points at <a href="https://github.com/kerfors/usdm-rdf">usdm-rdf</a>
             rows.insert(1, f"<dt>rationale</dt><dd>{esc(rationale)}</dd>")
         query = overlay.value(f, UO.testQuery)
         if query is not None:
-            test = f"<h2>Test</h2><p>SPARQL ASK over usdm_v4.ttl, expected <code>{esc(overlay.value(f, UO.expectedResult))}</code>.</p><pre>{esc(query)}</pre>"
+            over = ", ".join(sorted(local(s) for s in overlay.objects(f, DCTERMS.source) if str(s).endswith(".ttl")))
+            test = f"<h2>Test</h2><p>SPARQL ASK over {esc(over)}, expected <code>{esc(overlay.value(f, UO.expectedResult))}</code>.</p><pre>{esc(query)}</pre>"
         else:
             test = f"<h2>Test</h2><p>Check function <code>{esc(overlay.value(f, UO.checkFunction))}</code> in <a href=\"{REPO}/blob/main/scripts/check_findings.py\">scripts/check_findings.py</a>.</p>"
         body = f"""<h1>{esc(title)}</h1>

@@ -22,6 +22,10 @@ def load_usdm():
     return Graph().parse(DOWNLOADS / "usdm_v4.ttl")
 
 
+def load_m11():
+    return Graph().parse(DOWNLOADS / "m11-rdf" / "m11-rdf.ttl")
+
+
 def load_ct():
     """Return USDM_CT.xlsx entity/attribute rows keyed by (entity, logical data model name)."""
     ws = openpyxl.load_workbook(DOWNLOADS / "USDM_CT.xlsx", read_only=True)[CT_SHEET]
