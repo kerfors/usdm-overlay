@@ -310,8 +310,8 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
 
   // ---- findings
   const fwrap = $("findings");
-  [["Ready to raise", "The published files contradict themselves, or leave undefined something they rely on. The pinned files alone show it."],
-   ["For discussion", "Depends on a modelling choice CDISC may have made on purpose, or on content of the example studies, which are not mature."]].forEach(([st, desc]) => {
+  [["Ready to raise", "The published files contradict themselves or what they state they follow, or leave undefined something they rely on. The pinned files alone show it."],
+   ["For discussion", "Depends on a modelling choice the publisher may have made on purpose, or on content of the example studies, which are not mature."]].forEach(([st, desc]) => {
     const group = D.findings.filter(f => f.standing === st);
     const g = el("div", { class: "fgroup" }, el("h3", {}, `${st} · ${group.length}`), el("p", {}, desc));
     group.forEach(f => {

@@ -20,8 +20,9 @@ Every assertion says what it rests on:
 
 | Tier | Meaning |
 | --- | --- |
-| Model-stated | Follows from the model structure as rendered: range, relationship type, attribute name. |
-| Definition-stated | Follows from the wording of the NCI definition CDISC attached to the term. The quote is recorded. |
+| Model-stated | Follows from the model or specification structure as rendered: in usdm-rdf, range, relationship type, attribute name; in m11-rdf, what the ICH M11 Technical Specification, Template, OID Listing, Genericode and EVS code lists state. |
+| Definition-stated | Follows from the wording of the NCI definition attached to the term (by CDISC in `USDM_CT.xlsx`, or in the EVS ICH M11 Terminology). The quote is recorded. |
+| Mapping-stated | Follows from what a published M11-to-USDM mapping file (HL7, CDISC) states in its rows, as read by m11-rdf. |
 | Example-observed | Seen in the example study files CDISC publishes, not stated in the model. The examples are not mature study definitions, so these findings say what the published files contain, not how USDM is or should be used. |
 | Authored | A reading by the overlay author, with a stated rationale. |
 
@@ -34,11 +35,11 @@ a named check in `scripts/check_findings.py`. Statements are qualitative; the
 counts come from the test run. A finding that stops holding against a new
 input version stops the build.
 
-Each finding also has a standing: *ready to raise* when the published
-artefacts contradict themselves or leave undefined something they rely on, or
-*for discussion* when it depends on a modelling choice CDISC may have made on
-purpose, or on the example files. The standing is authored and carries a
-one-line rationale.
+Each finding also has a standing: *ready to raise* with the publisher when
+the published artefacts contradict themselves or what they state they follow,
+or leave undefined something they rely on, or *for discussion* when it depends
+on a modelling choice the publisher may have made on purpose, or on the example
+files. The standing is authored and carries a one-line rationale.
 
 ## Layers
 

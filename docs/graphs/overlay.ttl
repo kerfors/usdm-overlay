@@ -22,6 +22,12 @@ uo: a owl:Ontology ;
     dcterms:title "usdm-overlay vocabulary" ;
     rdfs:comment "Draft. Not a CDISC artifact." .
 
+uo:MappingStated a skos:Concept ;
+    skos:definition "Follows from what a published M11-to-USDM mapping file states in its rows (HL7 Clinical Study Protocol IG, CDISC DDF-RA), as read by m11-rdf D2: rows with a mapping record and rows left as residue alike." ;
+    skos:inScheme uo:EvidenceTierScheme ;
+    skos:prefLabel "Mapping-stated" ;
+    skos:topConceptOf uo:EvidenceTierScheme .
+
 uo:ReadText a skos:Collection ;
     skos:definition "Text kinds whose value is wording that states content for people to read: description, rationale, condition, classification, summary. Counts as text payload in the class-role roll-up." ;
     skos:member uo:ClassificationAsText,
@@ -6836,7 +6842,7 @@ uo:standing a owl:ObjectProperty ;
     rdfs:label "standing" ;
     rdfs:domain uo:Finding ;
     rdfs:range skos:Concept ;
-    skos:definition "Whether a finding is ready to raise with CDISC or is for discussion. Value from uo:FindingStandingScheme. Authored; needs uo:standingRationale." .
+    skos:definition "Whether a finding is ready to raise with the publisher or is for discussion. Value from uo:FindingStandingScheme. Authored; needs uo:standingRationale." .
 
 uo:standingRationale a owl:DatatypeProperty ;
     rdfs:label "standing rationale" ;
@@ -9009,7 +9015,7 @@ uo:ExtensionRole a skos:Concept ;
     skos:topConceptOf uo:ClassRoleScheme .
 
 uo:FindingStandingScheme a skos:ConceptScheme ;
-    skos:definition "How far a finding is ready to go to CDISC. Separate from the evidence tier: a model-stated gap can be a deliberate design choice, and an authored reading can rest on a plain contradiction." ;
+    skos:definition "How far a finding is ready to go to the publisher. Separate from the evidence tier: a model-stated gap can be a deliberate design choice, and an authored reading can rest on a plain contradiction." ;
     skos:prefLabel "Finding standing" .
 
 uo:Housekeeping a skos:Concept ;
@@ -9019,7 +9025,7 @@ uo:Housekeeping a skos:Concept ;
     skos:topConceptOf uo:ContentKindScheme .
 
 uo:ReadyToRaise a skos:Concept ;
-    skos:definition "The published artefacts contradict themselves, or leave undefined something they rely on. The pinned files alone show it, and the ask is to make the artefacts consistent." ;
+    skos:definition "The published artefacts contradict themselves or what they state they follow, or leave undefined something they rely on. The pinned files alone show it, and the ask is to make the artefacts consistent." ;
     skos:inScheme uo:FindingStandingScheme ;
     skos:prefLabel "Ready to raise" ;
     skos:topConceptOf uo:FindingStandingScheme .
@@ -9085,9 +9091,6 @@ uo:rule-role-templated-text a uo:ClassRoleRule ;
     skos:definition "The class has read text and a Reference attribute whose range is SyntaxTemplateDictionary." ;
     uo:order 2 .
 
-uo:EvidenceTierScheme a skos:ConceptScheme ;
-    skos:prefLabel "Evidence tiers" .
-
 uo:ExtensionContent a skos:Concept ;
     skos:broader uo:Housekeeping ;
     skos:definition "Attributes of the extension mechanism itself (ExtensionAttribute, ExtensionClass). Authored kind." ;
@@ -9119,6 +9122,9 @@ uo:rule-role-aggregate a uo:ClassRoleRule ;
 uo:rule-unstructured-text a uo:Rule ;
     skos:definition "Range is xsd:string and the definition contains \"unstructured text\" (case-insensitive)." ;
     uo:order 9 .
+
+uo:EvidenceTierScheme a skos:ConceptScheme ;
+    skos:prefLabel "Evidence tiers" .
 
 uo:Prose a skos:Concept ;
     skos:broader uo:Text ;
@@ -9161,7 +9167,7 @@ uo:Rule a owl:Class ;
     skos:definition "A mechanical derivation rule. Rules are applied in the order of uo:order; the first rule that matches decides." .
 
 uo:DefinitionStated a skos:Concept ;
-    skos:definition "Follows from the wording of the NCI definition CDISC attached to the term. The quote is recorded. Definitions are uneven, so this tier reports what the definition says, not that it is right." ;
+    skos:definition "Follows from the wording of the NCI definition attached to the term: by CDISC in USDM_CT.xlsx, or in the NCI EVS ICH M11 Terminology. The quote is recorded. Definitions are uneven, so this tier reports what the definition says, not that it is right." ;
     skos:inScheme uo:EvidenceTierScheme ;
     skos:prefLabel "Definition-stated" ;
     skos:topConceptOf uo:EvidenceTierScheme .
@@ -9173,7 +9179,7 @@ uo:Text a skos:Concept ;
     skos:topConceptOf uo:ContentKindScheme .
 
 uo:ForDiscussion a skos:Concept ;
-    skos:definition "Depends on a modelling choice CDISC may have made on purpose, or on content of the published example files." ;
+    skos:definition "Depends on a modelling choice the publisher may have made on purpose, or on content of the published example files." ;
     skos:inScheme uo:FindingStandingScheme ;
     skos:prefLabel "For discussion" ;
     skos:topConceptOf uo:FindingStandingScheme .
@@ -9220,7 +9226,7 @@ uo:TextCarrier a skos:Concept ;
 
 uo:Finding a owl:Class ;
     rdfs:label "Finding" ;
-    skos:definition "A statement about the USDM model or its published examples, with its evidence and a test that can be re-run against the pinned inputs." .
+    skos:definition "A statement about the USDM model, its published examples, ICH M11 as rendered by m11-rdf, or the published mappings between M11 and USDM, with its evidence and a test that can be re-run against the pinned inputs." .
 
 uo:ContentKindScheme a skos:ConceptScheme ;
     skos:definition "What a USDM attribute holds, seen from the data rather than from the model diagram." ;
@@ -9329,7 +9335,7 @@ uo:Composition a skos:Concept ;
     skos:topConceptOf uo:ContentKindScheme .
 
 uo:ModelStated a skos:Concept ;
-    skos:definition "Follows from the structure of the model as rendered: range, relationship type, model name." ;
+    skos:definition "Follows from the structure of the model or specification as rendered: in usdm-rdf, range, relationship type, model name; in m11-rdf, what the ICH M11 Technical Specification, Template, OID Listing, Genericode code lists and EVS code lists state." ;
     skos:inScheme uo:EvidenceTierScheme ;
     skos:prefLabel "Model-stated" ;
     skos:topConceptOf uo:EvidenceTierScheme .

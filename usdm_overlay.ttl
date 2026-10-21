@@ -97,7 +97,7 @@ uo:syntax
 uo:Finding
     a owl:Class ;
     rdfs:label "Finding" ;
-    skos:definition "A statement about the USDM model or its published examples, with its evidence and a test that can be re-run against the pinned inputs." .
+    skos:definition "A statement about the USDM model, its published examples, ICH M11 as rendered by m11-rdf, or the published mappings between M11 and USDM, with its evidence and a test that can be re-run against the pinned inputs." .
 
 uo:statement
     a owl:DatatypeProperty ;
@@ -163,7 +163,7 @@ uo:standing
     rdfs:label "standing" ;
     rdfs:domain uo:Finding ;
     rdfs:range skos:Concept ;
-    skos:definition "Whether a finding is ready to raise with CDISC or is for discussion. Value from uo:FindingStandingScheme. Authored; needs uo:standingRationale." .
+    skos:definition "Whether a finding is ready to raise with the publisher or is for discussion. Value from uo:FindingStandingScheme. Authored; needs uo:standingRationale." .
 
 uo:standingRationale
     a owl:DatatypeProperty ;
@@ -177,17 +177,17 @@ uo:standingRationale
 uo:FindingStandingScheme
     a skos:ConceptScheme ;
     skos:prefLabel "Finding standing" ;
-    skos:definition "How far a finding is ready to go to CDISC. Separate from the evidence tier: a model-stated gap can be a deliberate design choice, and an authored reading can rest on a plain contradiction." .
+    skos:definition "How far a finding is ready to go to the publisher. Separate from the evidence tier: a model-stated gap can be a deliberate design choice, and an authored reading can rest on a plain contradiction." .
 
 uo:ReadyToRaise
     a skos:Concept ; skos:inScheme uo:FindingStandingScheme ; skos:topConceptOf uo:FindingStandingScheme ;
     skos:prefLabel "Ready to raise" ;
-    skos:definition "The published artefacts contradict themselves, or leave undefined something they rely on. The pinned files alone show it, and the ask is to make the artefacts consistent." .
+    skos:definition "The published artefacts contradict themselves or what they state they follow, or leave undefined something they rely on. The pinned files alone show it, and the ask is to make the artefacts consistent." .
 
 uo:ForDiscussion
     a skos:Concept ; skos:inScheme uo:FindingStandingScheme ; skos:topConceptOf uo:FindingStandingScheme ;
     skos:prefLabel "For discussion" ;
-    skos:definition "Depends on a modelling choice CDISC may have made on purpose, or on content of the published example files." .
+    skos:definition "Depends on a modelling choice the publisher may have made on purpose, or on content of the published example files." .
 
 # ---------------------------------------------------------------- evidence tiers
 
@@ -198,12 +198,17 @@ uo:EvidenceTierScheme
 uo:ModelStated
     a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
     skos:prefLabel "Model-stated" ;
-    skos:definition "Follows from the structure of the model as rendered: range, relationship type, model name." .
+    skos:definition "Follows from the structure of the model or specification as rendered: in usdm-rdf, range, relationship type, model name; in m11-rdf, what the ICH M11 Technical Specification, Template, OID Listing, Genericode code lists and EVS code lists state." .
 
 uo:DefinitionStated
     a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
     skos:prefLabel "Definition-stated" ;
-    skos:definition "Follows from the wording of the NCI definition CDISC attached to the term. The quote is recorded. Definitions are uneven, so this tier reports what the definition says, not that it is right." .
+    skos:definition "Follows from the wording of the NCI definition attached to the term: by CDISC in USDM_CT.xlsx, or in the NCI EVS ICH M11 Terminology. The quote is recorded. Definitions are uneven, so this tier reports what the definition says, not that it is right." .
+
+uo:MappingStated
+    a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;
+    skos:prefLabel "Mapping-stated" ;
+    skos:definition "Follows from what a published M11-to-USDM mapping file states in its rows (HL7 Clinical Study Protocol IG, CDISC DDF-RA), as read by m11-rdf D2: rows with a mapping record and rows left as residue alike." .
 
 uo:ExampleObserved
     a skos:Concept ; skos:inScheme uo:EvidenceTierScheme ; skos:topConceptOf uo:EvidenceTierScheme ;

@@ -6,7 +6,7 @@ Statements are in `authored/findings.ttl`; this report adds what each test obser
 
 ## Ready to raise (4)
 
-The published artefacts contradict themselves, or leave undefined something they rely on. The pinned files alone show it, and the ask is to make the artefacts consistent.
+The published artefacts contradict themselves or what they state they follow, or leave undefined something they rely on. The pinned files alone show it, and the ask is to make the artefacts consistent.
 
 | Finding | Evidence tier | Holds | Why this standing |
 | --- | --- | --- | --- |
@@ -17,7 +17,7 @@ The published artefacts contradict themselves, or leave undefined something they
 
 ## For discussion (17)
 
-Depends on a modelling choice CDISC may have made on purpose, or on content of the published example files.
+Depends on a modelling choice the publisher may have made on purpose, or on content of the published example files.
 
 | Finding | Evidence tier | Holds | Why this standing |
 | --- | --- | --- | --- |
